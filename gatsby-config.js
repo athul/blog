@@ -40,7 +40,12 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
+	{
+	resolve:`gatsby-remark-prismjs`,
+            options: {
+              inlineCodeMarker: '÷',
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
@@ -58,11 +63,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Athul's Blog`,
+        short_name: `Athul's Blog`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#1abaa2`,
         display: `minimal-ui`,
         icon: `content/assets/gatsby-icon.png`,
       },
