@@ -18,11 +18,12 @@ I had made an account in GitHub in Ju ly but it became active in mid September. 
 My mentor GKS told me the value of the GitHub profile and I made repos for the silliest of things(even now 😁).This was the first time I explored GitHub, Learned Git, and found out about the Campus Experts Program.I applied for the Student Developer pack in October and got it. This was also the time I E-met Musthaq Ahamed he is totally cool and one of the awesomest guys I have met. He is one of the most patient guys I have known,oh how much I annoyed him with my messages and If were in his position I would've snapped long ago. I completed Hacktoberfest too.
 ##### First Hackthon and Sticker💻
 The funny thing is that I never attended any Hackathon. I organized one without any prior knowledge with my seniors in December first as Local Hack Day from MLH. That was the first time I got a sticker for myself and an _octocat_, Oh how I wished to get one.
-> :octocat:s and stickers are cool
+> Octocats and stickers are cool
 This was also when I organized a workshop,2 people from my class came and the rest were all seniors.
 > My seniors are __Cool and Super Awesome__
 ##### Post-University Exams🎓
 > Damn,Calculus was rough
+
 I went again to a handfull of workshops and talks, I contributed to some Open Source Repositories in GitHub. I joined TinkerHub, which is a community spread throughout Kerala and is growing rapidly. In the mean time I met Subin who was a core contributor to KeraLinux and FOSS guy,Sreeram the Android Guy, Pranav who helped me with one of my projects amd Kiran the Web Dev also with Abhijith the Pythonista and Devdutt the IEEE guy. I also had the oppurtunity to meet Dr.Richard Stallman,the father of the GNU project(Got stickers). I also met an Engineer who was working in GitLab and attendes his talk on how he got the job with Open Source.
 ##### SoAI
 This was the first best thing for the Technical community in  Kottayam apart from the clubs in Colleges. This was totally an Independant community which is managed by different people in different colleges. I am one of the organizers here. For our first meetup, I met Sharad bro,Chrisbin,Namitha and Akshaya Chechi and Rushtam.
