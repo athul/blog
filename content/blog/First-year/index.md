@@ -18,8 +18,10 @@ I had made an account in GitHub in Ju ly but it became active in mid September. 
 My mentor GKS told me the value of the GitHub profile and I made repos for the silliest of things(even now 😁).This was the first time I explored GitHub, Learned Git, and found out about the Campus Experts Program.I applied for the Student Developer pack in October and got it. This was also the time I E-met Musthaq Ahamed he is totally cool and one of the awesomest guys I have met. He is one of the most patient guys I have known,oh how much I annoyed him with my messages and If were in his position I would've snapped long ago. I completed Hacktoberfest too.
 ### First Hackthon and Sticker💻
 The funny thing is that I never attended any Hackathon. I organized one without any prior knowledge with my seniors in December first as Local Hack Day from MLH. That was the first time I got a sticker for myself and an _octocat_, Oh how I wished to get one.
-> Octocats and stickers are cool
-This was also when I organized a workshop,2 people from my class came and the rest were all seniors.
+> Octocats and stickers are cool 
+
+This was also when I organized a workshop,2 people from my class came and the rest were all seniors. 
+
 > My seniors are __Cool and Super Awesome__
 ### Post-University Exams🎓
 > Damn,Calculus was rough
