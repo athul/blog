@@ -1,6 +1,6 @@
 ---
 title: Programming on your Phone
-date: "2019-07-25"
+date: "2019-07-23" 
 description: How to start using termux,using it as your local development system with Git,Neovim and your required language packages
 ---
 ### What is Termux?
@@ -30,13 +30,13 @@ Termux has a sleek package manager which is constantly improved by the community
 Here,I'll show an example on how to install git and neovim with Termux
 - `pkg install git`
 - `pkg install neovim`   
-Its that simple.        
+Its that simple.    
 There might be a problem with the `curl` command and we can resolve it by running `pkg upgrade`.      
 We can install **Node,Python and C** packages too,using `pkg install` command.  
-#### How to
+#### What can we do
 - We can use version control using Git
 - We can edit files using Neovim or Nano
-- We can run servers with python npm
+- We can run servers with python or npm
 - We can get a new session by sliding from the left
 
 ----
