@@ -56,9 +56,9 @@ const Bio = () => {
       />
       <p>
         Written by <strong>{author}</strong> who is an Undergraduate Engineering Student in 
-        College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Pythonista.<br></br>
+        College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python and Js lover<br></br>
         {` `}
-        You should follow him on
+        You can find him on
         <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or on <a href={`https://github.com/${social.github}`}>GitHub</a>
       </p>
     </div>

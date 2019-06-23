@@ -30,13 +30,15 @@ Termux has a sleek package manager which is constantly improved by the community
 Here,I'll show an example on how to install git and neovim with Termux
 - `pkg install git`
 - `pkg install neovim`
-Its that simple
-There might be a problem with the `curl` command and we can resolve it by running `pkg upgrade`.  
+Its that simple   
+There might be a problem with the `curl` command and we can resolve it by running `pkg upgrade`.    
 We can install **Node,Python and C** packages too,using `pkg install` command.  
 #### How to
 - We can use version control using Git
 - We can edit files using Neovim or Nano
 - We can run servers with python npm
-- We can get a new session by sliding from the left 
+- We can get a new session by sliding from the left
+
 ----
+
 PS. I made this blog and related setup on Phone using Termux
