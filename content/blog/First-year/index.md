@@ -1,6 +1,6 @@
 ---
 title: Freshman Year
-date : "2019-07-22"
+date : "2019-06-22"
 description: Summary of my First Year College Life,My first year of Engineering,My first year of meetups, and my First Year of Open Source
 ---
 It all formally started with the First Day of August 2018, I came to the Campus of College of Engineering Kidangoor,the Lush Green Campu🌳🌲 and the Meenachil River🌊 were something totally new for me. New people,new place, New possibilities.... 

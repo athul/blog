@@ -1,6 +1,6 @@
 ---
 title: Programming on your Phone
-date: "2019-07-23" 
+date: "2019-06-23" 
 description: How to start using termux,using it as your local development system with Git,Neovim and your required language packages
 ---
 ### What is Termux?
