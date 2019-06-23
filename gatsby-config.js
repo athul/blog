@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Athul's Blog`,
+    title: `DayMares and NightDreams`,
     author: `Athul Cyriac Ajay`,
-    description: `Athul's Blog`,
+    description: `Because DayDreams are outdated and Dreams are small in words...`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
       twitter: `athulcajay`,
