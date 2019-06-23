@@ -1,6 +1,5 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import 'prismjs/themes/prism-tomorrow.css';
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
