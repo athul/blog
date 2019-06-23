@@ -29,9 +29,9 @@ Accessing the Termux file system is a tedious one and is hard to find(for me) bu
 Termux has a sleek package manager which is constantly improved by the community. It has almost all packages we can find on Linux distributions and repositories. We can install packages by calling `pkg install <package_name>` . We can see a list of all the arguments to be used with `pkg` by running `pkg help`.
 Here,I'll show an example on how to install git and neovim with Termux
 - `pkg install git`
-- `pkg install neovim`
-Its that simple   
-There might be a problem with the `curl` command and we can resolve it by running `pkg upgrade`.    
+- `pkg install neovim`   
+Its that simple.        
+There might be a problem with the `curl` command and we can resolve it by running `pkg upgrade`.      
 We can install **Node,Python and C** packages too,using `pkg install` command.  
 #### How to
 - We can use version control using Git
