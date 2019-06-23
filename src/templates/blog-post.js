@@ -36,6 +36,7 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
+	    <p>If found useful do <a href="https://saythanks.io/to/Athul-CA">this</a>😄</p>
         <Bio />
 
         <ul
