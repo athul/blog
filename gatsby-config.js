@@ -63,7 +63,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Athul's Blog`,
+        name: `DayMares and NightDreans`,
         short_name: `Athul's Blog`,
         start_url: `/`,
         background_color: `#ffffff`,
