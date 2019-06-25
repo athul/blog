@@ -16,7 +16,9 @@ Here we'll make a **Simple Issue and Pull Request commentor** bot which is made 
 - Account on Glitch using GitHub
 - Base Js knowledge like variables and strings and functions
 #### Making our App on Glitch
-Glitch is an free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do js click this button👇![Button for Glitch]()   
+Glitch is an free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do js click this button👇<a href="https://glitch.com/edit/#!/remix/probot-workshop">
+    <img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" alt="Remix With Glitch">
+  </a>  
 
 Basically Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do tge trick
 Next,we'll edit the `index.js` to the following 
