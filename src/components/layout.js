@@ -68,7 +68,7 @@ class Layout extends React.Component {
 	  <a href="https://www.gatsbyjs.org">Gatsby</a>
 	  <p style={{
 		  textDecoration:`bold`
-	  }}>The Logo was designed by <a href="">Abhijith Kannan</a> a good friend of mine<p>
+	  }}>The Logo was designed by <a href="">Abhijith Kannan</a> a good friend of mine</p>
         </footer>
       </div>
     )
