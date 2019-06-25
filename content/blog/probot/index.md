@@ -1,7 +1,7 @@
 ---
 title: Making GitHub apps with Probot
 date: "2019-07-04"
-description: Making GitHub apps is easier with Probot and Node.js
+description: Making GitHub apps easier with Probot and Node.js
 ---
 ### GitHub Apps with Probot
 Ever see in any issues or Pull Request in GitHub where a bot comments on the PR/Issue or adds labels to the Pr/Issue? If you have they are generally termed as GitHub apps and can be made relatively easily.  
@@ -9,15 +9,19 @@ Most of these apps are made by JavaScript(Node.js) using **Probot**, a framework
 
 ---------
 
-Here we'll make a **simple Issue and Pull Request commentor** bot which can deployed on Glitch or Zeit Now. 
-#### On Local Machine
-I'm assusming you've got `npm` and `node` installed.  We can simply `npm install probot` or `npx install create-probot-app`,answer the questions and Probot will be installed.  
-We'll see an `index.js` with an `app.yml` and some other files.   
+Here we'll make a **Simple Issue and Pull Request commentor** bot which is made and deployed on Glitch.
 
-Basically Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need sometinhg more. I'll talk on that later here.   
-Next,fire up your code editor and we'll edit the `index.js` to the following 
+###### Prerequisites
+- GitHub account
+- Account on Glitch using GitHub
+- Base Js knowledge like variables and strings and functions
+#### Making our App on Glitch
+Glitch is an free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do js click this button👇![Button for Glitch]()   
 
-```js
+Basically Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do tge trick
+Next,we'll edit the `index.js` to the following 
+
+```js index.js
 module.exports = app => {
   // Your code here
   app.log('Yay, the app was loaded!')
@@ -34,12 +38,23 @@ The above code is for a bot which comments on a new issue. It mentions the user 
 Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals]().   
 Now we need to check if our app is working or not,we can run `npm run dev` and in the browser goto `localhost:8000` , you can find a webpage like this ![probot-webpage](/wbp.jpg)   
 
-Click the *Register App* button and provide a name and install it in a repository.
+Click the **Register App** button and provide a name and install it in a repository.
 > Tip:Create a new private repository because we'll be making a lot of noise for the testing  
 
-Now in your local repo,if you check the `.env` file you'll see the variable values autofilled with the necessary data.
+Now ,if you check the `.env` file you'll see the variable values autofilled with the necessary data. Glitch automatically deploys our app and our app will be listening to the webhooks to be recieved.
 > Test the app by making a new issue in the test repo on GitHub.   
-It works :tada: right?
+It works right?  
+Congratulations :tada: You just made yourself a GitHub :octocat: app :tada: :tada: 
 
-##### Redelivering Webhookd
+##### Redelivering Webhook⤴️
 We can redeliver the webhooks of any event triggered by the app and we can redeliver them by going to Settings->Installed Apps-><your app>->Advanced Settings->
+
+#### Commenting on PRs
+If you check the app settings in GitHub for your app,you can see that the app also works for Pull Requests. This is due the edit on `app.yml` file before registering our app. 
+Now we need to edit the `index.js` to this
+```js index.js
+```
+
+Here we add a new "robotic" characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function.This is because PRs are considered as another type of Issues in GitHub. 
+For testing if this works , make a new PR and check if the bot comments on that
+
