@@ -45,16 +45,9 @@ Click the **Register App** button and provide a name and install it in a reposit
 
 Now ,if you check the `.env` file you'll see the variable values autofilled with the necessary data. Glitch automatically deploys our app and our app will be listening to the webhooks to be recieved.
 > Test the app by making a new issue in the test repo on GitHub.   
-<<<<<<< HEAD
 
 It works right?  
 Congratulations :tada: You just made yourself a GitHub :octocat: app :tada: :tada: 
-
-=======
-It works right?  
-Congratulations :tada: You just made yourself a GitHub :octocat: app :tada: :tada: 
-
->>>>>>> b98097f9c9e7da90152ab877f12b0e526da8e7a5
 ##### Redelivering Webhook⤴️
 We can redeliver the webhooks of any event triggered by the app and we can redeliver them by going to Settings->Installed Apps-><your app>->Advanced Settings->
 
