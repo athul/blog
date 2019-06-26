@@ -67,7 +67,8 @@ function clickSocialLink(url) {
 		<SocialLogo icon="twitter" size={32} onClick={() => clickSocialLink(`https://twitter.com/${social.twitter}`)} />
 	</span>
 	<span style={{ cursor: 'pointer' }}>
-                <SocialLogo icon="github" size={32} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
+		<SocialLogo icon="github" size={32} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
+	</span>
       </p>
     </div>
   )
