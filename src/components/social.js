@@ -1,5 +1,5 @@
 import React from "react"
-import SocialLogo from "social-logo"
+import SocialLogo from "social-logos"
 
 import { rhythm } from "../utils/typography"
 
