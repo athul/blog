@@ -41,7 +41,7 @@ module.exports = app => {
 ```
 The above code is for a bot which comments on a new issue. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation]().  
 Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals]().   
-Now we need to check if our app is working or not,we can run `npm run dev` and in the browser goto `localhost:8000` , you can find a webpage like this ![probot-webpage](/wbp.jpg)   
+Now we need to check if our app is working or not,we can run `npm run dev` and in the browser goto `localhost:8000` , you can find a webpage like this ![probot-webpage](/wp.jpg)   
 
 Click the **Register App** button and provide a name and install it in a repository.
 > Tip:Create a new private repository because we'll be making a lot of noise for the testing  
@@ -52,7 +52,7 @@ Now ,if you check the `.env` file you'll see the variable values autofilled with
 It works right?  
 Congratulations :tada: You just made yourself a GitHub :octocat: app :tada: :tada: 
 ##### Redelivering Webhook⤴️
-We can redeliver the webhooks of any event triggered by the app and we can redeliver them by going to Settings->Installed Apps-><your app>->Advanced Settings->
+We can redeliver the webhooks of any event triggered by the app and we can redeliver them by going to Settings->Installed Apps-><your app name>->Advanced Settings->
 
 #### Commenting on PRs
 If you check the app settings in GitHub for your app,you can see that the app also works for Pull Requests. This is due the edit on `app.yml` file before registering our app. 
