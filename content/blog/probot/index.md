@@ -56,8 +56,16 @@ We can redeliver the webhooks of any event triggered by the app and we can redel
 
 #### Commenting on PRs
 If you check the app settings in GitHub for your app,you can see that the app also works for Pull Requests. This is due the edit on `app.yml` file before registering our app. 
-Now we need to edit the `index.js` to this
-```js index.js
+Now we need to edit the `index.js` to add this before the last '}'
+```js 
+//index.js
+app.on('pull_request.opened', async context =>{        const pr=context.payload.pull_request
+    const user =pr.user.login;
+
+    const msg=context.issue({body:`Hey @${user} :wave: Thanks for the PR !!! You are Awesome.`})
+
+    return context.github.issues.createComment(msg)
+  })
 ```
 
 Here we add a new "robotic" characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function.This is because PRs are considered as another type of Issues in GitHub. 
