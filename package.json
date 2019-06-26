@@ -34,7 +34,7 @@
     "typeface-montserrat": "0.0.54",
     "typography": "^0.16.19",
     "typography-theme-wordpress-2016": "^0.16.19",
-    "social-logos":"2.1.0"
+    "social-logos":"^2.0.0"
   },
   "devDependencies": {
     "prettier": "^1.18.2"
