@@ -8,10 +8,14 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
+import SocialLogo from "social-logos"
 
 import { rhythm } from "../utils/typography"
 
 const Bio = () => {
+function clickSocialLink(url) {
+    window.open(url, "_blank");
+  }
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpeg/" }) {
@@ -59,7 +63,11 @@ const Bio = () => {
         College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
         {` `}
         You can find him on
-        <a href={`https://twitter.com/${social.twitter}`}>Twitter</a> or on <a href={`https://github.com/${social.github}`}>GitHub</a>
+	<span style={{cursor:`poniter`}}>
+		<SocialLogo icon="twitter" size={32} onClick={() => clickSocialLink(`https://twitter.com/${social.twitter}`)} />
+	</span>
+	<span style={{ cursor: 'pointer' }}>
+                <SocialLogo icon="github" size={32} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
       </p>
     </div>
   )
