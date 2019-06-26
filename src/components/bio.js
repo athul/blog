@@ -15,7 +15,8 @@ import { rhythm } from "../utils/typography"
 const Bio = () => {
 function clickSocialLink(url) {
     window.open(url, "_blank");
-  }
+}
+
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpeg/" }) {
@@ -63,11 +64,11 @@ function clickSocialLink(url) {
         College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
         {` `}
         You can find him on
-	<span style={{cursor:`poniter`}}>
-		<SocialLogo icon="twitter" size={32} onClick={() => clickSocialLink(`https://twitter.com/${social.twitter}`)} />
+	<span style={{cursor:`pointer`,background:`azure`}}>
+		<SocialLogo icon="twitter" size={48} onClick={() => clickSocialLink(`https://twitter.com/${social.twitter}`)} />
 	</span>
-	<span style={{ cursor: 'pointer' }}>
-		<SocialLogo icon="github" size={32} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
+	<span style={{ cursor: 'pointer', color:`azure` }}>
+		<SocialLogo icon="github" size={48} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
 	</span>
       </p>
     </div>
