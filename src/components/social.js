@@ -7,8 +7,7 @@ const Socials=()=>{
 return(
 	<div style={{
 		display:`flex`,
-		marginBottom:rhythm(2.5),
-		color:`azure`}}>
+		marginBottom:rhythm(2.5)}}>
 	<span>
 <a href="https://github.com/Athul-CA"><SocialLogo icon="github" size={ 48 } /></a>
 	<a href="https://twitter.com/athulcajay"><SocialLogo icon="twitter" size={ 48 } /></a>
