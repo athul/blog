@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `DayMares and NightDreams`,
+    title: `dayDreams ++`,
     author: `Athul Cyriac Ajay`,
-    description: `Because DayDreams are outdated and Dreams are small in words...`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    description: `Because I DayDream Incremetally`,
+	  siteUrl: `https://blog.athulcyriac.me`,
     social: {
       twitter: `athulcajay`,
       github: `Athul-CA`,
@@ -63,8 +63,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `DayMares and NightDreans`,
-        short_name: `Athul's Blog`,
+        name: `dayDreams ++`,
+        short_name:`++`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#1abaa2`,
