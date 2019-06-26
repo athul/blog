@@ -1,20 +1,15 @@
 import React from "react"
-import { usestaticQuery,graphql } from "gatsby"
+import SocialLogo from "social-logo"
 
-const Button=()=>{
-	const b_data=useStaticQuery(graphql`
-	query socialQuery{
-	 site
-	    siteMetadata{
-	      author{
-	        social{
-		   twitter
-		   github
-		   }
-	}
-  }
-}`
-)
-const {social}=b_data.site.siteMetada
+const Socials=()=>{
 return(
-	
+<div>
+	<span>
+<a href="https://github.com/Athul-CA"><SocialLogo icon="github" size={ 48 } /></a>
+	<a href="https://twitter.com/athulcajay"><SocialLogo icon="twitter" size={ 48 } /></a>
+	<a href="https://github.com/Athul-CA"><SocialLogo icon="github" size={ 48 } /></a>
+	</span>
+</div>
+)
+}
+export default Socials
