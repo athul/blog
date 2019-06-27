@@ -60,7 +60,7 @@ const Bio = () => {
         College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
         {` `}
 	You can find him on<br></br>
-	<span style={{background:`azure`}}>
+	<span>
 		<a href="https://github.com/Athul-CA"><img src="https://cdn.svgporn.com/logos/github-icon.svg" height="32px" width="32px"/></a>
 	</span>
 	<span>
