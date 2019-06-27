@@ -63,12 +63,12 @@ function clickSocialLink(url) {
         Personal Blog of <strong>{author}</strong> who is an Undergraduate Engineering Student in 
         College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
         {` `}
-        You can find him on
-	<span style={{cursor:`pointer`,background:`azure`}}>
-		<SocialLogo icon="twitter" size={48} onClick={() => clickSocialLink(`https://twitter.com/${social.twitter}`)} />
+	You can find him on<br></br>
+	<span style={{color:`azure`}}>
+		<SocialLogo icon="twitter" size={48} />
 	</span>
-	<span style={{ cursor: 'pointer', color:`azure` }}>
-		<SocialLogo icon="github" size={48} onClick={() => clickSocialLink(`https://github.com/${social.github}`)} />
+	<span style={{ color:`black` }}>
+		<SocialLogo icon="github" size={48} />
 	</span>
       </p>
     </div>
