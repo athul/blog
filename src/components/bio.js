@@ -8,7 +8,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
-import SocialLogo from "social-logos"
 
 import { rhythm } from "../utils/typography"
 
@@ -62,10 +61,10 @@ const Bio = () => {
         {` `}
 	You can find him on<br></br>
 	<span style={{background:`azure`}}>
-		<SocialLogo icon="twitter" size={48} />
+		<a href="https://github.com/Athul-CA"<img src="https://cdn.svgporn.com/logos/github-icon.svg"/>
 	</span>
-	<span style={{ background:`black` }}>
-		<a href="https://github.com/Athul-CA">"<SocialLogo icon="github" size={48} /></a>
+	<span>
+		<a href="https://twitter.com/athulcajay">"<img src="https://cdn.svgporn.com/logos/twitter.svg" /></a>
 	</span>
       </p>
     </div>
