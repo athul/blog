@@ -61,7 +61,7 @@ const Bio = () => {
         {` `}
 	You can find him on<br></br>
 	<span style={{background:`azure`}}>
-		<a href="https://github.com/Athul-CA"<img src="https://cdn.svgporn.com/logos/github-icon.svg"/>
+		<a href="https://github.com/Athul-CA"><img src="https://cdn.svgporn.com/logos/github-icon.svg"/></a>
 	</span>
 	<span>
 		<a href="https://twitter.com/athulcajay">"<img src="https://cdn.svgporn.com/logos/twitter.svg" /></a>
