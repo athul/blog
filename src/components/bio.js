@@ -13,9 +13,6 @@ import SocialLogo from "social-logos"
 import { rhythm } from "../utils/typography"
 
 const Bio = () => {
-function clickSocialLink(url) {
-    window.open(url, "_blank");
-}
 
   const data = useStaticQuery(graphql`
     query BioQuery {
@@ -64,11 +61,11 @@ function clickSocialLink(url) {
         College of Engineering Kidangoor, a <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
         {` `}
 	You can find him on<br></br>
-	<span style={{color:`azure`}}>
+	<span style={{background:`azure`}}>
 		<SocialLogo icon="twitter" size={48} />
 	</span>
-	<span style={{ color:`black` }}>
-		<SocialLogo icon="github" size={48} />
+	<span style={{ background:`black` }}>
+		<a href="https://github.com/Athul-CA">"<SocialLogo icon="github" size={48} /></a>
 	</span>
       </p>
     </div>
