@@ -63,8 +63,8 @@ Now we need to edit the `index.js` to add this before the last '}'
 ```js 
 //index.js
 app.on('pull_request.opened', async context =>{
-    const pr=context.payload.pull_request
-    const user =pr.user.login //Collecting Details of the person who created the PR
+    const pr = context.payload.pull_request
+    const user = pr.user.login //Collecting Details of the person who created the PR
 
     const msg=context.issue({body:`Hey @${user} :wave: Thanks for the PR !!! You are Awesome.`})
 
@@ -73,7 +73,13 @@ app.on('pull_request.opened', async context =>{
 ```
 
 Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function.This is because PRs are considered as another type of Issues in GitHub. 
-For testing if this works , make a new PR and check if the bot comments on that yes
+For testing if this works , make a new PR and check if the bot comments on that yes.
+-------
+Congratulations on making a GitHub app. Since it is on Glitch we can install this in any repository and it will work any time too. 
+> You can customise the comments with Images and Gifs but keep in mind that the comments renders markdown.
+> You can always import these files to a GitHub repository through Glitch.  
+
+Now go forth,explore and make some exciting GitHub apps,❤️❤️
 
 ##### Thanks to
 - [Musthaq Ahamad](https://github.com/haxzie)
