@@ -65,7 +65,10 @@ class Layout extends React.Component {
         <footer>
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+	  <a href="https://www.gatsbyjs.org">Gatsby</a>
+	  <p style={{
+		  textDecoration:`bold`
+	  }}>The Logo was designed by <a href="">Abhijith Kannan</a> a good friend of mine</p>
         </footer>
       </div>
     )
