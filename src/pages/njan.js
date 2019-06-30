@@ -11,7 +11,7 @@ class njan extends React.Component {
 			<body style={{
 				background:`grey`
 				}}>
-			<Layout location={this.props.location} title=`About me`>
+			<Layout location={this.props.location} >
 				<h1 style={{
 	marginBottom: rhythm(1/4),
 	color:`fuschia`
