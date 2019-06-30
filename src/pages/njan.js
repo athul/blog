@@ -6,7 +6,7 @@ import Layout from "../components/layout"
 class njan extends React.Component {
 	render(){
 		const {data}=this.props
-		const site.tle=data.site.siteMetadata.title
+		const siteTitle=data.site.siteMetadata.title
 		return(
 			<body style={{
 				background:`grey`
