@@ -3,9 +3,13 @@
 Personal Blog of Athul Cyriac Ajay.   
 You can find it on https://blog.athulcyriac.me
 Origin of name => Daydreams have become Incremental these days🤔🤔 ++ 😁
+
 --------
+
 I'll try to post something new every week it may be techical or you know the opposite of that.   
 For feedback or suggestion use **Issues** 😁
+
 -------
+
 Made this with Gatsby and added some updates to It.   
 [Gatsby](https://gatsbyjs.com) is ❤️
