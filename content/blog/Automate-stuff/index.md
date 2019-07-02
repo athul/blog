@@ -1,6 +1,6 @@
 ---
 title:Shell Scripting to Automation
-date:"2019-07-2"
+date:"2019-07-02"
 description:Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
 ---
 # Shell Scripting to Automation
