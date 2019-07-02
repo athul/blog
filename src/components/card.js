@@ -6,7 +6,6 @@ class Card extends React.Component{
 	render(){
 		const {title,children,url,bg}=this.props
 		const Head=(
-			<
 			<h5 style={{
 				marginTop:rhythm(.5),
 				marginBottom:rhythm(1)
