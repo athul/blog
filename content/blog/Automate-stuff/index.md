@@ -1,7 +1,7 @@
 ---
-title:Shell Scripting to Automation
-date:"2019-07-02"
-description:Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
+title: Shell Scripting to Automation
+date: "2019-07-02"
+description: Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
 ---
 # Shell Scripting to Automation
 Ever encountered a time when you have a few working branches which you update daily? Then you'll know how tiresome it is to `checkout` to every branch and typing `git push <branch name>` . If you haven't encountered this,try doing it once, you'll know what I'm saying😏😏.   
