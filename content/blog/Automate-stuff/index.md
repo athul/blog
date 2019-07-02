@@ -1,6 +1,6 @@
 ---
 title:Shell Scripting to Automation
-date:"2019-07-10"
+date:"2019-07-2"
 description:Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
 ---
 
@@ -33,4 +33,5 @@ git commit -a -m "New Metrics"
 git push origin master
 
 ```
-When running this script, you'll be first prompted to paste the `.json` you copied from the wakatime dashboard. You should delete the current contents and paste the new ones and save it. You can use any editor of your choice, I use NeoVim. It will run the python program and it will push the changes to GitHub. Easy Right?
+When running this script, you'll be first prompted to paste the `json` text you copied from the Wakatime dashboard. You should delete the current contents and paste the new ones and save it. You can use any editor of your choice, I use NeoVim. It will run the python program and it will push the changes to GitHub. Easy Right? Just with a few line of Bash Script we can automate quite a good amount of Tedious Tasks.      
+We can set up a script for launching the terminal just as the System turns on but I believe its for you to find out more about it. This post might've helped and possibly this will be the needed push for you to explore the world of shell scripting and automation✌️✌️✌️. I will post some more on this when I understand more of this some day.👻
