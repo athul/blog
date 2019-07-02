@@ -7,8 +7,8 @@ class Card extends React.Component{
 		const {title,children,url,bg}=this.props
 		const Head=(
 			<h5 style={{
-				marginTop:rhythm{.5},
-				marginBottom:rhythm{1}
+				marginTop:rhythm(.5),
+				marginBottom:rhythm(1)
 				}}>
 				<Link style={{
 					boxShadow:`toRight`,
@@ -18,7 +18,7 @@ class Card extends React.Component{
 		)
 		const Desc=(
 			<p style={{
-				marginBottom:rhythm{.5},
+				marginBottom:rhythm(.5),
 				color:`azure`,
 				background:{bg}
 				}}>{children}</p>
