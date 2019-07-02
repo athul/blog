@@ -25,9 +25,11 @@ class Card extends React.Component{
 		)}
 
 	return(
-		<div style={{
+		<div 
+		style={{
 			display;`flex`,
-			marginBottom:rhythm(1.5)}}>
+			marginBottom:rhythm(1.5)
+			}}>
 			<Head>{Head}</Head>
 			<Desc>{Desc}</Desc>
 		</div>
