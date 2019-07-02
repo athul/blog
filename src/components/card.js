@@ -2,9 +2,9 @@ import React from "react"
 import {rhythm} from "../utils/typography"
 import {Link} from "gatsby"
 
-class Card extends React.Component{
-	render(){
-		const {title,children,url,bg}=this.props
+class Card extends React.Component {
+	render() {
+		const { title,children,url,bg }=this.props
 		const Head=(
 			<h5 style={{
 				marginTop:rhythm(.5),
@@ -13,7 +13,7 @@ class Card extends React.Component{
 				<Link style={{
 					boxShadow:`toRight`,
 					color:`white`}}
-	to={url}>{title}</Link>
+	to={this.props.url}>{title}</Link>
 </h5>
 		)
 		const Desc=(
@@ -22,11 +22,10 @@ class Card extends React.Component{
 				color:`white`
 				}}>{children}</p>
 		)
-
-	return(
+		return(
 		<div style={{
 			cursor:`pointer`,
-			background:{bg},
+			background:{this.props.bg},
 			marginBottom:rhythm(1),
 			marginTop:rhythm(.5)
 			}}>
