@@ -25,14 +25,8 @@ class Card extends React.Component{
 		)}
 
 	return(
-		<div 
-		style={{
-			display:`flex`,
-			marginBottom:rhythm(1.5)
-			}}>
 			<Head>{Head}</Head>
 			<Desc>{Desc}</Desc>
-		</div>
 	)
 	export default Card1
 
