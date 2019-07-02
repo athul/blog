@@ -27,7 +27,7 @@ class Card extends React.Component{
 	return(
 		<div 
 		style={{
-			display;`flex`,
+			display:`flex`,
 			marginBottom:rhythm(1.5)
 			}}>
 			<Head>{Head}</Head>
