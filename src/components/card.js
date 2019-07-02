@@ -1,7 +1,7 @@
 import React from "react"
 import {rhythm} from "../utils/typography"
 import {Link} from "gatsby"
-
+import Proptypes from "prop-types"
 class Card extends React.Component {
 	render() {
 		const { title,children,url,bg }=this.props
@@ -13,7 +13,7 @@ class Card extends React.Component {
 				<Link style={{
 					boxShadow:`toRight`,
 					color:`white`}}
-	to={this.props.url}>{title}</Link>
+	to={url}>{title}</Link>
 </h5>
 		)
 		const Desc=(
@@ -25,7 +25,7 @@ class Card extends React.Component {
 		return(
 		<div style={{
 			cursor:`pointer`,
-			background:{this.props.bg},
+			background:{bg},
 			marginBottom:rhythm(1),
 			marginTop:rhythm(.5)
 			}}>
@@ -33,6 +33,15 @@ class Card extends React.Component {
 			<Desc>{Desc}</Desc>
 		</div>
 	)
+	}
+	Card.defaultProps={
+		title: `Project Title`,
+		url: `https:\\github.com/Athul-CA`,
+		bg: `teal`
+	}
+	Card.propTypes={
+		title:PropTypes.string.isRequired,
+		bg:PropTypes.string,
 	}
 }
 export default Card
