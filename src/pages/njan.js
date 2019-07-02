@@ -2,6 +2,7 @@ import React from "react"
 import {graphql} from "gatsby"
 import {rhythm} from "../utils/typography"
 import Layout from "../components/layout"
+import Card from "../components/card"   
 
 class njan extends React.Component {
 	render(){
@@ -17,6 +18,9 @@ class njan extends React.Component {
 	color:`white`}}>I am Athul Cyriac Ajay</h1>
 	<p>I am a <strong>GitHub Campus Expert</strong>🚩🚩,Hackathon Organizer, Developer, and moreover a Human Being😊</p> 
 	<p style={{color:`azure`}}> Made this Blog with The Blog Starter from Gatsby</p>
+	<Card title=`Hackathon Sponsor Searches` url=`https://github.com/hackathon-sponsor-searches` bg=`purple`>
+		Some potential Hackathon Sponsors
+	</Card>
 			</Layout>
 		</body>
 		)
