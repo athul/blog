@@ -5,10 +5,7 @@ import Layout from "../components/layout"
 import Card from "../components/card"   
 
 class njan extends React.Component {
-	render(){
-		const {data}=this.props
-		const siteTitle=data.site.siteMetadata.title
-		return(
+	return(
 			<body style={{
 				background:`grey`
 				}}>
@@ -27,12 +24,3 @@ class njan extends React.Component {
 	}
 }
 export default njan
-
-export const njanq=graphql`
-query{
- site{
-  siteMetadata{
-   title
-   }
-  }
-}`
