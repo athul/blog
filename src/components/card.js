@@ -34,7 +34,7 @@ class Card extends React.Component {
 		</div>
 	)
 	}
-	Card.defaultProps={
+	/*Card.defaultProps={
 		title: `Project Title`,
 		url: `https:\\github.com/Athul-CA`,
 		bg: `teal`
@@ -42,7 +42,7 @@ class Card extends React.Component {
 	Card.propTypes={
 		title:PropTypes.string.isRequired,
 		bg:PropTypes.string,
-	}
+	}*/
 }
 export default Card
 
