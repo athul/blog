@@ -44,9 +44,12 @@ The above code is for a bot which comments on new issues. It mentions the user t
 Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
 Now we need to check if our app is working or not, we can run `npm run dev` and in the browser go to `localhost:8000`, you can find a webpage like this![probot-webpage](/wp.jpg)   
  Click the **Register GitHub App** button and provide a name and install it in a repository.
- > Tip: Create a new private repository because we'll be making a lot of noise for the testing  
+ > Tip: Create a new private repository because we'll be making a lot of noise for the testing   
+ 
  Now, if you check the `.env`  file you'll see the variable values auto-filled with the necessary data. Glitch automatically deploys our app and our app will be listening to the webhooks to be received.
+ 
  > Test the app by making a new issue in the test repo on GitHub.   
+ 
  It works right?  
 Congratulations 🎉🎉 You just made yourself a GitHub App👌👌 
 ##### Redelivering Webhook⤴️
@@ -64,7 +67,8 @@ app.on('pull_request.opened', async context =>{
   })
 ```
  Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function.This is because PRs are considered as another type of Issues in GitHub. 
-For testing, if this works, make a new PR and check if the bot comments on that yes.
+For testing if this works, make a new PR and check if the bot comments on that yes.
+
 -------
 Congratulations on making a GitHub app. Since it is on Glitch we can install this in any repository and it will work any time too. 
 > You can customise the comments with Images and Gifs but keep in mind that the comments render markdown.
