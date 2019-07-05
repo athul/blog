@@ -18,9 +18,10 @@ Here we'll make a **Simple Issue and Pull Request commentor** bot which is made 
 #### Making our App on Glitch
 Glitch is an free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
 <!-- Remix Button -->
-<a href="https://glitch.com/edit/#!/remix/eight-tile">
+<!-- Remix Button -->
+<a href="https://glitch.com/edit/#!/remix/twilight-marquis">
   <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix this" height="33">
-</a> 
+</a>
 
 Basically Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do the trick
 Next,we'll edit the `index.js` to the following 
@@ -40,8 +41,8 @@ module.exports = app => {
   })
 }
 ```
-The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation]().  
-Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals]().   
+The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation](https://developer.github.com/webhooks/).  
+Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).   
 Now we need to check if our app is working or not,we can run `npm run dev` and in the browser goto `localhost:8000` , you can find a webpage like this ![probot-webpage](/wp.jpg)   
 
 Click the **Register GitHub App** button and provide a name and install it in a repository.
@@ -55,7 +56,7 @@ Now ,if you check the `.env` file you'll see the variable values autofilled with
 It works right?  
 Congratulations 🎉🎉 You just made yourself a GitHub App👌👌 
 ##### Redelivering Webhook⤴️
-We can view all the webhooks of any event triggered by the Repository and we can redeliver them by going to **Settings->Installed Apps-><your app name>->Advanced Settings->** in your profile.
+We can view all the webhooks of any event triggered by the Repository and we can redeliver them by going to **Settings->Developer Settings->GitHub Apps->"Your app name"->Advanced Tab** in your profile.
 
 #### Commenting on PRs
 If you check the app settings in GitHub for your app,you can see that the app also works for Pull Requests. This is due the edit on `app.yml` file before registering our app. 
