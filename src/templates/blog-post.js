@@ -18,8 +18,13 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1 style={{
-		color:`crimson`}}>{post.frontmatter.title}</h1>
+        <h1
+          style={{
+            color: `crimson`,
+          }}
+        >
+          {post.frontmatter.title}
+        </h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -36,7 +41,10 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
-	    <p>If found useful do <a href="https://saythanks.io/to/Athul-CA">this</a>😄</p>
+        <p>
+          If found useful do <a href="https://saythanks.io/to/Athul-CA">this</a>
+          😄
+        </p>
         <Bio />
 
         <ul
