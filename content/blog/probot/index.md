@@ -23,7 +23,7 @@ Glitch is a free online code-editing platform. It sets up our environment will a
   <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix this" height="33">
 </a>
 
- Basically Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do the trick
+Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do the trick
 Next, we'll edit the `index.js` to the following 
 
  ```js 
