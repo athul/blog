@@ -1,5 +1,4 @@
 import React from "react"
-import {graphql} from "gatsby"
 import {rhythm} from "../utils/typography"
 import Layout from "../components/layout"
 import Card from "rebass"   
@@ -10,7 +9,7 @@ class njan extends React.Component {
 			<body style={{
 				background:`grey`
 				}}>
-			<Layout location={this.props.location} >
+			
 				<h1 style={{
 	marginBottom: rhythm(1/4),
 	color:`white`}}>I am Athul Cyriac Ajay</h1>
@@ -27,7 +26,6 @@ class njan extends React.Component {
   boxShadow='0 2px 16px rgba(0, 0, 0, 0.25)'> 
 		Some potential Hackathon Sponsors
 	</Card>
-			</Layout>
 		</body>
 		)
 	}
