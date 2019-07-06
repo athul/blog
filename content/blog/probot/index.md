@@ -41,8 +41,12 @@ Next, we'll edit the `index.js` to the following
 }
 ```
 The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation](https://developer.github.com/webhooks/).  
+<<<<<<< HEAD
 Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/) .         
 
+=======
+Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
+>>>>>>> a8eb2cd2bb135e2f8c7b99b08c93f713ea426cff
 Now we need to check if our app is working or not, we can run `npm run dev` and in the browser go to `localhost:8000`, you can find a webpage like this![probot-webpage](/wp.jpg)   
  Click the **Register GitHub App** button and provide a name and install it in a repository.
  > Tip: Create a new private repository because we'll be making a lot of noise for the testing   
@@ -76,4 +80,8 @@ Congratulations on making a GitHub app. Since it is on Glitch we can install thi
 > You can always import these files to a GitHub repository through Glitch.  
  Now go forth, explore and make some exciting GitHub apps,❤️❤️
  ##### Thanks to
+<<<<<<< HEAD
 - [Musthaq Ahamad](https://github.com/haxzie)
+=======
+- [Musthaq Ahamad](https://github.com/haxzie)
+>>>>>>> a8eb2cd2bb135e2f8c7b99b08c93f713ea426cff
