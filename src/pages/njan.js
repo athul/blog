@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Card from "rebass"   
 
 class njan extends React.Component {
+	render(){
 	return(
 			<body style={{
 				background:`grey`
@@ -31,4 +32,5 @@ class njan extends React.Component {
 		)
 	}
 }
+
 export default njan
