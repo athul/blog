@@ -54,6 +54,8 @@ class Layout extends React.Component {
     return (
       <div
         style={{
+          background:`black`,
+          color:`white`,
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: rhythm(24),

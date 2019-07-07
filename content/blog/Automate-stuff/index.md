@@ -7,7 +7,7 @@ description: Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From P
 Ever encountered a time when you have a few working branches which you update daily? Then you'll know how tiresome it is to `checkout` to every branch and typing `git push <branch name>` . If you haven't encountered this,try doing it once, you'll know what I'm saying😏😏.   
 We could always automate these stuff just by a few line of shell code.It's quite **easy** you know. Starting by taking the above said situation,you've got 5 branches and you want to push to all these 5 branches. We'll write a shell script for it.
 ```bash
-cd ~/path/to/git/repository/ #Assuming you are anywhere                               
+cd ~/path/to/git/repository/ #Assuming you are anywhere
 for i in 'master' 'dev' 'fix1' 'patch1' 'dope-branch-name'
 do
 	git checkout $i
