@@ -1,12 +1,12 @@
 ---
-title:Shell Scripting to Automation
-date:"2019-07-2"
-description:Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
+title: Shell Scripting to Automation
+date: "2019-07-2"
+description: Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses 
 ---
 
 Ever encountered a time when you have a few working branches which you update daily? Then you'll know how tiresome it is to `checkout` to every branch and typing `git push <branch name>` . If you haven't encountered this,try doing it once, you'll know what I'm saying😏😏.   
 We could always automate these stuff just by a few line of shell code.It's quite **easy** you know. Starting by taking the above said situation,you've got 5 branches and you want to push to all these 5 branches. We'll write a shell script for it.
-```sh
+```bash
 cd ~/path/to/git/repository/ #Assuming you are anywhere                               
 for i in 'master' 'dev' 'fix1' 'patch1' 'dope-branch-name'
 do
@@ -24,7 +24,7 @@ Here I'll be pushing it to a [Gist](https://gist.github.com).
 So some days ago I started using (Wakatime)[] which gets track on your coding activity and its super cool,showing it off in your GitHub profile seemed cool and one [Campus Expert,John Pham](phamous.dev) did do it and it looked super cool. But the way he did was using GitHub Actions, and no I didn't apply for the Beta of GH Actions. So I made a Python🐍 script to make something like his. You can find it [here](https://github.com/Athul-CA/wakatime-metrics).    
 It's a tad manual since API requests are 😰😱. The manual thing is you've got to copy a json file from your wakatime dasboard's "embed" page. The rest of the work is done by a shell script👻👻. For showing the activity in my Profile too,I made a public gist with a `.txt` file in GitHub and cloned it to my local machine. The shell script goes like this,👇👇
 
-```sh
+```bash
 cd ~/path/to_the/python_file and json file
 nvim filename.json
 python main.py filename.json > ~/path_to_cloned_gist_repo/filename.txt
