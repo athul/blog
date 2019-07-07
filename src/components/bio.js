@@ -33,7 +33,7 @@ const Bio = () => {
     }
   `)
 
-  const { author, social } = data.site.siteMetadata
+  const { author } = data.site.siteMetadata
   return (
     <div
       style={{
@@ -63,6 +63,7 @@ const Bio = () => {
         <span>
           <a href="https://github.com/Athul-CA">
             <img
+            alt="Github"
               src="https://cdn.svgporn.com/logos/github-icon.svg"
               height="32px"
               width="32px"
@@ -72,6 +73,7 @@ const Bio = () => {
         <span>
           <a href="https://twitter.com/athulcajay">
             <img
+            alt="Twitter"
               src="https://cdn.svgporn.com/logos/twitter.svg"
               height="32px"
               width="32px"

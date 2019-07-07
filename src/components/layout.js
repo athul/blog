@@ -71,7 +71,7 @@ class Layout extends React.Component {
               textDecoration: `bold`,
             }}
           >
-            The Logo was designed by <a href="">Abhijith Kannan</a> a good
+            The Logo was designed by <a href="hhtps://github.com/ForgottenTale">Abhijith Kannan</a> a good
             friend of mine
           </p>
         </footer>
