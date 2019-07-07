@@ -22,7 +22,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: `none`,
               textDecoration: `none`,
-              color:`tomato`,
+              color: `tomato`,
             }}
             to={`/`}
           >
@@ -57,7 +57,7 @@ class Layout extends React.Component {
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}` 
+          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
       >
         <header>{header}</header>
@@ -65,10 +65,15 @@ class Layout extends React.Component {
         <footer>
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
-	  <a href="https://www.gatsbyjs.org">Gatsby</a>
-	  <p style={{
-		  textDecoration:`bold`
-	  }}>The Logo was designed by <a href="">Abhijith Kannan</a> a good friend of mine</p>
+          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <p
+            style={{
+              textDecoration: `bold`,
+            }}
+          >
+            The Logo was designed by <a href="">Abhijith Kannan</a> a good
+            friend of mine
+          </p>
         </footer>
       </div>
     )
