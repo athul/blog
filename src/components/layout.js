@@ -54,6 +54,8 @@ class Layout extends React.Component {
     return (
       <div
         style={{
+          background:`black`,
+          color:`white`,
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: rhythm(24),
@@ -65,13 +67,13 @@ class Layout extends React.Component {
         <footer>
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <a href="https://www.gatsbyjs.org" style={{color:`rebeccapurple`}}>Gatsby</a>
           <p
             style={{
               textDecoration: `bold`,
             }}
           >
-            The Logo was designed by <a href="">Abhijith Kannan</a> a good
+            The Logo was designed by <a href="https://github.com/ForgottenTale" style={{color:`tomato`}}>Abhijith Kannan</a> a good
             friend of mine
           </p>
         </footer>
