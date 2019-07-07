@@ -73,7 +73,9 @@ class Layout extends React.Component {
               textDecoration: `bold`,
             }}
           >
+
             The Logo was designed by <a href="hhtps://github.com/ForgottenTale" style={{color:`hotpink`}}>Abhijith Kannan</a> a good
+
             friend of mine
           </p>
         </footer>
