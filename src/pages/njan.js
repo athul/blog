@@ -1,7 +1,7 @@
 import React from "react"
 import { rhythm } from "../utils/typography"
 import {Link} from "gatsby"
-import SocialLogo from 'social-logos'
+//import SocialLogo from 'social-logos'
 import { Card } from "rebass"
 class Njan extends React.Component {
   render() {

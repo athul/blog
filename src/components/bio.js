@@ -24,10 +24,6 @@ const Bio = () => {
       site {
         siteMetadata {
           author
-          social {
-            twitter
-            github
-          }
         }
       }
     }
@@ -56,8 +52,8 @@ const Bio = () => {
       />
       <p>
         Personal Blog of <strong style={{color:`hotpink`}}>{author}</strong> who is an Undergraduate
-        Engineering Student in College of Engineering Kidangoor, a{" "}
-        <i>GitHub Campus Expert</i> and a Python, Js lover.<br></br>
+        Engineering Student in College of Engineering Kidangoor, a{"   "}
+        <a href="https://githubcampus.expert" style={{color:`tan`}}>GitHub Campus Expert</a> and a Python, Js lover.<br></br>
         {` `}
         You can find him on<br></br>
         <span >
@@ -81,7 +77,7 @@ const Bio = () => {
             />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="https://instagram.com/athulcajay" style={{color:`hotpink`}}>
+          <a href="https://instagram.com/athul_c_ajay" style={{color:`hotpink`}}>
             <img
               alt="Instagram"
               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iNjQiIGhlaWdodD0iNjQiCnZpZXdCb3g9IjAgMCA2NCA2NCIKc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNjQgNjQ7OyBmaWxsOiMwMDAwMDA7Ij48bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzFfXzQzNjI1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjMyIiB5MT0iNi42NjY3IiB4Mj0iMzIiIHkyPSI1Ny44NzI0IiBzcHJlYWRNZXRob2Q9InJlZmxlY3QiPgk8c3RvcCBvZmZzZXQ9IjAiIHN0eWxlPSJzdG9wLWNvbG9yOiMxQTZERkYiPjwvc3RvcD4JPHN0b3Agb2Zmc2V0PSIxIiBzdHlsZT0ic3RvcC1jb2xvcjojQzgyMkZGIj48L3N0b3A+PC9saW5lYXJHcmFkaWVudD48cGF0aCBzdHlsZT0iZmlsbDp1cmwoI1NWR0lEXzFfXzQzNjI1KTsiIGQ9Ik00NCw1N0gyMGMtNy4xNjgsMC0xMy01LjgzMi0xMy0xM1YyMGMwLTcuMTY4LDUuODMyLTEzLDEzLTEzaDI0YzcuMTY4LDAsMTMsNS44MzIsMTMsMTN2MjQgIEM1Nyw1MS4xNjgsNTEuMTY4LDU3LDQ0LDU3eiBNMjAsOUMxMy45MzUsOSw5LDEzLjkzNSw5LDIwdjI0YzAsNi4wNjUsNC45MzUsMTEsMTEsMTFoMjRjNi4wNjUsMCwxMS00LjkzNSwxMS0xMVYyMCAgYzAtNi4wNjUtNC45MzUtMTEtMTEtMTFIMjB6Ij48L3BhdGg+PGxpbmVhckdyYWRpZW50IGlkPSJTVkdJRF8yX180MzYyNSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHgxPSIzMiIgeTE9IjE4LjE2NjciIHgyPSIzMiIgeTI9IjQ1LjY3OTMiIHNwcmVhZE1ldGhvZD0icmVmbGVjdCI+CTxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzZEQzdGRiI+PC9zdG9wPgk8c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFNkFCRkYiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxwYXRoIHN0eWxlPSJmaWxsOnVybCgjU1ZHSURfMl9fNDM2MjUpOyIgZD0iTTMyLDQ1Yy03LjE2OCwwLTEzLTUuODMyLTEzLTEzYzAtNy4xNjgsNS44MzItMTMsMTMtMTNjNy4xNjgsMCwxMyw1LjgzMiwxMywxMyAgQzQ1LDM5LjE2OCwzOS4xNjgsNDUsMzIsNDV6IE0zMiwyM2MtNC45NjIsMC05LDQuMDM4LTksOWMwLDQuOTYzLDQuMDM4LDksOSw5YzQuOTYzLDAsOS00LjAzNyw5LTlDNDEsMjcuMDM4LDM2Ljk2MywyMywzMiwyM3oiPjwvcGF0aD48bGluZWFyR3JhZGllbnQgaWQ9IlNWR0lEXzNfXzQzNjI1IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjQ2IiB5MT0iMTIuNzUiIHgyPSI0NiIgeTI9IjIzLjA0ODciIHNwcmVhZE1ldGhvZD0icmVmbGVjdCI+CTxzdG9wIG9mZnNldD0iMCIgc3R5bGU9InN0b3AtY29sb3I6IzZEQzdGRiI+PC9zdG9wPgk8c3RvcCBvZmZzZXQ9IjEiIHN0eWxlPSJzdG9wLWNvbG9yOiNFNkFCRkYiPjwvc3RvcD48L2xpbmVhckdyYWRpZW50PjxjaXJjbGUgc3R5bGU9ImZpbGw6dXJsKCNTVkdJRF8zX180MzYyNSk7IiBjeD0iNDYiIGN5PSIxOCIgcj0iMyI+PC9jaXJjbGU+PC9zdmc+"
