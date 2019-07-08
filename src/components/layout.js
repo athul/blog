@@ -22,7 +22,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: `none`,
               textDecoration: `none`,
-              color: `tomato`,
+              color: `fuchsia`,
             }}
             to={`/`}
           >
@@ -42,7 +42,7 @@ class Layout extends React.Component {
             style={{
               boxShadow: `none`,
               textDecoration: `none`,
-              color: `tomato`,
+              color: `fuchsia`,
             }}
             to={`/`}
           >
@@ -54,8 +54,7 @@ class Layout extends React.Component {
     return (
       <div
         style={{
-          background:`black`,
-          color:`white`,
+          background:`lavender`,
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: rhythm(24),
@@ -73,7 +72,7 @@ class Layout extends React.Component {
               textDecoration: `bold`,
             }}
           >
-            The Logo was designed by <a href="https://github.com/ForgottenTale" style={{color:`tomato`}}>Abhijith Kannan</a> a good
+            The Logo was designed by <a href="https://github.com/ForgottenTale" style={{color:`fuchsia`}}>Abhijith Kannan</a> a good
             friend of mine
           </p>
         </footer>
