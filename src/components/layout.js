@@ -1,16 +1,17 @@
 import React from "react"
+
 import { Link } from "gatsby"
 
 import { rhythm, scale } from "../utils/typography"
 
 class Layout extends React.Component {
-  render() {
+  renderHeader() {
     const { location, title, children } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
     let header
 
     if (location.pathname === rootPath) {
-      header = (
+      return (
         <h1
           style={{
             ...scale(1.5),
@@ -31,7 +32,7 @@ class Layout extends React.Component {
         </h1>
       )
     } else {
-      header = (
+      return (
         <h3
           style={{
             fontFamily: `Montserrat, sans-serif`,
@@ -51,30 +52,43 @@ class Layout extends React.Component {
         </h3>
       )
     }
+  }
+  render() {
+    const { children } = this.props
     return (
       <div
         style={{
-          background:`black`,
-          color:`white`,
+          backgroundColor: "var(--bg)",
+          color: "var(--textNormal)",
+          transition: "color 0.2s ease-out, background 0.2s ease-out",
           marginLeft: `auto`,
           marginRight: `auto`,
+
           maxWidth: rhythm(24),
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
       >
-        <header>{header}</header>
+        <header>{this.renderHeader()}</header>
         <main>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
-          <a href="https://www.gatsbyjs.org" style={{color:`rebeccapurple`}}>Gatsby</a>
+          <a href="https://www.gatsbyjs.org" style={{ color: `rebeccapurple` }}>
+            Gatsby
+          </a>
           <p
             style={{
               textDecoration: `bold`,
             }}
           >
-            The Logo was designed by <a href="https://github.com/ForgottenTale" style={{color:`tomato`}}>Abhijith Kannan</a> a good
-            friend of mine
+            The Logo was designed by{" "}
+            <a
+              href="https://github.com/ForgottenTale"
+              style={{ color: `hotpink` }}
+            >
+              Abhijith Kannan
+            </a>{" "}
+            a good friend of mine
           </p>
         </footer>
       </div>
