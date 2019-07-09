@@ -6,6 +6,8 @@
  */
 
 import React from "react"
+import Helmet from 'react-helmet'
+import { ThemeToggler } from "gatsby-plugin-dark-mode"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 
@@ -53,7 +55,7 @@ const Bio = () => {
       <p>
         Personal Blog of <strong style={{color:`hotpink`}}>{author}</strong> who is an Undergraduate
         Engineering Student in College of Engineering Kidangoor, a{"   "}
-        <a href="https://githubcampus.expert" style={{color:`orchid`}}>GitHub Campus Expert</a> and a Python, Js lover.<br></br>
+        <a href="https://githubcampus.expert/Athul-CA/">GitHub Campus Expert</a> and a Python, Js lover.<br></br>
         {` `}
         You can find him on<br></br>
         <span >
@@ -88,6 +90,30 @@ const Bio = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;
         </span>
       </p>
+      <ThemeToggler>
+          {({ theme, toggleTheme }) => (
+            <React.Fragment>
+              <Helmet
+                meta={[
+                  {
+                    name: 'theme-color',
+                    content: theme === 'dark' ? '#282828' : '#f0da4f',
+                  },
+                ]}
+              />
+              <label style={{ float: 'right' }}>
+                <input
+                  type="checkbox"
+                  onChange={e =>
+                    toggleTheme(e.target.checked ? 'dark' : 'light')
+                  }
+                  checked={theme === 'dark'}
+                />{' '}
+                Dark
+              </label>
+            </React.Fragment>
+          )}
+        </ThemeToggler>
     </div>
   )
 }

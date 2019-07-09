@@ -34,7 +34,7 @@ class BlogPostTemplate extends React.Component {
           }}
         >
           {post.frontmatter.date}<br></br>
-          <p style={{color:`lightseagreen`}}>_______________________________________________________</p>
+          <hr style={{color:`lightseagreen`}}></hr>
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr
