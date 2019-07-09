@@ -11,7 +11,7 @@ class Layout extends React.Component {
     let header
 
     if (location.pathname === rootPath) {
-      return(
+      return (
         <h1
           style={{
             ...scale(1.5),
@@ -32,7 +32,7 @@ class Layout extends React.Component {
         </h1>
       )
     } else {
-      return(
+      return (
         <h3
           style={{
             fontFamily: `Montserrat, sans-serif`,
@@ -53,8 +53,8 @@ class Layout extends React.Component {
       )
     }
   }
-    render() {
-      const { children } = this.props
+  render() {
+    const { children } = this.props
     return (
       <div
         style={{
@@ -63,7 +63,7 @@ class Layout extends React.Component {
           transition: "color 0.2s ease-out, background 0.2s ease-out",
           marginLeft: `auto`,
           marginRight: `auto`,
-          
+
           maxWidth: rhythm(24),
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
         }}
@@ -71,7 +71,6 @@ class Layout extends React.Component {
         <header>{this.renderHeader()}</header>
         <main>{children}</main>
         <footer>
-        
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
           <a href="https://www.gatsbyjs.org" style={{ color: `rebeccapurple` }}>

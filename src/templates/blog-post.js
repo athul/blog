@@ -18,14 +18,16 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1 align="center"
+        <h1
+          align="center"
           style={{
             color: `lightseagreen`,
           }}
         >
           {post.frontmatter.title}
         </h1>
-        <p align="center"
+        <p
+          align="center"
           style={{
             ...scale(-1 / 5),
             display: `block`,
@@ -33,8 +35,9 @@ class BlogPostTemplate extends React.Component {
             marginTop: rhythm(-1),
           }}
         >
-          {post.frontmatter.date}<br></br>
-          <hr style={{color:`lightseagreen`}}></hr>
+          {post.frontmatter.date}
+          <br></br>
+          <hr style={{ color: `lightseagreen` }}></hr>
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr
@@ -43,7 +46,8 @@ class BlogPostTemplate extends React.Component {
           }}
         />
         <p>
-          If found useful do <a href="https://saythanks.io/to/Athul-CA">Say Thanks</a>
+          If found useful do{" "}
+          <a href="https://saythanks.io/to/Athul-CA">Say Thanks</a>
           😄
         </p>
         <Bio />

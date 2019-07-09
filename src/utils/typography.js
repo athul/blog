@@ -4,30 +4,30 @@ import Wordpress2016 from "typography-theme-wordpress-2016"
 
 Wordpress2016.overrideThemeStyles = () => ({
   a: {
-    color: 'var(--textLink)',
+    color: "var(--textLink)",
   },
-  'a.gatsby-resp-image-link': {
+  "a.gatsby-resp-image-link": {
     boxShadow: `none`,
   },
   // gatsby-remark-autolink-headers - don't underline when hidden
-  'a.anchor': {
-    boxShadow: 'none',
+  "a.anchor": {
+    boxShadow: "none",
   },
   // gatsby-remark-autolink-headers - allow for theme colours
   'a.anchor svg[aria-hidden="true"]': {
-    stroke: 'var(--textLink)',
+    stroke: "var(--textLink)",
   },
   hr: {
-    background: 'var(--hr)',
+    background: "var(--hr)",
   },
-  'h1 code, h2 code, h3 code, h4 code, h5 code, h6 code': {
-    fontSize: 'inherit',
+  "h1 code, h2 code, h3 code, h4 code, h5 code, h6 code": {
+    fontSize: "inherit",
   },
-  'li code': {
-    fontSize: '1rem',
+  "li code": {
+    fontSize: "1rem",
   },
-  'p code': {
-    fontSize: '1rem',
+  "p code": {
+    fontSize: "1rem",
   },
 })
 
