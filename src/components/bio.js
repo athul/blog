@@ -114,7 +114,7 @@ const Bio = () => {
                 onChange={e => toggleTheme(e.target.checked ? "dark" : "light")}
                 checked={theme === "dark"}
               />{" "}
-              Dark
+              Light
             </label>
           </React.Fragment>
         )}
