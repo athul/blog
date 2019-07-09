@@ -18,7 +18,7 @@ I've got my Editors as Vim, NeoVim, Visual Studio Code and Atom. VS Code is my m
 I mostly use these editors for JavaScript and Python. Occassionaly HTMl,C sometimes React, Django, Machine Learning Examples etc...
 
 #### Favorite Apps
-- Latte Dock(For the MAC OS like Doc)
+- Latte Dock(For the MAC OS like Dock)
 - Spotify
 - Tmux
 - GitHub Desktop for Linux
@@ -33,8 +33,9 @@ I mostly use these editors for JavaScript and Python. Occassionaly HTMl,C someti
 - Markdown Previeew GitHub
 - ESLint
 - Prettier
-- DeepDark Material Theme(Colors and Syntaxes)
 - MDX
+- DeepDark Material Theme(Colors and Syntaxes)
+- Fira Code
 #### Vim/NeoVim Plugins
 - Airline
 - Python-Mode
@@ -44,4 +45,3 @@ I mostly use these editors for JavaScript and Python. Occassionaly HTMl,C someti
 - Vim JavaScript
 #### Git Setup
 All The basic aliases for the Git Plugin for Oh-My-ZSH
-
