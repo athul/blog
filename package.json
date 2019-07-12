@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
-  "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "name": "dayDreams++",
+  "private": false,
+  "description": "Athul's blog powered by Gatsby and Markdown",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Athul Cyriac Ajay <athul8720@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/Athul-CA/blog/issues"
   },
   "dependencies": {
     "gatsby": "^2.10.0",
@@ -33,7 +33,6 @@
     "react-typography": "^0.16.19",
     "rebass": "^3.1.1",
     "sharp": "^0.22.1",
-    "social-logos": "^2.1.0",
     "styled-components": "^4.3.2",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.54",
@@ -44,7 +43,7 @@
     "@babel/preset-react": "7.0.0",
     "prettier": "^1.18.2"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://blog.athulcyriac.me",
   "keywords": [
     "gatsby"
   ],
