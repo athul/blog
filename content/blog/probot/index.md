@@ -42,8 +42,8 @@ We'll edit the `index.js` to the following
   })
 }
 ```
-The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation](https://developer.github.com/webhooks/).    
-Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
+The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These are **webhook** events of GitHub - you can learn more about them from the [Webhook Documentation](https://developer.github.com/webhooks/).    
+Probot uses Node's `async/await` API for returning the data. We used the *`* character to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
 
 Now we need to check if our app is working or not, we can do this **clicking** on a "sunglasses" button on Glitch which should look like this <br>![Glitch Show](glitch_show.png)    
 
@@ -53,7 +53,7 @@ Then You'll see a Page like this ![Page](wp.jpg)
  
  Now, if you check the `.env`  file you'll see the variable values auto-filled with the necessary data. Glitch automatically deploys our app and our app will be listening to the webhooks to be received.
  
- > Test the app by making a new issue in the test repo on GitHub.   
+ > Test the app by making a new issue in a test repo on GitHub.   
  
  It works right?  
 Congratulations 🎉🎉 You just made yourself a GitHub App👌👌 
@@ -71,7 +71,7 @@ app.on('pull_request.opened', async context =>{
      return context.github.issues.createComment(msg)
   })
 ```
- Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function.This is because PRs are considered as another type of Issues in GitHub. 
+ Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function. This is because PRs are considered as another type of Issues in GitHub. 
 For testing if this works, make a new PR and check if the bot comments on that yes.
 
 -------
