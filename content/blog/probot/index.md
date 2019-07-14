@@ -16,7 +16,7 @@ Most of these apps are written in JavaScript (Node.js) using **Probot**, a frame
 - An account on Glitch using GitHub
 - Basic JavaScript knowledge like variables and strings and functions
 #### Making our App on Glitch
-Glitch is a free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
+Glitch is a free online code-editing platform. It sets up our environment with all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
 <!-- Remix Button -->
 <!-- Remix Button -->
 <a href="https://glitch.com/edit/#!/remix/twilight-marquis">
