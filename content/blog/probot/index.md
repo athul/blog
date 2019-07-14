@@ -9,7 +9,7 @@ Most of these apps are written in JavaScript (Node.js) using **Probot**, a frame
 
  ---------
 
- Here we'll make a **Simple Issue and Pull Request commentor** bot which is made and deployed on Glitch.
+ Here we'll make a **Simple Issue and Pull Request commenter** bot which is made and deployed on Glitch.
 
  ###### Prerequisites
 - GitHub account
