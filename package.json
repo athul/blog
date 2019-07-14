@@ -1,6 +1,6 @@
 {
-  "name": "dayDreams++",
-  "private": false,
+  "name": "Blog",
+  "private": true,
   "description": "Athul's blog powered by Gatsby and Markdown",
   "version": "0.1.0",
   "author": "Athul Cyriac Ajay <athul8720@gmail.com>",
@@ -51,7 +51,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/Athul-CA/blog.git"
   },
   "scripts": {
     "build": "gatsby build",
