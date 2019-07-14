@@ -61,7 +61,7 @@ Congratulations 🎉🎉 You just made yourself a GitHub App👌👌
 We can view all the webhooks of any event triggered by the Repository and we can redeliver them by going to **Settings->Developer Settings->GitHub Apps->"Your app name"->Advanced Tab** in your profile.
  #### Commenting on PRs
 We need to add an extra permission for our App to comment on PRs, we can provide that by going to `Settings->Develope Settings-><Your_app_name> -> Permissions and Events -> Pull Requests` Provide the read and Write Access.  
-Now we need to edit the `index.js` to add this before the last `}`
+Now we need to edit the `index.js` to add Support for Pull Request before the last `}`
 ```js 
 //index.js
 app.on('pull_request.opened', async context =>{
