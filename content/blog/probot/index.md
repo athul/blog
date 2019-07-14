@@ -5,7 +5,7 @@ description: Making GitHub apps easier with Probot and Node.js
 ---
 ### GitHub Apps with Probot
 Ever see in any issues or Pull Request in GitHub where a bot comments on the PR/Issue or adds labels to the PR/Issue? If you have, they are generally termed as GitHub apps and can be made relatively easily.  
-Most of these apps are made by JavaScript(Node.js) using **Probot**, a framework for building apps for GitHub. Probot is written in Typescript, a superset of JavaScript.You can find more about in their [Website](https://probot.github.io). 
+Most of these apps are written in JavaScript (Node.js) using **Probot**, a framework for building apps for GitHub. Probot is written in Typescript, a superset of JavaScript. You can find more about on their [website](https://probot.github.io). 
 
  ---------
 
