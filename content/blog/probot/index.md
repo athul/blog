@@ -14,7 +14,7 @@ Most of these apps are written in JavaScript (Node.js) using **Probot**, a frame
  ###### Prerequisites
 - GitHub account
 - An account on Glitch using GitHub
-- Base Js knowledge like variables and strings and functions
+- Basic JavaScript knowledge like variables and strings and functions
 #### Making our App on Glitch
 Glitch is a free online code-editing platform. It sets up our environment will all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
 <!-- Remix Button -->
