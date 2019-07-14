@@ -18,24 +18,26 @@ Most of these apps are written in JavaScript (Node.js) using **Probot**, a frame
 #### Making our App on Glitch
 Glitch is a free online code-editing platform. It sets up our environment with all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
 <!-- Remix Button -->
-<!-- Remix Button -->
 <a href="https://glitch.com/edit/#!/remix/twilight-marquis">
   <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix this" height="33">
 </a>
 
-Probot ships with an example of setting up an issue commentor bot in `index.js` for commenting on PRs we need to uncomment the `app.yml` file at line 38, written pull request removing the '#' will do the trick
-Next, we'll edit the `index.js` to the following 
+What Probot does is that it abstracts the authentication system that all GitHub Apps have to follow - letting you focus on writing API requests without worrying about API tokens or permissions.      
+Probot ships with an example of setting up an issue commentor bot in `index.js`.
+We'll edit the `index.js` to the following 
 
  ```js 
 //index.js
  module.exports = app => {
   // Your code here
   app.log('Yay, the app was loaded!')
-  const issue=context.payload.issue //getting issue details
-  const user=issue.login.user //Getting the username
   app.on('issues.opened', async context =>({
-    return context.github.issues.createComment(context.issue({ body: `Thanks @${user} for opening this issue!:tada:
-    You are awesome..` })
+    const issue=context.payload.issue //getting issue details
+    const user=issue.login.user //Getting the username
+    const message=`Thanks @${user} for opening this issue!:tada:
+    You are awesome..`
+    const params = context.issue({ message })
+    return context.github.issues.createComment(params)
 )
   })
 }
@@ -43,7 +45,9 @@ Next, we'll edit the `index.js` to the following
 The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These actions are **webhook** actions of GitHub and you can learn more about from[Webhook Documentation](https://developer.github.com/webhooks/).    
 Probot uses node's `async` API for returning the data. We used *`* to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
 
-Now we need to check if our app is working or not, we can run `npm run dev` and in the browser go to `localhost:8000`, you can find a webpage like this![probot-webpage](/wp.jpg)   
+Now we need to check if our app is working or not, we can do this **clicking** on a "sunglasses" button on Glitch which should look like this <br>![Glitch Show](glitch_show.png)    
+
+Then You'll see a Page like this ![Page](wp.jpg)
  Click the **Register GitHub App** button and provide a name and install it in a repository.
  > Tip: Create a new private repository because we'll be making a lot of noise for the testing   
  
@@ -56,8 +60,8 @@ Congratulations 🎉🎉 You just made yourself a GitHub App👌👌
 ##### Redelivering Webhook⤴️
 We can view all the webhooks of any event triggered by the Repository and we can redeliver them by going to **Settings->Developer Settings->GitHub Apps->"Your app name"->Advanced Tab** in your profile.
  #### Commenting on PRs
-If you check the app settings in GitHub for your app, you can see that the app also works for Pull Requests. This is due to the edit on `app.yml` file before registering our app. 
-Now we need to edit the `index.js` to add this before the last '}'
+We need to add an extra permission for our App to comment on PRs, we can provide that by going to `Settings->Develope Settings-><Your_app_name> -> Permissions and Events -> Pull Requests` Provide the read and Write Access.  
+Now we need to edit the `index.js` to add this before the last `}`
 ```js 
 //index.js
 app.on('pull_request.opened', async context =>{
@@ -76,8 +80,5 @@ Congratulations on making a GitHub app. Since it is on Glitch we can install thi
 > You can always import these files to a GitHub repository through Glitch.  
  Now go forth, explore and make some exciting GitHub apps,❤️❤️
  ##### Thanks to
-<<<<<<< HEAD
-- [Musthaq Ahamad](https://github.com/haxzie)
-=======
-- [Musthaq Ahamad](https://github.com/haxzie)
->>>>>>> a8eb2cd2bb135e2f8c7b99b08c93f713ea426cff
+- [Jason Etcovich](https://github.com/JasonEtco), for Proofreading this
+- [Musthaq Ahamad](https://github.com/haxzie), for teaching me how to make GitHub Apps
