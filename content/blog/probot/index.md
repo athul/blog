@@ -80,5 +80,5 @@ Congratulations on making a GitHub app. Since it is on Glitch we can install thi
 > You can always import these files to a GitHub repository through Glitch.  
  Now go forth, explore and make some exciting GitHub apps,❤️❤️
  ##### Thanks to
-- [Jason Etcovich](https://github.com/JasonEtco), for Proofreading this ❤️❤️
+- [Jason Etcovich](https://github.com/JasonEtco), for Proofreading this ❤️
 - [Musthaq Ahamad](https://github.com/haxzie), for teaching me how to make GitHub Apps
