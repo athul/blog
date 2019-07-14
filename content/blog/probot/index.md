@@ -71,7 +71,7 @@ app.on('pull_request.opened', async context =>{
      return context.github.issues.createComment(msg)
   })
 ```
- Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.open*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function. This is because PRs are considered as another type of Issues in GitHub. 
+ Here we add a new _"robotic"_ characteristic by passing a webhook action called *pull_request.opened*. Now our app listens for PR webhook and once received it emits the `context.issue({body})` to GitHub. You can see that we are still passing the body to the *createComment* function. This is because PRs are considered as another type of Issues in GitHub. 
 For testing if this works, make a new PR and check if the bot comments on that yes.
 
 -------
