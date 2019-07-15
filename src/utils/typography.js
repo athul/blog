@@ -9,6 +9,9 @@ Wordpress2016.overrideThemeStyles = () => ({
   "a.gatsby-resp-image-link": {
     boxShadow: `none`,
   },
+  blockquote:{
+    color:"var(--block)",
+  },
   // gatsby-remark-autolink-headers - don't underline when hidden
   "a.anchor": {
     boxShadow: "none",
