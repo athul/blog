@@ -37,7 +37,6 @@ class BlogPostTemplate extends React.Component {
         >
           {post.frontmatter.date}
           <br></br>
-          <hr style={{ color: `lightseagreen` }}></hr>
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr
@@ -45,11 +44,6 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
-        <p>
-          If found useful do{" "}
-          <a href="https://saythanks.io/to/Athul-CA">Say Thanks</a>
-          😄
-        </p>
         <Bio />
 
         <ul
