@@ -1,7 +1,7 @@
 ---
 title: My System Setup
 date: "2019-07-09"
-description: My PErsonal and Mobile Setup for Coding and Basic Stuffs
+description: My Personal and Mobile Setup for Coding and Basic Stuffs
 ---
 Coding is one of my favorite Hobbies apart from Music and Films.
 My system is a Desktop with 4Gigs of RAM and an Intel Pentium Processor with 1024+

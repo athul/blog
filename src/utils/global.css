@@ -22,6 +22,5 @@ body {
 	--block:gray;
 	--textLink: SLATEBLUE;
 	--hr: hsla(0, 0%, 0%, 0.2);
-  
-
+	--link:white;
   }
