@@ -65,7 +65,7 @@ const Bio = () => {
         <span>
           <a href="https://github.com/Athul-CA" style={{ color: "var(--link)" }}>
             <GitHub color="gray" size={30} />
-            
+
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           {/* </span>
