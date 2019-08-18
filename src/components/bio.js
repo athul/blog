@@ -70,7 +70,7 @@ const Bio = () => {
           {/* </span>
         <span> */}
           <a href="https://twitter.com/athulcajay" style={{ color: "var(--link)" }}>
-            <Twitter color="hotpink" size={30} />
+            <Twitter color="var(--social)" size={30} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <a
