@@ -13,6 +13,7 @@ body {
 	--link:black;
 	background-color: var(--bg);
   }
+
   
   body.dark {
 	-webkit-font-smoothing: antialiased;

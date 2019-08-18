@@ -64,20 +64,21 @@ const Bio = () => {
         You can find him on<br></br>
         <span>
           <a href="https://github.com/Athul-CA" style={{ color: "var(--link)" }}>
-            <GitHub color="hotpink" size={30} />
+            <GitHub color="gray" size={30} />
+
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           {/* </span>
         <span> */}
           <a href="https://twitter.com/athulcajay" style={{ color: "var(--link)" }}>
-            <Twitter color="hotpink" size={30} />
+            <Twitter color="skyblue" size={30} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <a
             href="https://instagram.com/athul_c_ajay"
             style={{ color: "var(--link)" }}
           >
-            <Instagram color="hotpink" size={30} />
+            <Instagram color="magenta" size={30} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
         </span>
