@@ -64,7 +64,7 @@ const Bio = () => {
         You can find him on<br></br>
         <span>
           <a href="https://github.com/Athul-CA" style={{ color: "var(--link)" }}>
-            <GitHub color="grey" size={30} />
+            <GitHub color="gray" size={30} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           {/* </span>
@@ -75,9 +75,9 @@ const Bio = () => {
           &nbsp;&nbsp;&nbsp;&nbsp;
           <a
             href="https://instagram.com/athul_c_ajay"
-            style={{ color: "magenta" }}
+            style={{ color: "var(--link)" }}
           >
-            <Instagram color="hotpink" size={30} />
+            <Instagram color="magenta" size={30} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
         </span>
