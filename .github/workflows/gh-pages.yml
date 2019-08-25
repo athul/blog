@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Gatsby Publish
-      run: gatsby build
+      run: npm i -g gatsby-cli && gatsby build
       
     - name: deploy
       uses: peaceiris/actions-gh-pages@v1.1.0
