@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Gatsby Publish
-      uses: enriikke/gatsby-gh-pages-action@1.0.1
+      run: gatsby build
       args: "--prefix-paths"
       
     - name: deploy
