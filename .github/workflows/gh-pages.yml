@@ -1,0 +1,22 @@
+name: github pages
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - name: build
+      uses: gatsby build
+      
+    - name: deploy
+      uses: peaceiris/actions-gh-pages@v1.1.0
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./public
