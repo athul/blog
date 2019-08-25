@@ -1,0 +1,2 @@
+- name: Gatsby Publish
+  uses: enriikke/gatsby-gh-pages-action@1.0.1
