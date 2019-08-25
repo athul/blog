@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
-    - name: build
-      uses: gatsby build
+    - name: Gatsby Publish
+      uses: enriikke/gatsby-gh-pages-action@1.0.1
+      args: "--prefix-paths"
       
     - name: deploy
       uses: peaceiris/actions-gh-pages@v1.1.0
