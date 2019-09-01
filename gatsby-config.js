@@ -1,4 +1,5 @@
 module.exports = {
+
   siteMetadata: {
     title: `dayDreams ++`,
     author: `Athul Cyriac Ajay`,
