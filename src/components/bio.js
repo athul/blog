@@ -56,14 +56,14 @@ const Bio = () => {
         Personal Blog of <strong style={{ color: `hotpink` }}>{author}</strong>{" "}
         who is an Undergraduate Engineering Student in College of Engineering
         Kidangoor, a{"   "}
-        <a href="https://githubcampus.expert/Athul-CA/">
+        <a href="https://githubcampus.expert/athul">
           GitHub Campus Expert
         </a>{" "}
         and a Python, Js lover.<br></br>
         {` `}
         You can find him on<br></br>
         <span>
-          <a href="https://github.com/Athul-CA" style={{ color: "var(--link)" }}>
+          <a href="https://github.com/athul" style={{ color: "var(--link)" }}>
             <GitHub color="gray" size={30} />
 
           </a>
