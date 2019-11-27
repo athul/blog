@@ -20,7 +20,7 @@ body {
 	--bg: white;
 	--textNormal: black;
 	--textTitle: navy;
-	--block:gray;
+	--block:rgb(146, 138, 138);
 	--textLink: SLATEBLUE;
 	--hr: hsla(0, 0%, 0%, 0.2);
 	--link:white;
