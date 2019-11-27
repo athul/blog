@@ -5,7 +5,7 @@
 
 code[class*='language-'],
 pre[class*='language-'] {
-  color: #393a34;
+  color: #29b6aa;
   font-family: 'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier,
     monospace;
   direction: ltr;
@@ -13,7 +13,7 @@ pre[class*='language-'] {
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-  font-size: 0.95em;
+  font-size: 1rem;
   line-height: 1.2em;
 
   -moz-tab-size: 4;
@@ -114,14 +114,14 @@ pre[class*='language-'] {
 :not(pre) > code[class*='language-'] {
   border-radius: 0.3em;
   background: rgba(100, 217, 255, 0.2);
-  color: #1a1a1a;
+  color: #9c8f8f;
   padding: 0.15em 0.2em 0.05em;
   white-space: normal;
 }
 
 blockquote :not(pre) > code[class*='language-'] {
   color: inherit;
-  background: rgba(100, 217, 255, 0.1);
+  background: rgba(8, 149, 196, 0.932);
 }
 
 pre[data-line] {
@@ -138,14 +138,14 @@ pre[data-line] {
 }
 
 .gatsby-highlight-code-line {
-  color: #393a34;
+  color: #9aad39;
   display: block;
 }
 
 .gatsby-highlight {
   margin-bottom: 1.75rem;
   border-radius: 6px;
-  background: #f6f8fa;
+  background: #000000;
   -webkit-overflow-scrolling: touch;
   overflow: auto;
   position: relative;
@@ -203,9 +203,11 @@ pre[data-line] {
   color: white;
 }
 
-.gatsby-highlight pre[class*='language-shell']::before {
+.gatsby-highlight pre[class*='language-shell']::before,
+.gatsby-highlight pre[class*='language-sh']::before {
   content: 'shell';
   background: #c5d0da;
+  color: #000000
 }
 
 .gatsby-highlight pre[class*='language-diff']::before,
