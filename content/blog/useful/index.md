@@ -19,7 +19,7 @@ So I started to work on this stuff.
 2. I currently run Manjaro and Ubuntu on my System and my Laptop is a Macbook. I couldn't drop neither of my OS. So I continued my Search.
 3. Then I thought "Hey, I could just SSH into my PC and see what its like." I spend Half a Day just for the initial Connection. I have a Wifi card and a modem with WIFI, so I justed SSHed into my PC
 For SSHing use these commands
-```sh
+```shell
 $ ssh-keygen
 $ ssh-copy-id host@hostname/ip
 $ ssh host@hostname/ip
@@ -29,9 +29,10 @@ Now you get the Terminal of your PC(linux) and you're like the God of the Termin
 4. You can run any commands like `curl`,`wget`,`sudo rm -rf /`(don't run the last command) etc...
 
 ### Act 2, Personal Git Storage
-GitHub is one of the famous Git Repository storing platform. Why not a Personal GitHub lookalike for you? You could save all your private projects here without any risk or Costs.   
+GitHub is one of the famous Git Repository storing & hosting platform. Why not a Personal GitHub lookalike for you? You could save all your private projects here without any risk or Costs.   
 Some Self Hosted Git Platforms are 
-- GitLab Community Edition
-- Gogs
-- Gitea
-- GitHub Enterprize Server
+- GitLab Community Edition 🆓
+- Gogs 🆓
+- Gitea 🆓
+- GitHub Enterprize Server 💸
+Em
