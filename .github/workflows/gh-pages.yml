@@ -20,3 +20,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./public
+    - name: notify
+      uses: yanzay/notify-telegram@v0.1.0
+      if: always()
+      with:
+        chat: ${{ secrets.chat }} # user id or channel name secret
+        token: ${{ secrets.token }} # token secret
+        status: ${{ job.status }}
