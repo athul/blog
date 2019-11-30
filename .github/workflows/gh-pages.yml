@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Gatsby Publish
-      run: yarn install&&yarn add gatsby-cli&&node_modules/.bin/gatsby build --prefix-paths
+      run: yarn install&&yarn add gatsby-cli&&yarn upgrade&&node_modules/.bin/gatsby build --prefix-paths
       
     - name: deploy
       uses: peaceiris/actions-gh-pages@v1.1.0
