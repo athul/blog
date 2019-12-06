@@ -20,8 +20,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./public
-    - name: notify
-      uses: athul/statusoli@1.0.0
+    - name: Notify
+      uses: athul/statusoli@master
       if: always()
       with:
         chat: ${{ secrets.chat }} # user id or channel name secret
