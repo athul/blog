@@ -24,15 +24,18 @@ $ ssh-keygen
 $ ssh-copy-id host@hostname/ip
 $ ssh host@hostname/ip
 ```
-And voila you justed SSHed into your PC from a Laptop. :rocket: 
+And congratulations you justed SSHed into your PC from a Laptop. :rocket: 
 Now you get the Terminal of your PC(linux) and you're like the God of the Terminal now
-4. You can run any commands like `curl`,`wget`,`sudo rm -rf /`(don't run the last command) etc...
+4. You can run any commands like `curl`,`wget`, `npm install` etc...
 
 ### Act 2, Personal Git Storage
-GitHub is one of the famous Git Repository storing & hosting platform. Why not a Personal GitHub lookalike for you? You could save all your private projects here without any risk or Costs.   
+GitHub is one of the famous(and my fav) Git Repository storing & hosting platform. Why not a Personal GitHub lookalike for you? You could save all your private projects here without any risk or Costs.   
 Some Self Hosted Git Platforms are 
 - GitLab Community Edition 🆓
 - Gogs 🆓
 - Gitea 🆓
 - GitHub Enterprize Server 💸
-Em
+ I used Gitea since it was easy to install and setup. You only have to download a binary from gitea.io and voíla you get an instant GitHub lookalike webapp.   
+My advice is that if you want to use it cross-device install it in the central server ad ssh to it from any device and for that I'd higly suggest (not a promotion)[Termius](termius.com). It has got a 14 day free trial of premium and you can get the pro pack from the [GitHub Student Developer Pack].
+Or you can just enter the IP of the server followed by the port number in your browser like `192.168.322.12:3000` and you will get the webapp. 
+Now create some repositories and use Gitea :tada: :tada:
