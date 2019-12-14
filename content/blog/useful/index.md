@@ -36,11 +36,16 @@ Some Self Hosted Git Platforms are
 - Gitea 🆓
 - GitHub Enterprize Server 💸
  I used Gitea since it was easy to install and setup. You only have to download a binary from gitea.io and voíla you get an instant GitHub lookalike webapp.   
-My advice is that if you want to use it cross-device install it in the central server ad ssh to it from any device and for that(ssh-ing) I'd higly suggest (not a promotion)[Termius](termius.com). It has got a 14 day free trial of premium and you can get the pro pack from the [GitHub Student Developer Pack](https://termius.com/education).
+My advice is that if you want to use it cross-device install it in the central server and ssh to it from any device and for that(ssh-ing) I'd higly suggest (not a promotion)[Termius](termius.com). It has got a 14 day free trial of premium and you can get the pro pack from the [GitHub Student Developer Pack](https://termius.com/education).
 Or you can just enter the IP of the server followed by the port number in your browser like `192.168.322.12:3000` and you will get the webapp. 
 Now create some repositories and use Gitea :tada: :tada:
 ### Act 3, The File Storage shenanigan
-Yep, use it as your personal data center. Store all your stuff. Your films,songs and *study materials*. Do it coz only you're the only one who can access all that since you're the one who knows how the folder structure is.
+Yep, use it as your personal data center. Store all your stuff. Your films,songs and *study materials*. Do it coz only you're the only one who can access all that since you're the one who knows how the folder structure is. Add a media server and you can use it with  your Smart TV and forget about paying any bills for streaming.
 ![Roll Safe Meme](https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif)
 ### Act 4, The Future
-"Wait what? This is what you've been Bragging about?" you might ask? I'd say yes since the next big selfhosted stuff maybe your best Ideas. You can self-host anything from 
+"Wait what? This is what you've been Bragging about?" you might ask? I'd say yes since the next big selfhosted stuff maybe your best Ideas. You can self-host anything from Websites, Games to Even Media Servers
+
+
+Here are some good Places to find out more on what to selfhost
+- https://github.com/awesome-selfhosted/awesome-selfhosted The GitHub Repo tells it all
+- https://www.reddit.com/r/selfhosted/ The Epic Place to get all the info .
