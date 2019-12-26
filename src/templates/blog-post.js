@@ -44,7 +44,7 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         />
-        <a href='https://ko-fi.com/O5O6YTZI' target='_blank'><img src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=2' height="32" width="" border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+        <a href="https://www.buymeacoffee.com/JeVlc7T" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
         <Bio />
       <ul
           style={{
