@@ -1,3 +1,9 @@
+---
+title: Shelby, the Shell Prompt
+date: "2019-12-26"
+description: Shelby is one of my Side Projects. It's a shell prompt written in Go for speed and minimalism
+---
+
 ## What???
 
 Shelby is a **bash and zsh** shell prompt with more focus on improving the terminal productivity while not compromising the speed and size. 
