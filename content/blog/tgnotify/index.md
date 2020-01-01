@@ -1,10 +1,8 @@
 ---
-title: Get GitHub action Notification in Telegram
+title: Get GitHub action Notification in Telegram ⚡️⚡️
 date: "2020-01-01"
 description: Get Notifications of GitHub Actions in Telegram by using only a Shell Script and a Bot 
 ---
-# Get GitHub Action Updates on Telegram ⚡️
-
 ### The Story Behind
 So, these few days I've been working on [Shelby](https://github.com/athul/shelby) a lot. For handling the releases section I used Travis CI and Travis really does a good job at it.   
 The only thing about travis is that it takes time to *complete the build and deploy cycle*. Starting with the docker container to the deployment. We'd have to wait in the build page for a few minutes till the build&deploy is completed. That's just waste of productive time I'd say. Maybe in that time we could do something else like searhing stackoverflow for a previous error or read the docs to find out how it works better. And to check if the build failed or succeded, I'd have to go back to Travis' page and meh, it's just lazy.
