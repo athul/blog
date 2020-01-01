@@ -33,8 +33,12 @@ You just have to add these lines to the action
 - Here the `TELEGRAM_CHAT_ID` is the chat id you want the bot to send the messages to. You can find your chat id by speaking to `jsondumpbot` in telegram. 
 - The `TELEGRAM_TOKEN` is your Telegram bot's API Key. You can create a new bot by talking to `botfather` bot in Telegram
 - The `INPUT_STATUS` is something the actions have, you don't have to pass anything to it.
-
 The Shell script mostly uses Action's Environment Variables. So you'd have to define the trigger on which the action should be done. Check [this Guide](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows) for references.
 And     
 
+----
+
+Screenshots:  1. Shell Script, 2. Statuoli  
+![Shell Script](p1.png)   
+![Statusoli](p2.png)     
 **Happy New Year Ya'll**
