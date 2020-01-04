@@ -1,0 +1,23 @@
+name: NoisyBoy
+
+on:
+  pull_request:
+    types: [assigned, opened,reopened]
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created, deleted]	
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Send Notification
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.chat}}
+        TELEGRAM_TOKEN: ${{secrets.token }}
+        INPUT_STATUS: ${{ job.status }}
+      run: sh -c "$(curl -sL https://raw.githubusercontent.com/athul/autom/master/tg_gh_action_noti.sh)"
