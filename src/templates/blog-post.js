@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
+import Comments from "../components/comment"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -39,6 +39,7 @@ class BlogPostTemplate extends React.Component {
           <br></br>
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <Comments />
         <hr
           style={{
             marginBottom: rhythm(1),
