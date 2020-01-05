@@ -39,14 +39,29 @@ deploy:
 This will only deploy to GitHub releases when a tag is created and pushed. You will need a GitHub Token in the Repo scope and while adding it to Travis Secrets you must name it like `GITHUB_TOKEN` only.
 
 ---
-## Some tips before pushing a tags for checking Goreleaser.
+### Some tips before pushing a tags for checking Goreleaser.
 You can always try goreleaser in you the terminal. 
 - Try `goreleaser release --skip-publish` command and you can always test with this before you push to GitHub. 
 I'd totally suggest this since I had simply pushed without any testing and I had to write the whole thing...again.
 
+---
+
+## GoDownloader
+You can install godownloader from their [releases page](https://github.com/goreleaser/godownloader/releases). Follow the next steps to use it Globally
+```sh
+$ tar -xvf <filename>.tar.gz
+$ mv godownloader /usr/local/bin/
+```
+Now go to your working folder and run
+```sh
+$ godownloader --repo=<user>/<repo> > godownloader.sh
+```
+This will make a `godownlaoder.sh` file which can be used as an installation script.
+
 ----
 ## Here are my Pipelines
 - `.travis.yml`
+
 ```yml
 sudo: false
 language: go
