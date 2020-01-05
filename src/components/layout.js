@@ -76,6 +76,19 @@ class Layout extends React.Component {
           <a href="https://www.gatsbyjs.org" style={{ color: `rebeccapurple` }}>
             Gatsby
           </a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <span>
+            <a
+              href="https://blog.athulcyriac.co/rss.xml"
+              style={{ color: `hotpink` }}
+            >
+              RSS Feed
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://github.com/athul/blog" style={{ color: `lime` }}>
+              Source
+            </a>
+          </span>
           <p
             style={{
               textDecoration: `bold`,
@@ -84,7 +97,7 @@ class Layout extends React.Component {
             The Logo was designed by{" "}
             <a
               href="https://github.com/ForgottenTale"
-              style={{ color: `hotpink` }}
+              style={{ color: `teal` }}
             >
               Abhijith Kannan
             </a>{" "}
