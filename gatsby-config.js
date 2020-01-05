@@ -61,16 +61,16 @@ module.exports = {
       },
     },
     `gatsby-plugin-feed`,
-    {
+{
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `dayDreams ++`,
-        short_name:`++`,
+        short_name: `++`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#1abaa2`,
         display: `minimal-ui`,
-	      icon: `content/assets/n1.png`,
+        icon: `content/assets/n1.png`,
       },
     },
     `gatsby-plugin-offline`,
