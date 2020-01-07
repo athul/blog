@@ -20,6 +20,7 @@ jobs:
           IU_NUM: ${{ github.event.issue.number }}
           IU_ACTOR: ${{ github.event.issue.user.login }}
           IU_BODY: ${{ github.event.issue.body }}
+          IU_COM: ${{github.event.comment.body}}
           PR_STATE: ${{ github.event.action }}
           PR_NUM: ${{ github.event.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
