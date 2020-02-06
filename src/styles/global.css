@@ -2,3 +2,6 @@ html{
 	background-color: lightcyan;
 
 }
+body{
+	transition:background 0.2s ease-out;
+}
