@@ -12,6 +12,7 @@ body {
 	--hr: hsla(0, 0%, 100%, 0.2);
 	--link:black;
 	background-color: var(--bg);
+	transition: background .2s ease-out;
   }
 
   
