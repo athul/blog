@@ -7,20 +7,20 @@ Since I went to my first hackathon on Aug 1st at ETHIndia, Bangalore, I loved go
 
 People usually when speaking of hackathons define them as just a sprint where you solve a problem statement and live on. While this is true, in the case of an enterprise mode event but the word 'hackathon' among the student developer community should have a much wider definition. This is quite relative but they all convey the same meaning opposite to what people usually refer to. **Joe Nash**([@jna_sh](https://twitter.com/jna_sh)) whom I look up to as a mentor and the Guru of Hackathons once told us(*Campus Experts*) about **hackathons** that,
 
-> " There's nowhere else in the world you can spend 24 hours in a room full of people who are passionate about what you'ew passionate about, who all want to help each other learn and grow. That's the story to tell 😍"
+> “ There's nowhere else in the world you can spend 24 hours in a room full of people who are passionate about what you'ew passionate about, who all want to help each other learn and grow. That's the story to tell 😍"
 
 That's the definition I would use. Since this definition gives better insights and expectations to a Hackathon and this is what happens at one. This is a gem of a quote I'd say.
 
-## Why participate in a Hackathon?
-Why not participate in a Hackathon????? 
+## Why participate in a hackathon?
+Why not participate in a hackathon????? 
 
-Apart from the unlimited(limited) amount of swags you'll get like stickers, T-shirts, some electronics... Hackathons are another way of enjoying tech as a whole. It encapsulates the meaning of community and technology. From a personal side note on the free stuff, the First Hackathon I went got me about 8 T-shirts, a bag, 2 books and stickers. When I came home, my dad jokingly said that *"you'll only need a laptop and an internet connection and we wouldn't need to buy any clothes for you"*. This has a wider perspective of thought and this is what the student hackers are becoming too. 
+Apart from the (un)limited amount of swags you'll get like stickers, T-shirts, some electronics... hackathons are another way of enjoying tech as a whole. It encapsulates the meaning of community and technology. From a personal side note on the free stuff, the first hackathon I went got me about 8 T-shirts, a bag, 2 books, and stickers. When I came home, my dad jokingly said that *“you'll only need a laptop and an internet connection and we wouldn't need to buy any clothes for you”*. This has a wider perspective of thought and this is what the student hackers are becoming too. 
 
-In a [TED Talk](https://www.youtube.com/watch?v=6VakF2hZFPQ) by **Dave Fontenot, The Organizer of Mhacks, Michigan** he said something similar to the below words
+In a [TED Talk](https://www.youtube.com/watch?v=6VakF2hZFPQ) by **Dave Fontenot, The Organizer of Mhacks, Michigan** said something close to the following words:
 
 > "Hackathons are like drugs, it gives you an immense amount of Concentration and Productivity"
 
-This statement is true. For that to understand you must attend a hackathon and be part of the community. That's where the real vibe starts. The real #LIFEHACKR moment begins. 
+This statement is true. But to understand that you must attend a hackathon and be part of the community. That’s where the real vibe starts. The real #LIFEHACKER moment begins.
 
 ## What's holding you down?
 
