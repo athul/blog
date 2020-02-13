@@ -3,13 +3,13 @@ title: Hackathons and Students
 date: "2020-02-12"
 description: The Importance of Students and Hackathons
 ---
-Since I went to my First Hackathon on Aug 1st at ETHIndia, Bangalore, I loved going to Hackathons ever since. I organized about 2 hackathons a year since then. I went to about 6 Hackathons in 2019 to 2020 February. I don't know why but I just love going to Hackathons. The energy you feel at a Hackathon can be found nowhere else. 
+Since I went to my first hackathon on Aug 1st at ETHIndia, Bangalore, I loved going to hackathons ever since. I organized about 2 hackathons a year since then. I went to about 6 Hackathons from 2019 to 2020 February. I don't know why but I just love going to hackathons. The energy you feel at a Hackathon can be found nowhere else. 
 
-People usually when speaking of Hackathons, they define that Hackathons are just a sprint where you solve a problem statement and live on. While this is true, in the case of an Enterprise mode event but the word 'Hackathon' among the Student Developer community should have a much wider definition. This is quite relative but they all convey the same meaning opposite to what people usually refer to. **Joe Nash**([@jna_sh](https://twitter.com/jna_sh)) whom I look up to as a mentor and the Guru of Hackathons once told us(*Campus Experts*) about **Hackathons** that,
+People usually when speaking of hackathons define them as just a sprint where you solve a problem statement and live on. While this is true, in the case of an enterprise mode event but the word 'hackathon' among the student developer community should have a much wider definition. This is quite relative but they all convey the same meaning opposite to what people usually refer to. **Joe Nash**([@jna_sh](https://twitter.com/jna_sh)) whom I look up to as a mentor and the Guru of Hackathons once told us(*Campus Experts*) about **hackathons** that,
 
 > " There's nowhere else in the world you can spend 24 hours in a room full of people who are passionate about what you'ew passionate about, who all want to help each other learn and grow. That's the story to tell 😍"
 
-That's the definition I would use. Since this definition gives better insights and expectations to a Hackathon and this is what happens at one. This is a gem of a quote I'd say
+That's the definition I would use. Since this definition gives better insights and expectations to a Hackathon and this is what happens at one. This is a gem of a quote I'd say.
 
 ## Why participate in a Hackathon?
 Why not participate in a Hackathon????? 
