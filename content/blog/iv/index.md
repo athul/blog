@@ -1,6 +1,6 @@
 ---
 title: Unmadam-2020
-date: "2020-03-21"
+date: "2020-03-19"
 description: Travelogue of college life's first trip with my Classmates. The Thrill, the fun, the Family
 ---
 College is hard, like super tough. To have more weightage to attendance than knowledge is the worst thing in College and it sometimes comes hard on you. But with all the worst things in college, the only good thing is the classmates and the friends you make. That environment you get when you feel like a family of nearly 50 is something only blessed people like you and me reading this will get. If you feel like you're 12th Grade was better, I'd say be patient and you'll find the difference.   
