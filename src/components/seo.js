@@ -67,6 +67,14 @@ function SEO({ description, lang, meta, title }) {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name: `twitter:image`,
+          content: `https://raw.githubusercontent.com/athul/blog/master/content/assets/n1.png`,
+        },
+        {
+          name: `twitter:card`,
+          content:`summary_large_image`,
+        },
       ].concat(meta)}
     />
   )
