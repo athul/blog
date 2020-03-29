@@ -378,6 +378,4 @@ bot.sendMessage(chatid,output,{parse_mode : "Markdown"})
 
 ------
 
-You can try out many different items using actions and this is just a sample action to get you started. 
-   
-#Never Stop being ⚡️
+You can try out many different items using actions and this is just a sample action to get you started. Maybe sending Cat GIFs if the build succeded on the pull request or sending a welcome message to a first time contributor. You imagination is the limit😄 and **Never Stop being ⚡️**
