@@ -12,7 +12,7 @@ class BlogIndex extends React.Component {
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
 
-    return (
+    return (    
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
         <Bio />
@@ -35,8 +35,8 @@ class BlogIndex extends React.Component {
                   {title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
-              <small>&nbsp;&nbsp;{node.timeToRead}min Read</small>
+              <small><b style={{color:`crimson`}}>{node.frontmatter.date}</b></small>
+              <small>&nbsp;&nbsp;{node.timeToRead}&nbsp;min Read</small>
               <p
                 dangerouslySetInnerHTML={{
                   __html: node.frontmatter.description || node.excerpt,

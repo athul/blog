@@ -94,14 +94,16 @@ const Bio = () => {
                 },
               ]}
             />
-            <label style={{ float: "right" }}>
+            <div class="theme-switch-wrapper">
+            <label class="theme-switch" style={{ float: "right" }}>
               <input
                 type="checkbox"
                 onChange={e => toggleTheme(e.target.checked ? "dark" : "light")}
                 checked={theme === "dark"}
               />
-              🌞
+              <div class="slider round"></div>
             </label>
+            </div>
           </React.Fragment>
         )}
       </ThemeToggler>

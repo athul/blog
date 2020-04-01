@@ -145,7 +145,7 @@ pre[data-line] {
 .gatsby-highlight {
   margin-bottom: 1.75rem;
   border-radius: 6px;
-  background: #000000;
+  background: var(--bg_code);
   -webkit-overflow-scrolling: touch;
   overflow: auto;
   position: relative;
@@ -207,7 +207,7 @@ pre[data-line] {
 .gatsby-highlight pre[class*='language-sh']::before {
   content: 'shell';
   background: #c5d0da;
-  color: #000000
+  /* color: #000000 */
 }
 
 .gatsby-highlight pre[class*='language-diff']::before,
