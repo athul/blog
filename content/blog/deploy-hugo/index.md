@@ -61,3 +61,11 @@ jobs:
 > Note: Before deploying, just add the url to which you're going to deploy in the baseURL of the `config.toml` file with a trailing `/`
 
 ----
+### What I learned?
+With Archie too 😁,
+
+- Hugo as a SSG
+- CSS styling
+- Hugo Templating syntax
+- Deploying with Deploy Keys in GitHub
+- Designing New Hugo Shortcodes
