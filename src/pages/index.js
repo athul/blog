@@ -20,7 +20,7 @@ class BlogIndex extends React.Component {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <div key={node.fields.slug}>
-              <h3
+              <h3 class="head"
                 style={{
                   marginBottom: rhythm(1 / 4),
                 }}
@@ -28,16 +28,16 @@ class BlogIndex extends React.Component {
                 <Link
                   style={{
                     boxShadow: `none`,
-                    color: `lightseagreen`,
+                    color: `var(--headingcol)`,
                   }}
                   to={node.fields.slug}
                 >
                   {title}
                 </Link>
               </h3>
-              <small><b style={{color:`crimson`}}>{node.frontmatter.date}</b></small>
+              <small><b style={{color:`dodgerblue`}}>{node.frontmatter.date}</b></small>
               <small>&nbsp;&nbsp;{node.timeToRead}&nbsp;min Read</small>
-              <p
+              <p class="desc"
                 dangerouslySetInnerHTML={{
                   __html: node.frontmatter.description || node.excerpt,
                 }}

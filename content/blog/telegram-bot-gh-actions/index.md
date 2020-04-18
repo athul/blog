@@ -99,7 +99,7 @@ $ touch index.js action.yml
 ```
 Open your favourite text editor within the folder or with the file. We'll define the bot in `index.js`
 
-```javaScript   
+```js   
 require("dotenv").config
 const Bot = require('node-telegram-bot-api');
 const {

@@ -204,6 +204,7 @@ pre[data-line] {
 }
 
 .gatsby-highlight pre[class*='language-shell']::before,
+.gatsby-highlight pre[class*='language-bash']::before,
 .gatsby-highlight pre[class*='language-sh']::before {
   content: 'shell';
   background: #c5d0da;
