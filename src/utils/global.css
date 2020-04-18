@@ -2,83 +2,150 @@
 	background-color: lightcyan;
 } */
 /* global.css */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 
 body.dark {
-	--bg: black;
-	--bg_code: rgb(0, 0, 0);
-	--textNormal: rgba(255, 255, 255, 0.88);
-	--textTitle: rgb(252, 248, 8);
-	--textLink: yellow;
-	--block:rgba(255, 255, 255, 0.63);
-	--hr: hsla(0, 0%, 100%, 0.2);
-	--link:black;
+  --bg: #121116	;
+  --textNormal: rgba(255, 255, 255, 0.88);
+  --textTitle: rgb(252, 248, 8);
+  --textLink: yellow;
+  --block: rgba(255, 255, 255, 0.63);
+  --hr: hsla(0, 0%, 100%, 0.2);
+  --link: black;
+  --hovercolor: #50fa7b;
+  --headingcol: #50fa7b;
+  background-color: var(--bg);
+  transition: background 0.2s ease-out;
+}
 
-	background-color: var(--bg);
-	transition: background .2s ease-out;
-  }
+body {
+  -webkit-font-smoothing: antialiased;
+  --bg: white;
+  --textNormal: black;
+  --textTitle: navy;
+  --block: rgb(146, 138, 138);
+  --textLink: dodgerblue;
+  --hr: hsla(0, 0%, 0%, 0.2);
+  --link: white;
+  --hovercolor: navy;
+  --headingcol: blue;
+  transition: background 0.2s ease-out;
+}
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+}
+.theme-switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
 
-  
-  body {
-	-webkit-font-smoothing: antialiased;
-	--bg: white;
-	--bg_code: lavenderblush;
-	--textNormal: black;
-	--textTitle: navy;
-	--block:rgb(146, 138, 138);
-	--textLink: SLATEBLUE;
-	--hr: hsla(0, 0%, 0%, 0.2);
-	--link:white;
-	transition: background .2s ease-out;
-  }
-  .theme-switch-wrapper {
-	display: flex;
-	align-items: center;
-  }
-  .theme-switch {
-	display: inline-block;
-	height: 34px;
+.theme-switch input {
+  display: none;
+}
+
+.slider {
+  background-color: black;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px;
+}
+
+input:checked + .slider {
+  background-color: turquoise;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+::selection {
+  color: white;
+  background-color: #50fa7b;
+}
+.content a:hover {
+  color: var(--link);
+  background-color: var(--hovercolor);
+}
+
+blockquote{
+	border-color: rebeccapurple;
+	color:var(--textNormal)
+}
+hr{
+	border-top: 3px solid rebeccapurple;
+}
+.gatsby-highlight {
 	position: relative;
-	width: 60px;
+	-webkit-overflow-scrolling: touch;
   }
-  
-  .theme-switch input {
-	display:none;
+  .gatsby-highlight pre[class*="language-"] {
+	-webkit-overflow-scrolling: touch;
   }
-  
-  .slider {
-	background-color: black;
-	bottom: 0;
-	cursor: pointer;
-	left: 0;
+  .gatsby-highlight pre[class*="language-"]::before {
+	background: black;
+	border-radius: 0 0 0.25rem 0.25rem;
+	color: white;
+	font-size: 12px;
+	letter-spacing: 0.025rem;
+	padding: 0.1rem 0.5rem;
 	position: absolute;
-	right: 0;
+	right: 1rem;
+	text-align: right;
+	text-transform: uppercase;
 	top: 0;
-	transition: .4s;
   }
-  
-  .slider:before {
-	background-color: #fff;
-	bottom: 4px;
-	content: "";
-	height: 26px;
-	left: 4px;
-	position: absolute;
-	transition: .4s;
-	width: 26px;
+.gatsby-highlight pre[class="language-js"]::before {
+	content: "js";
+	background: #f7df1e;
+	color: black;
   }
-  
-  input:checked + .slider {
-	background-color: turquoise;
-  }
-  
-  input:checked + .slider:before {
-	transform: translateX(26px);
-  }
-  
-  .slider.round {
-	border-radius: 34px;
-  }
-  
-  .slider.round:before {
-	border-radius: 50%;
-  }
+.gatsby-highlight pre[class*='language-yml']::before,
+.gatsby-highlight pre[class*='language-yaml']::before {
+  content: 'yaml';
+  background: #f71e6a;
+  color: white;
+}
+.gatsby-highlight pre[class*='language-shell']::before,
+.gatsby-highlight pre[class*='language-bash']::before,
+.gatsby-highlight pre[class*='language-sh']::before {
+  content: 'shell';
+  background: green;
+  color:white
+}
+.gatsby-highlight pre[class*='language-json']::before{
+  content: 'json';
+  background: dodgerblue;
+   color: #000000 
+}
+.gatsby-highlight pre[class*='language-python']::before,
+.gatsby-highlight pre[class*='language-py']::before {
+  content: 'py';
+  background: blue;
+  color: yellow ;
+}
