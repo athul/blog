@@ -52,7 +52,7 @@ const Bio = () => {
           borderRadius: `50%`,
         }}
       />
-      <p>
+      <p class="desc">
         Personal Blog of <strong style={{ color: `hotpink` }}>{author}</strong>{" "}
         who is an Undergraduate Engineering Student in College of Engineering
         Kidangoor, a{"   "}
@@ -61,24 +61,25 @@ const Bio = () => {
         </a>{" "}
         and a Python, Js lover.<br></br>
         {` `}
-        You can find him on<br></br>
+        You can find him on&nbsp;&nbsp;&nbsp;&nbsp;
+
         <span>
           <a href="https://github.com/athul" style={{ color: "var(--link)" }}>
-            <GitHub color="gray" size={30} />
+            <GitHub color="gray" size={20} />
 
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           {/* </span>
         <span> */}
           <a href="https://twitter.com/athulcajay" style={{ color: "var(--link)" }}>
-            <Twitter color="skyblue" size={30} />
+            <Twitter color="skyblue" size={20} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <a
             href="https://instagram.com/athul_c_ajay"
             style={{ color: "var(--link)" }}
           >
-            <Instagram color="magenta" size={30} />
+            <Instagram color="magenta" size={20} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
         </span>

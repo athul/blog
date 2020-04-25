@@ -2,35 +2,45 @@
 	background-color: lightcyan;
 } */
 /* global.css */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
 
 body.dark {
   --bg: #121116	;
   --textNormal: rgba(255, 255, 255, 0.88);
-  --textTitle: rgb(252, 248, 8);
+  --textTitle: yellow;
   --textLink: yellow;
   --block: rgba(255, 255, 255, 0.63);
   --hr: hsla(0, 0%, 100%, 0.2);
   --link: black;
+  --date:silver;
+  --ttr:teal;
   --hovercolor: #50fa7b;
   --headingcol: #50fa7b;
   background-color: var(--bg);
+  --callout: #42b983;
   transition: background 0.2s ease-out;
+  --calbdcol:#50fa7b;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   --bg: white;
   --textNormal: black;
-  --textTitle: navy;
+  --textTitle: crimson;
   --block: rgb(146, 138, 138);
   --textLink: dodgerblue;
   --hr: hsla(0, 0%, 0%, 0.2);
   --link: white;
+  --date:darkslategray;
+  --ttr:dodgerblue;
   --hovercolor: navy;
-  --headingcol: blue;
+  --headingcol: crimson;
+  --callout:cyan;
   transition: background 0.2s ease-out;
+  --calbdcol:red;
 }
 .theme-switch-wrapper {
   display: flex;
@@ -73,6 +83,7 @@ input:checked + .slider {
   background-color: turquoise;
 }
 
+
 input:checked + .slider:before {
   transform: translateX(26px);
 }
@@ -87,6 +98,14 @@ input:checked + .slider:before {
 ::selection {
   color: white;
   background-color: #50fa7b;
+}
+.desc{
+  font-family: 'Fira Sans', sans-serif;
+  font-size: large;
+}
+.content{
+  font-family: 'Fira Sans', sans-serif;
+  font-size: large;
 }
 .content a:hover {
   color: var(--link);
@@ -148,4 +167,47 @@ hr{
   content: 'py';
   background: blue;
   color: yellow ;
+}
+
+.bio{
+  font-family: 'Fira Sans', sans-serif;
+  font-size: medium;
+}
+h2,h3,h4,h5{
+  letter-spacing: -0.015em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: x-large;
+}
+.callout {
+  color:black;
+  background: azure;
+  padding: 1.5em 1.25em;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  border-bottom-width:4px ;
+  border-bottom-style: solid;
+  border-bottom-color:var(--calbdcol) ;
+  border-left-color: var(--calbdcol);
+  border-left-width: 6px;
+  border-left-style: solid;
+}
+.callout-inner {
+  font-style: italic;
+  margin-left: 1em;
+}
+
+@media (max-width: 767px) {
+  .callout {
+  padding: 1.5em 0.75em 1.5em 0.6em;
+  }
+  .callout-inner {
+    margin-left: 0.5em;
+  }
+}
+
+div .callout::before{
+  color:red;
+  content: attr(emoji);
 }
