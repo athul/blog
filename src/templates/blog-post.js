@@ -5,8 +5,12 @@ import Comments from "../components/comment"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { MDXProvider } from "@mdx-js/react"
+import Callout from "./components/callout"
 import { rhythm, scale } from "../utils/typography"
-
+const shortcodes = {
+  Callout,
+}
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.mdx
@@ -40,7 +44,9 @@ class BlogPostTemplate extends React.Component {
           <br></br>
         </p>
         <div class="content">
-          <MDXRenderer>{post.body}</MDXRenderer>
+          <MDXProvider components={shortcodes}>
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </MDXProvider>
         </div>
         <Comments />
         <hr
@@ -49,7 +55,7 @@ class BlogPostTemplate extends React.Component {
           }}
         />
         <Bio />
-      <ul
+        <ul
           style={{
             display: `flex`,
             flexWrap: `wrap`,

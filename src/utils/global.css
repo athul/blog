@@ -175,3 +175,22 @@ h2,h3,h4,h5{
   font-family: 'Open Sans', sans-serif;
   font-size: x-large;
 }
+.callout {
+  background: #F9F9F9;
+  padding: 1.5em 1.25em;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+.callout-inner {
+  margin-left: 1em;
+}
+@media (max-width: 767px) {
+  .callout {
+  padding: 1.5em 0.75em 1.5em 0.6em;
+  }
+  .callout-inner {
+    margin-left: 0.5em;
+  }
+}
