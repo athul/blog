@@ -5,13 +5,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital@1&display=swap');
 
 
 body.dark {
   --bg: #121116	;
   --textNormal: rgba(255, 255, 255, 0.88);
-  --textTitle: rgb(252, 248, 8);
+  --textTitle: yellow;
   --textLink: yellow;
   --block: rgba(255, 255, 255, 0.63);
   --hr: hsla(0, 0%, 100%, 0.2);
@@ -21,7 +20,9 @@ body.dark {
   --hovercolor: #50fa7b;
   --headingcol: #50fa7b;
   background-color: var(--bg);
+  --callout: #42b983;
   transition: background 0.2s ease-out;
+  --calbdcol:#50fa7b;
 }
 
 body {
@@ -37,7 +38,9 @@ body {
   --ttr:dodgerblue;
   --hovercolor: navy;
   --headingcol: crimson;
+  --callout:cyan;
   transition: background 0.2s ease-out;
+  --calbdcol:red;
 }
 .theme-switch-wrapper {
   display: flex;
@@ -176,16 +179,25 @@ h2,h3,h4,h5{
   font-size: x-large;
 }
 .callout {
-  background: #F9F9F9;
+  color:black;
+  background: azure;
   padding: 1.5em 1.25em;
-  border-radius: 3px;
+  border-radius: 25px;
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  border-bottom-width:4px ;
+  border-bottom-style: solid;
+  border-bottom-color:var(--calbdcol) ;
+  border-left-color: var(--calbdcol);
+  border-left-width: 6px;
+  border-left-style: solid;
 }
 .callout-inner {
+  font-style: italic;
   margin-left: 1em;
 }
+
 @media (max-width: 767px) {
   .callout {
   padding: 1.5em 0.75em 1.5em 0.6em;
@@ -193,4 +205,9 @@ h2,h3,h4,h5{
   .callout-inner {
     margin-left: 0.5em;
   }
+}
+
+div .callout::before{
+  color:red;
+  content: attr(emoji);
 }

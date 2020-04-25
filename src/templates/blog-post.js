@@ -6,10 +6,10 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { MDXProvider } from "@mdx-js/react"
-import Callout from "./components/callout"
+import Callout from "../components/callout"
 import { rhythm, scale } from "../utils/typography"
 const shortcodes = {
-  Callout,
+  Callout
 }
 class BlogPostTemplate extends React.Component {
   render() {

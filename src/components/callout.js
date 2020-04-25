@@ -1,13 +1,12 @@
 import React from "react"
 
-const Callout = ({ emoji, children }) => {
+const Callout = ({ emoji, children, type }) => {
     return (
-        <div className="callout">
-            <div>{emoji}</div>
-            <div id="callout-inner">
-                {children}
+            <div className="callout" emoji={emoji}>
+                <div className="callout-inner">
+                    {children}
+                </div>
             </div>
-        </div>
     )
 }
 
