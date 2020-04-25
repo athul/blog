@@ -26,9 +26,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -60,7 +61,7 @@ module.exports = {
         trackingId: `UA-143385382-1`,
       },
     },
-    `gatsby-plugin-feed`,
+    `gatsby-plugin-feed-mdx`,
 {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -79,6 +80,12 @@ module.exports = {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-scroll-indicator`,
+      options: {
+        color: '#50fa7b',
       },
     },
     'gatsby-plugin-dark-mode',
