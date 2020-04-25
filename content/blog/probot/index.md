@@ -19,7 +19,9 @@ Most of these apps are written in JavaScript (Node.js) using **Probot**, a frame
 Glitch is a free online code-editing platform. It sets up our environment with all the necessary packages and stuff. All you need to do is click this button👇 and you'll get a full working environment for your "Remixing".
 <!-- Remix Button -->
 <a href="https://glitch.com/edit/#!/remix/twilight-marquis">
-  <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix this" height="33">
+  <img src="https://cdn.glitch.com/2bdfb3f8-05ef-4035-a06e-2043962a3a13%2Fremix%402x.png?1513093958726" alt="remix this" height="33"/                     
+  
+  >
 </a>
 
 What Probot does is that it abstracts the authentication system that all GitHub Apps have to follow - letting you focus on writing API requests without worrying about API tokens or permissions.      
@@ -45,7 +47,7 @@ We'll edit the `index.js` to the following
 The above code is for a bot which comments on new issues. It mentions the user too. The *"Robotic"* characteristics start from the 4th line starting with `app.on` function the first argument passed is the action which the bot listens to. These are **webhook** events of GitHub - you can learn more about them from the [Webhook Documentation](https://developer.github.com/webhooks/).    
 Probot uses Node's `async/await` API for returning the data. We used the *`* character to enclose the string/comment body because we won't need to use escape characters and we can also interpolate [Template Literals](https://flaviocopes.com/javascript-template-literals/).         
 
-Now we need to check if our app is working or not, we can do this **clicking** on a "sunglasses" button on Glitch which should look like this <br>![Glitch Show](glitch_show.png)    
+Now we need to check if our app is working or not, we can do this **clicking** on a "sunglasses" button on Glitch which should look like this <br/>![Glitch Show](glitch_show.png)    
 
 Then You'll see a Page like this ![Page](wp.jpg)
  Click the **Register GitHub App** button and provide a name and install it in a repository.
