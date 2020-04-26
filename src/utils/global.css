@@ -168,7 +168,22 @@ hr{
   background: blue;
   color: yellow ;
 }
-
+.gatsby-highlight pre[class*='language-jsx']::before{
+  content: 'jsx';
+  background: fuchsia;
+  color: white ;
+}
+.gatsby-highlight pre[class*='language-css']::before{
+  content: 'css';
+  background: cyan;
+  color: black ;
+}
+.gatsby-highlight pre[class*='language-md']::before,
+.gatsby-highlight pre[class*='language-md']::before{
+  content: 'md / MDX';
+  background: royalblue;
+  color: whitesmoke ;
+}
 .bio{
   font-family: 'Fira Sans', sans-serif;
   font-size: medium;
@@ -210,4 +225,13 @@ h2,h3,h4,h5{
 div .callout::before{
   color:red;
   content: attr(emoji);
+}
+.new-label{
+  color:#50fa7b;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 6px;
+    background-color: blue;
+    transition: transform .2s;
 }
