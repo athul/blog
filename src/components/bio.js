@@ -56,22 +56,21 @@ const Bio = () => {
         Personal Blog of <strong style={{ color: `hotpink` }}>{author}</strong>{" "}
         who is an Undergraduate Engineering Student in College of Engineering
         Kidangoor, a{"   "}
-        <a href="https://githubcampus.expert/athul">
-          GitHub Campus Expert
-        </a>{" "}
-        and a Python, Js lover.<br></br>
+        <a href="https://githubcampus.expert/athul">GitHub Campus Expert</a> and
+        a Python, Js lover.<br></br>
         {` `}
         You can find him on&nbsp;&nbsp;&nbsp;&nbsp;
-
         <span>
           <a href="https://github.com/athul" style={{ color: "var(--link)" }}>
             <GitHub color="gray" size={20} />
-
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
           {/* </span>
         <span> */}
-          <a href="https://twitter.com/athulcajay" style={{ color: "var(--link)" }}>
+          <a
+            href="https://twitter.com/athulcajay"
+            style={{ color: "var(--link)" }}
+          >
             <Twitter color="skyblue" size={20} />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
@@ -96,14 +95,16 @@ const Bio = () => {
               ]}
             />
             <div class="theme-switch-wrapper">
-            <label class="theme-switch" style={{ float: "right" }}>
-              <input
-                type="checkbox"
-                onChange={e => toggleTheme(e.target.checked ? "dark" : "light")}
-                checked={theme === "dark"}
-              />
-              <div class="slider round"></div>
-            </label>
+              <label class="theme-switch" style={{ float: "right" }}>
+                <input
+                  type="checkbox"
+                  onChange={e =>
+                    toggleTheme(e.target.checked ? "dark" : "light")
+                  }
+                  checked={theme === "dark"}
+                />
+                <div class="slider round"></div>
+              </label>
             </div>
           </React.Fragment>
         )}

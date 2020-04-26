@@ -9,7 +9,7 @@ import { MDXProvider } from "@mdx-js/react"
 import Callout from "../components/callout"
 import { rhythm, scale } from "../utils/typography"
 const shortcodes = {
-  Callout
+  Callout,
 }
 class BlogPostTemplate extends React.Component {
   render() {

@@ -12,7 +12,7 @@ class BlogIndex extends React.Component {
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMdx.edges
 
-    return (    
+    return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
         <Bio />
@@ -20,7 +20,8 @@ class BlogIndex extends React.Component {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <div key={node.fields.slug}>
-              <h3 class="head"
+              <h3
+                class="head"
                 style={{
                   marginBottom: rhythm(1 / 4),
                 }}
@@ -34,12 +35,21 @@ class BlogIndex extends React.Component {
                 >
                   {title}
                 </Link>
-              </h3>
+                </h3><></>
               <span>
-              <small><b style={{color:`var(--date)`}}>{node.frontmatter.date}</b></small>
-              <small style={{color:`var(--ttr)`}}>&nbsp;&nbsp;{node.timeToRead}&nbsp;min Read</small>
+                <small>
+                  <b style={{ color: `var(--date)` }}>
+                    {node.frontmatter.date}
+                  </b>
+                </small>
+                <small style={{ color: `var(--ttr)` }}>
+                  &nbsp;&nbsp;{node.timeToRead}&nbsp;min Read &nbsp;&nbsp;
+                </small>
+                <>
+                {node.frontmatter.new!=null && <small className="new-label">NEW</small> }</>
               </span>
-              <p class="desc"
+              <p
+                class="desc"
                 dangerouslySetInnerHTML={{
                   __html: node.frontmatter.description || node.excerpt,
                 }}
@@ -72,6 +82,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            new
           }
           timeToRead
         }
