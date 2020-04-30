@@ -14,7 +14,7 @@ body.dark {
   --textLink: yellow;
   --block: rgba(255, 255, 255, 0.63);
   --hr: hsla(0, 0%, 100%, 0.2);
-  --link: black;
+  --link: #121116;
   --date:silver;
   --ttr:teal;
   --hovercolor: #50fa7b;

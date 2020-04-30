@@ -46,7 +46,7 @@ class BlogIndex extends React.Component {
                   &nbsp;&nbsp;{node.timeToRead}&nbsp;min Read &nbsp;&nbsp;
                 </small>
                 <>
-                {node.frontmatter.new!=null && <small className="new-label">NEW</small> }</>
+                {(node.frontmatter.new!=null) && <small className="new-label">NEW</small> }</>
               </span>
               <p
                 class="desc"
