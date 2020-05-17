@@ -859,6 +859,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.9.6":
+  version "7.9.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
+  integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.9.5":
   version "7.9.5"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.9.5.tgz#aba82195a39a8ed8ae56eacff72cf2bda551a7c3"
@@ -6252,12 +6259,12 @@ gatsby-remark-prismjs@^3.3.0:
     parse-numeric-range "^0.0.2"
     unist-util-visit "^1.4.1"
 
-gatsby-remark-responsive-iframe@^2.2.0:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-2.3.4.tgz#564aeaf1da3c5c9ac1066264528976ab89be0c47"
-  integrity sha512-lMgn3ulYv/dxeb3XPi77uaMSS7ILNJEV19DMfWESDlj/izgjkvmoWvJS21g7mWHdMY3aOa8bhJV8h2Ua0KVv1w==
+gatsby-remark-responsive-iframe@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-2.4.2.tgz#077cf93dd9349b9a08458a008b65c60e94afdd5d"
+  integrity sha512-y+GaIP0acMHE8POgKtsWnDlXde421DCXiCQ0Qvn5ts2TYqp/8Zc8uGQLpve5Ri4qo6rTGbryrWLnFQ3QPwiLUA==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.6"
     cheerio "^1.0.0-rc.3"
     common-tags "^1.8.0"
     lodash "^4.17.15"
