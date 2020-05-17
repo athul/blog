@@ -212,6 +212,12 @@ h2,h3,h4,h5{
   font-style: italic;
   margin-left: 1em;
 }
+.callout a{
+  color:blue;
+}
+.callout a:hover{
+  background: greenyellow;
+}
 
 @media (max-width: 767px) {
   .callout {
