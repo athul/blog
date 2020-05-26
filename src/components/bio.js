@@ -57,9 +57,8 @@ const Bio = () => {
         who is an Undergraduate Engineering Student in College of Engineering
         Kidangoor, a{"   "}
         <a href="https://githubcampus.expert/athul">GitHub Campus Expert</a> and
-        a Python, Js lover.<br></br>
-        {` `}
-        You can find him on&nbsp;&nbsp;&nbsp;&nbsp;
+        a Python, Go lover.<br/> 
+        Find me on&nbsp;&nbsp;&nbsp;&nbsp;
         <span>
           <a href="https://github.com/athul" style={{ color: "var(--link)" }}>
             <GitHub color="gray" size={20} />
@@ -82,6 +81,7 @@ const Bio = () => {
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;
         </span>
+        Subscribe to the <a href="https://tinyletter.com/athul">Newsletter</a>
       </p>
       <ThemeToggler>
         {({ theme, toggleTheme }) => (

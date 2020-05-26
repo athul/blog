@@ -85,7 +85,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-scroll-indicator`,
       options: {
-        color: '#50fa7b',
+        color: 'linear-gradient(to right, #50fa7b, #1565c0)',
       },
     },
     'gatsby-plugin-dark-mode',
