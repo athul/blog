@@ -1,14 +1,12 @@
 import React from "react"
 
 import { Link } from "gatsby"
-
 import { rhythm, scale } from "../utils/typography"
 
 class Layout extends React.Component {
   renderHeader() {
-    const { location, title, children } = this.props
+    const { location, title } = this.props
     const rootPath = `${__PATH_PREFIX__}/`
-    let header
 
     if (location.pathname === rootPath) {
       return (
@@ -71,6 +69,7 @@ class Layout extends React.Component {
         <header>{this.renderHeader()}</header>
         <main>{children}</main>
         <footer>
+          <hr/>
           © {new Date().getFullYear()}, Built by Athul with
           {` `}
           <a href="https://www.gatsbyjs.org" style={{ color: `rebeccapurple` }}>
