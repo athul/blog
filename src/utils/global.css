@@ -178,6 +178,11 @@ hr{
   background: cyan;
   color: black ;
 }
+.gatsby-highlight pre[class*='language-go']::before{
+  content: 'Go';
+  background: cyan;
+  color: royalblue ;
+}
 .gatsby-highlight pre[class*='language-md']::before,
 .gatsby-highlight pre[class*='language-md']::before{
   content: 'md / MDX';
@@ -234,10 +239,9 @@ div .callout::before{
 }
 .new-label{
   color:#50fa7b;
-    text-decoration: none;
-    padding: 2px 4px;
-    border-radius: 4px;
-    margin-left: 6px;
-    background-color: blue;
-    transition: transform .2s;
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  margin-left: 6px;
+  background-color: dodgerblue;
 }
