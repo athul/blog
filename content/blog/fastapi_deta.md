@@ -6,20 +6,23 @@ new: true
 ---
 [FastAPI](https://fastapi.tiangolo.com/) is a a Python Framework for building RESTful APIs. It has all the simplicity of Python with a added advantages of Async⚡️, automatic Schema Generation and OpenAPI and Python Types✨(with Pydantic). FastAPI is relatively a new Project and is gaining quite a good traction in the Dev world. It has got nearly [16k stars on GitHub](https://github.com/tiangolo/fastapi) and about 160 contributors. The main plus side of FastAPI is the documentation which is **Top Notch**.
 
-[Deta](https://deta.sh) is a cloud based startup and focuses on building a cloud which is developer friendly and to reduce the hassle from idea to app.
+[Deta](https://deta.sh) is a company that is building a cloud platform which is developer friendly and to reduce the hassle from idea to app.
 
 > *"Deta is building a cloud for the developers with less build "bells and whistles", only what's needed to get the job done – a Micro Cloud."*
 
 Personally what attracted me to deta was the ease to implement. I was having a hard time to connect FastAPI with SQLalchemy since I am a noob. Then Deta entered or at least then I came to know about it.
 
-I was skeptical at first but, the simplicity of working with Deta amazed me and their Slack community is ✨. The creators are almost active everytime and they will help you in anyway possible to overcome an issue.
+I was skeptical at first, but the simplicity of working with Deta amazed me and their Slack community is ✨. The creators are almost active everytime and they will help you in anyway possible to overcome an issue.
 
 ## What we'll build
 We're going to build a Personal **Mailing List** API with 
 
-- FastAPI
-- Deta.sh as our DB
-- Deploy it on Deta Micros
+- FastAPI 
+  - for the API and Logic
+- Deta.sh 
+  - as our DB
+- Deploy it
+  -  on Deta Micros
  
 We're only going to build the API, you can use [Mailgun](https://www.mailgun.com/) or [SendGrid](https://sendgrid.com/) to send the emails. Our API will consist of 4 Operations.
 
@@ -75,11 +78,18 @@ venv\Scripts\activate
 
 Once we have set up our Dev Environment. Let's move on to building the Mailing List.
 
-For Deta, create an Account in Deta and create a new Project and get the Project Key. Save the Project key since it will be shown once. You can save it as an environment variable by executing
+For Deta, create an Account in Deta and create a new Project and get the Project Key. Save the Project key since it will be shown once. You can save it as an environment variable by executing the below code in Unix like(Linux/Mac)
 
 ```bash
 export DETA_PROJECT_KEY = <project key>
 ```
+
+and on Windows, use
+
+```text
+set DETA_PROJECT_KEY = <project key>
+```
+
 That's it. Lets move on to the code
 
 ## The Code
@@ -117,4 +127,48 @@ $ curl http://127.0.0.1:8000/
 
 So now, let's move on to our main parts
 
-### Creating a user
+### New Subscriber
+
+We'll be using the [docs](https://docs.deta.sh/docs/base/lib/) by Deta for all references.
+
+We need to create a new endpoint for a someone to subscribe to our Mailing List. So we'll just need the Person's Name and Email to be in our DB. 
+
+> Take care that in some countries its illegal to send emails to people without consent. We'll make a delete endpoint for them to delete themselves from the list
+
+Let's get on to the code for adding a new subscriber to our list. The Python code without the use of a DB or simply the code with FastAPI.
+
+```py
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+class Subscriber(BaseModel):
+    fullName:str
+    email:EmailStr
+
+@app.post("/subscribe")
+async def newUser(sub:Subscriber):
+    data=sub.dict()
+    name = data.get("fullName")
+    email = data.get("email")
+    return {
+        "fullName":name,
+        "email":email
+    }
+```
+```jsx
+<Callout emoji="🛑">
+    Since we're using <u><b>EmailStr</b></u> we'll need to install `email-validator` to work with it. Just run `pip install pydantic[email-validator]`
+</Callout><br/>
+```
+This snippet will return the things that we have provided to it. I have entered the data by going to  [localhost:8000/docs](http://127.0.0.1:8000/docs) if you have your server running. Our Output if we provide `athul` for name and `athul@example.com` for email will be
+
+```json
+{
+  "name": "athul",
+  "email": "athul@example.com"
+}
+```
+
+Now let's connect it with Deta.sh
