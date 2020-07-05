@@ -191,6 +191,12 @@ hr{
   background: royalblue;
   color: whitesmoke ;
 }
+.gatsby-highlight pre[class*='language-diff']::before,
+.gatsby-highlight pre[class*='language-diff']::before{
+  content: 'DIFF';
+  background: limegreen;
+  color:  red;
+}
 .bio{
   font-family: 'Fira Sans', sans-serif;
   font-size: medium;

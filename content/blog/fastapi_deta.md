@@ -17,12 +17,9 @@ I was skeptical at first, but the simplicity of working with Deta amazed me and 
 ## What we'll build
 We're going to build a Personal **Mailing List** API with 
 
-- FastAPI 
-  - for the API and Logic
-- Deta.sh 
-  - as our DB
-- Deploy it
-  -  on Deta Micros
+- FastAPI for the API and Logic
+- Deta.sh as our DB
+- Deploy it on Deta Micros
  
 We're only going to build the API, you can use [Mailgun](https://www.mailgun.com/) or [SendGrid](https://sendgrid.com/) to send the emails. Our API will consist of 4 Operations.
 
@@ -127,7 +124,7 @@ $ curl http://127.0.0.1:8000/
 
 So now, let's move on to our main parts
 
-### New Subscriber
+## New Subscriber
 
 We'll be using the [docs](https://docs.deta.sh/docs/base/lib/) by Deta for all references.
 
@@ -135,31 +132,38 @@ We need to create a new endpoint for a someone to subscribe to our Mailing List.
 
 > Take care that in some countries its illegal to send emails to people without consent. We'll make a delete endpoint for them to delete themselves from the list
 
-Let's get on to the code for adding a new subscriber to our list. The Python code without the use of a DB or simply the code with FastAPI.
+Let's get on to the code for adding a new subscriber to our list. The Python code without the use of a DB or simply the code with FastAPI. 
 
 ```py
+#main.py
+
 from fastapi import FastAPI
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, NameEmail
 
 app = FastAPI()
 
 class Subscriber(BaseModel):
     fullName:str
-    email:EmailStr
+    email:NameEmail
 
 @app.post("/subscribe")
 async def newUser(sub:Subscriber):
-    data=sub.dict()
+    data = sub.dict()
     name = data.get("fullName")
     email = data.get("email")
     return {
         "fullName":name,
-        "email":email
+        "email":email.email
     }
 ```
+
+We're using Pydantic `BaseModel` class to *inherit* our `Subscriber` class. Then we make the subscriber class a dict to fetch data from the request's body. `NameEmail` will help us get the name part of the email.
+
+> The output is a NameEmail object which has two properties: name and email. For fred.bloggs@example.com, name property would be "fred.bloggs".
+
 ```jsx
 <Callout emoji="🛑">
-    Since we're using <u><b>EmailStr</b></u> we'll need to install `email-validator` to work with it. Just run `pip install pydantic[email-validator]`
+    Since we're using <u><b>NameEmail</b></u> we'll need to install `email-validator` to work with it. Just run `pip install pydantic[email-validator]`
 </Callout><br/>
 ```
 This snippet will return the things that we have provided to it. I have entered the data by going to  [localhost:8000/docs](http://127.0.0.1:8000/docs) if you have your server running. Our Output if we provide `athul` for name and `athul@example.com` for email will be
@@ -171,4 +175,95 @@ This snippet will return the things that we have provided to it. I have entered 
 }
 ```
 
-Now let's connect it with Deta.sh
+Now let's connect it with Deta.sh. We'll be using Python's `os` package to get the Project Key. We have save the project key to the env vars and restart the server for it to work.
+
+```py
+#main.py
+
+import os
+from fastapi import FastAPI
+from pydantic import BaseModel, NameEmail
+from deta import Deta
+
+deta = Deta(os.getenv("DETA_PROJECT_KEY"))
+db = deta.Base(<db_name>) #this can be anything related to your use case
+
+app = FastAPI()
+
+class Subscriber(BaseModel):
+    fullName:str
+    email:NameEmail
+
+@app.post("/subscribe")
+async def newUser(sub:Subscriber):
+    data = sub.dict()
+    name = data.get("fullName")
+    email = data.get("email")
+    subscriber = db.put({
+        "fullName":name,
+        "email":email.email
+    },key=email.name)
+    return subscriber
+```
+
+Here we have imported the deta library and initialized it with a db name. We're specifying a key for the data. This key will be the name part of the email since most times it will be unique. If we don't specify a key, deta will generate a unique key for the record.
+
+```jsx
+<Callout emoji="🎁">
+    You can have multiple DBs with a single project key
+</Callout><br/>
+```
+
+We're using Deta's `PUT` method(/function) to insert our data into our DetaBase. The PUT method will generate a **unique key** for our data and will be stored if we don't specify a key. The output if we add ourselves a new subscriber with provide `John Doe` for name and `john@example.com` for email will be,
+
+```json
+{
+  "email": "john@example.com",
+  "key": "john",
+  "fullName": "John Doe"
+}
+```
+
+So we have made an endpoint for people to subscribe to our Mailing List 🎉.  
+Next we'll make an endpoint for people to update a theirs info like their Name or Email.
+
+## Update a Subscriber
+We'll create a new `UpdateSubscriber` class for updating a Subscriber's Name or Email. We'll use the `get` and `update` methods of deta to fetch and update the data. We'll also raise an error if the record is not found in the base
+
+```py
+#main.py
+
+from typing import Optional
+from fastapi import NameEmail,HTTPException
+
+class UpdateSub(BaseModel):
+    fullName: Optional[str] = None
+    email: Optional[NameEmail] = None
+
+@app.patch("/subscriber/{email}")
+async def updateSub(subscriber:UpdateSub,email:NameEmail):
+    data = subscriber.dict()
+    new_name = data.get("fullName")
+    new_email = data.get("email")
+    sub = db.get(email.name)
+    if sub is None:
+        raise HTTPException(400,"User Not Subscribed")
+    if new_email is None:
+        update = {"fullname":new_name}
+    if new_name is None:
+        update = {"email":new_email.email}
+    db.update(updates=update,key=sub['key'])
+    return {"msg":"User Updated"}
+```
+
+This endpoint will update the email or fullName of a subscriber but the caveat here is that the key cannot be changed even if the email is changed.
+
+## Get all Subscribers
+
+This endpoint will send a `GET` HTTP method for fetching all the data from our Deta-Base. We'll use the `fetch` function/method of deta to retreive all the data from our base. The `fetch` function will return a generator type, so we'll be using the `next()` function to get all the data as a `List`. The endpoint will be like
+
+```py
+@app.get("/subscribers")
+async def getAllSubs():
+    return {"subscribers":next(db.fetch())}
+```
