@@ -161,8 +161,8 @@ hr{
 }
 .gatsby-highlight pre[class*='language-json']::before{
   content: 'json';
-  background: dodgerblue;
-   color: #000000 
+  background: palegoldenrod;
+   color: black; 
 }
 .gatsby-highlight pre[class*='language-python']::before,
 .gatsby-highlight pre[class*='language-py']::before {
@@ -200,6 +200,10 @@ hr{
 .bio{
   font-family: 'Fira Sans', sans-serif;
   font-size: medium;
+}
+img{
+  display: block;
+  margin: 0 auto;
 }
 h2,h3,h4,h5{
   letter-spacing: -0.015em;
