@@ -156,17 +156,18 @@ from pydantic import BaseModel, NameEmail
 app = FastAPI()
 
 class Subscriber(BaseModel):
-    fullName:str
-    email:NameEmail
+    full_name: str
+    email: NameEmail
 
 @app.post("/subscribe")
-async def newUser(sub:Subscriber):
-    data = sub.dict()
-    name = data.get("fullName")
-    email = data.get("email")
+async def newUser(sub: Subscriber):
+    name = sub.full_name
+    email = sub.email
+
+    # you could also return sub.json() or sub.dict()
     return {
-        "fullName":name,
-        "email":email.email
+        "full_name": name,
+        "email": email
     }
 ```
 
@@ -184,11 +185,10 @@ This snippet will return the things that we have provided to it. I have entered 
 {
   "name": "athul",
   "email": "athul@example.com",
-   "key": "athul",
 }
 ```
 
-Now let's connect it with Deta.sh. We'll be using Python's `os` package to get the Project Key. We have save the project key to the env vars and restart the server for it to work.
+Now let's connect it with the database, Deta Base in this case. We'll be using Python's `os` package to get the Project Key. We have save the project key to the env vars and restart the server for it to work.
 
 ```py
 # main.py
@@ -199,23 +199,22 @@ from pydantic import BaseModel, NameEmail
 from deta import Deta
 
 deta = Deta(os.getenv("DETA_PROJECT_KEY"))
-db = deta.Base(<db_name>) #this can be anything related to your use case
+db = deta.Base("mydb")  # this can be anything related to your use case
 
 app = FastAPI()
 
 class Subscriber(BaseModel):
-    fullName:str
-    email:NameEmail
+    full_name: str
+    email: NameEmail
 
 @app.post("/subscribe")
 async def newUser(sub:Subscriber):
-    data = sub.dict()
-    name = data.get("fullName")
-    email = data.get("email")
     subscriber = db.put({
-        "fullName":name,
-        "email":email.email
-    },key=email.name)
+        "full_name": sub.full_name,
+        "email": sub.email.email,
+        "key": sub.email.name
+    })
+
     return subscriber
 ```
 
@@ -231,7 +230,7 @@ We're using Deta's `PUT` method(/function) to insert our data into our DetaBase.
 {
   "email": "john@example.com",
   "key": "john",
-  "fullName": "John Doe"
+  "full_name": "John Doe"
 }
 ```
 
@@ -248,26 +247,28 @@ from typing import Optional
 from fastapi import NameEmail,HTTPException
 
 class UpdateSub(BaseModel):
-    fullName: Optional[str] = None
+    full_name: Optional[str] = None
     email: Optional[NameEmail] = None
 
 @app.patch("/subscriber/{email}")
-async def updateSub(subscriber:UpdateSub,email:NameEmail):
-    data = subscriber.dict()
-    new_name = data.get("fullName")
-    new_email = data.get("email")
+async def update_sub(upsub: UpdateSub, email: NameEmail):
     sub = db.get(email.name)
     if sub is None:
-        raise HTTPException(400,"User Not Subscribed")
-    if new_email is None:
-        update = {"fullname":new_name}
-    if new_name is None:
-        update = {"email":new_email.email}
-    db.update(updates=update,key=sub['key'])
-    return {"msg":"User Updated"}
+        raise HTTPException(404,"User Not Subscribed")
+
+    updates = {}
+    if upsub.full_name:
+        updates["full_name"] = upsub.full_name
+
+    if upsub.email:
+        updates["email"] = upsub.email.email
+
+    db.update(updates, key=sub["key"])
+
+    return {"msg": "User Updated"}
 ```
 
-This endpoint will update the email or fullName of a subscriber but the caveat here is that the key cannot be changed even if the email is changed. Let's make a new user with the name John Reese(Person of Interest) with an initial email `reese@gmail.com`. Now let's update his email using this endpoint, for that our request URL will be as follows,
+This endpoint will update the email or full_name of a subscriber but the caveat here is that the key cannot be changed even if the email is changed. Let's make a new user with the name John Reese(Person of Interest) with an initial email `reese@gmail.com`. Now let's update his email using this endpoint, for that our request URL will be as follows,
 
 `http://localhost:8080/subscriber/reese%40example.com` You can see that after the `/subscriber` in the url, we are passing the original email and this is called a **Path Parameter**. We use the path paramter and get the name part of it and use it as the Key. For updating the email, we take the new email and update it in our Deta base with the update command. The updates should be in the form of a Python `dict`. If the operation done is correct, then we'll get a `None` type in return
 
@@ -277,8 +278,8 @@ This endpoint will send a `GET` HTTP method for fetching all the data from our D
 
 ```py
 @app.get("/subscribers")
-async def getAllSubs():
-    return {"subscribers":next(db.fetch())}
+async def get_all_subs():
+    return {"subscribers": next(db.fetch())}
 ```
 
 The output of the above request will be
@@ -293,12 +294,12 @@ The output of the above request will be
     },
     {
       "email": "john@example.com",
-      "fullName": "John Doe",
+      "full_name": "John Doe",
       "key": "john"
     },
     {
       "email": "jhreese@gmail.com",
-      "fullName": "John Reese",
+      "full_name": "John Reese",
       "key": "reese"
     }
   ]
@@ -309,21 +310,21 @@ Now we have setup a Create, Update and Read endpoints. Next we'll look into the 
 
 ## Delete Subscribers
 
-To delete a subscriber, we'll take in the `fullName` as the input to find the subscriber and if we there is more than one record with the same fullName, we'll fetch the data with email. Then we'll use the `delete` method to delete the record by getting the key from our records. 
+To delete a subscriber, we'll take in the `full_name` as the input to find the subscriber and if we there is more than one record with the same full_name, we'll fetch the data with email. Then we'll use the `delete` method to delete the record by getting the key from our records. 
 
 ```py
 # main.py
 
 class DelSub(BaseModel):
-    email:Optional[NameEmail]
-    fullName:str
+    email: Optional[NameEmail]
+    full_name: str
 
 @app.delete("/subscribers.del")
-async def deleteSub(delsub:DelSub):
-    data=delsub.dict()
-    name = data.get('fullName')
+async def unsubscribe(unsub: DelSub):
+    data = delsub.dict()
+    name = data.get('full_name')
     email = data.get('email')
-    sub = next(db.fetch({'fullName':name}))
+    sub = next(db.fetch({'full_name':name}))
     if len(sub) > 1 or len(sub) == 0:
         sub = next(db.fetch({'email':email.email}))
         if len(sub)==0:
@@ -369,14 +370,7 @@ $ deta new
 }
 ```
 
-It will automatically detect that we'll need a Python runtime and will give us a unique link for our micro. Next step is to deploy the API, for that we'll use the `deta deploy` command
-
-```bash
-$ deta deploy
-Deploying...
-Successfully deployed changes
-.......
-```
+It will automatically detect that we'll need a Python runtime and will deploy our code and give us a unique link for our Micro.
 
 Yay we have deployed the API, for the details of the micro, just execute the following for details of the micro.
 
@@ -432,16 +426,16 @@ db = deta.Base('mailing-list')
 app = FastAPI()
 
 class Subscriber(BaseModel):
-    fullName:str
-    email:NameEmail
+    full_name: str
+    email: NameEmail
 
 @app.post("/subscribe")
 async def newUser(sub:Subscriber):
     data = sub.dict()
-    name = data.get("fullName")
+    name = data.get("full_name")
     email = data.get("email")
     subscriber= db.put({
-        "fullName":name,
+        "full_name":name,
         "email":email.email
     },key=email.name)
     return subscriber
@@ -451,33 +445,33 @@ async def getAllSubs():
     return {"subscribers":next(db.fetch())}
 
 class UpdateSub(BaseModel):
-    fullName: Optional[str] = None
+    full_name: Optional[str] = None
     email: Optional[NameEmail] = None
 
 @app.patch("/subscriber/{email}")
 async def updateSub(subscriber:UpdateSub,email:NameEmail):
     data = subscriber.dict()
-    new_name = data.get("fullName")
+    new_name = data.get("full_name")
     new_email = data.get("email")
     sub = db.get(email.name)
     if sub is None:
         raise HTTPException(400,"User Not Subscribed")
     if new_email is None:
-        update = {"fullname":new_name}
+        update = {"full_name":new_name}
     if new_name is None:
         update = {"email":new_email.email}
     db.update(updates=update,key=sub['key'])
     return {"msg":"User Updated"}
 class DelSub(BaseModel):
     email:Optional[NameEmail]
-    fullName:str
+    full_name:str
 
 @app.delete("/subscribers.del")
 async def deleteSub(delsub:DelSub):
     data=delsub.dict()
-    name = data.get('fullName')
+    name = data.get('full_name')
     email = data.get('email')
-    sub = next(db.fetch({'fullName':name}))
+    sub = next(db.fetch({'full_name':name}))
     if len(sub) > 1 or len(sub) == 0:
         sub = next(db.fetch({'email':email.email}))
         if len(sub)==0:
