@@ -16,3 +16,10 @@ For feedback or suggestion use **Issues** 😁
 Made this with Gatsby and added some tweaks to the basic blog starter.   
 [Gatsby](https://gatsbyjs.com) is ❤️
 Special thanks to Abhijith Kannan for making the Logo
+
+-----
+
+### Posts
+
+<!--START_SECTION:posts-->
+<!--END_SECTION:posts-->

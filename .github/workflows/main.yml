@@ -1,25 +1,19 @@
-name: NoisyBoy
+name: RSS Feeder
 
 on:
+  schedule:
+    # Once a day on Every Sunday
+    - cron: 0 0 * * 0
   push:
-  pull_request:
-    types: [opened, closed]
-  issues:
-    types: [opened, closed, reopened]
-  issue_comment:
-    types: [created]
-  watch:
-    types: [started]
+    branches:
+      - master
 
 jobs:
-  build:
+  update-readme:
+    name: Update this repo's README
     runs-on: ubuntu-latest
-
     steps:
-      - name: Statusoli
-        uses: athul/telewire@master
-        if: always()
+      - uses: JasonEtco/rss-to-readme@v1
         with:
-          chat: ${{ secrets.chat }}
-          token: ${{ secrets.token }}
-          status: ${{ job.status }}
+          feed-url: https://blog.athulcyriac.co/rss.xml
+          readme-section: posts
