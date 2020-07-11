@@ -22,4 +22,9 @@ Special thanks to Abhijith Kannan for making the Logo
 ### Posts
 
 <!--START_SECTION:posts-->
+* [FastAPI + Deta &#x3D; ⚡️](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;fastapi_deta&#x2F;)
+* [Hacking the Quarantine](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;hack&#x2F;)
+* [Dumb and Dumber](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;dumb&#x2F;)
+* [Termchat - Chat from your Terminal with Websockets](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;termchat&#x2F;)
+* [Custom MDX Components for Gatsby](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;custom-mdx&#x2F;)
 <!--END_SECTION:posts-->
