@@ -1,12 +1,13 @@
 ---
-title: Updating GitHub Readme with GitHub Actions + Python
+title: Updating GitHub Readme with Waka-readme
 date: "2020-07-18"
-description: Make an auto Updating Profile Readme with Python and GitHub Actions
+description: Wakatime Stats in your Profile Readme
+new: true
 ---
 
-Profile Readme are a new way to show off your GitHub profile and gives you all the powers of Markdown for doing it. Lets discuss some ways you can update your profile readme with Python and GitHub Actions and how I use them to update my Profile Readme.
+Profile Readme are a new way to show off your GitHub profile and gives you all the powers of Markdown for doing it. Let's discuss some ways you can update your profile readme with Python and GitHub Actions and how I use them to update my Profile Readme.
 
-So I would like to introduce you to [waka-readme](https://github.com/athul/waka-readme). Its built with Python and can be used to generate a graph like this in your Proflie Repo. It mostly uses regex and GitHub's REST API for Python to update the readme. This graph will be updated every day at 00.00 UTC on schedule thanks to GitHub Actions.
+So I would like to introduce you to [waka-readme](https://github.com/athul/waka-readme). Its built with Python and can be used to generate a graph like this in your Profile Repo. It mostly uses regex and GitHub's REST API for Python to update the readme. This graph will be updated every day at 00.00 UTC on schedule thanks to GitHub Actions.
 
 ```text
 Week #29 : July 13 - 18
