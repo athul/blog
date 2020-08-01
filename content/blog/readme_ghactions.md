@@ -2,7 +2,6 @@
 title: Updating GitHub Readme with Waka-readme
 date: "2020-07-18"
 description: Wakatime Stats in your Profile Readme
-new: true
 ---
 
 Profile Readme are a new way to show off your GitHub profile and gives you all the powers of Markdown for doing it. Let's discuss some ways you can update your profile readme with Python and GitHub Actions and how I use them to update my Profile Readme.
