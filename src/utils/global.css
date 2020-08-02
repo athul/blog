@@ -24,6 +24,8 @@ body.dark {
   transition: background 0.2s ease-out;
   --calbdcol:#50fa7b;
   --selection: crimson;
+  --gh:dodgerblue;
+  --gh-bx:black;
 }
 
 body {
@@ -43,6 +45,8 @@ body {
   transition: background 0.2s ease-out;
   --calbdcol:red;
   --selection: navy;
+  --gh:blue;
+  --gh-bx:azure;
 }
 .theme-switch-wrapper {
   display: flex;
@@ -256,4 +260,40 @@ div .callout::before{
   border-radius: 4px;
   margin-left: 6px;
   background-color: dodgerblue;
+}
+.github-cards {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 50%;
+  max-width: 61.25rem;
+  align-self: center;
+}
+.github-cards a:hover{
+  color: var(--textNormal);
+  background-color: var(--gh-bx);
+}
+.github-card {
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 20px 20px;
+  color: #555;
+  text-decoration: none;
+  font-size: 13px;
+  flex: 1;
+  min-width: 250px;
+}
+.github-card > h3 {
+  margin-top: 0;
+  color: var(--gh);
+  font-size: 18px;
+}
+
+.github-card__meta {
+  margin-right: 20px;
+}
+.github-card__meta > b {
+  font-size: 16px;
 }
