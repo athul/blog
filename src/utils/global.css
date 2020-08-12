@@ -297,3 +297,10 @@ div .callout::before{
 .github-card__meta > b {
   font-size: 16px;
 }
+#bmc-wbtn{
+  bottom: 15px;
+}
+
+#bmc-wbtn + div{
+  bottom:15px;
+}
