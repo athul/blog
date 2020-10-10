@@ -126,6 +126,7 @@ hr{
 	border-top: 3px solid rebeccapurple;
 }
 .gatsby-highlight {
+  font-size: smaller;
 	position: relative;
 	-webkit-overflow-scrolling: touch;
   }
