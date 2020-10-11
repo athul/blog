@@ -26,6 +26,8 @@ body.dark {
   --selection: crimson;
   --gh:dodgerblue;
   --gh-bx:black;
+  --inlineCode-text:rgb(173, 219, 103);
+  
 }
 
 body {
@@ -47,6 +49,7 @@ body {
   --selection: navy;
   --gh:blue;
   --gh-bx:azure;
+  --inlineCode-text: #e6e6e6;
 }
 .theme-switch-wrapper {
   display: flex;
@@ -321,7 +324,7 @@ div .callout::before{
  /* Inline code */
  :not(pre) > code[class*='language-'] {
    border-radius: 0.3em;
-   background: var(--inlineCode-bg);
+   background: #031627;
    color: var(--inlineCode-text);
    padding: 0.15em 0.2em 0.05em;
    white-space: normal;
