@@ -4,19 +4,19 @@ date: "2020-10-10"
 description: A Telegram Bot for receiving Adguard Home statistics
 new: true 
 ---
-Recently I had this idea of setting up a netwoek level adblocker in my Home. But sadly I don't use a fiber/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to [Adguard Home](https://github.com/AdguardTeam/AdguardHome) on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole. It was easy to set up and running and they give the instructions quite well. 
+Recently I had this idea of setting up a network-level adblocker in my Home. But sadly I don't use a fibre/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to [Adguard Home](https://github.com/AdguardTeam/AdguardHome) on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole. It was easy to set up and running and they give the instructions quite well. 
 
-> I actually use Brave as my daily driver, It blocks almost all the ads(even spotify ads on the web player)
+> I use Brave as my daily driver, It blocks almost all the ads(even Spotify ads on the web player)
 
 ## AdBot
 
-No, It's not a bot that sends you ads(😝). It's a one-way bot(as of now) which means I can only receive messages like the statistics of the ads blocked over time via adguard. I wrote the bot in Go to acheive independancy of installing packages and making it run on a Raspberry Pi with a single binary.  This binary can be hooked up with a CronJob to send the data over a specified time. So, if I'm not home, I can get the statistics of the Number of users on my network and related stuff. If you're unaware of creating a Telegram Bot and getting a chat id, refer [Telegram Bot Documnetation](https://core.telegram.org/bots#6-botfather)
+No, It's not a bot that sends you ads(😝). It's a one-way bot(as of now) which means I can only receive messages like the statistics of the ads blocked overtime via adguard. I wrote the bot in Go to achieve independency of installing packages and making it run on a Raspberry Pi with a single binary.  This binary can be hooked up with a CronJob to send the data over a specified time. So, if I'm not home, I can get the statistics of the number of users on my network and related stuff. If you're unaware of creating a Telegram Bot and getting a chat id, refer [Telegram Bot Documnetation](https://core.telegram.org/bots#6-botfather)
 
-I hooked it up a graph generator to send me a Ascii line graph and a Pie Chart image with the most blocked domains. The whole thing was hacked in 2 hours. It was totally a fun build. I'll explain the code piece by piece.
+I hooked it up a graph generator to send me an Ascii line graph and a Pie Chart image with the most blocked domains. The whole thing was hacked in 2 hours. It was a fun build. I'll explain the code piece by piece.
 
 ## The Code
 
-As I told you the code is in Go. For starters I used my favorite HTTP client [Insomnia](https://insomnia.rest/) to check the API endpoints on the Adguard Home's Server. Funnily enough the only required header for such a request is an `agh_session` token. This is fixed for a server and you only need to get it once from the server and use it indefinetely for the bot. They also have a "not-so-much" working [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) header auth. It'll work with a single token the whole time. I used Insomnia's code-generator to bootstrap the bot for receiving the Json Payload. The only things you'll need will be the Adguard Home installed and the `agh_session` token. Here is a gif of how you could get one
+As I told you the code is in Go. For starters, I used my favourite HTTP client [Insomnia](https://insomnia.rest/) to check the API endpoints on the Adguard Home's Server. Funnily enough, the only required header for such a request is an `agh_session` token. This is fixed for a server and you only need to get it once from the server and use it indefinitely for the bot. They also have a "not-so-much" working [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) header auth. It'll work with a single token the whole time. I used Insomnia's code-generator to bootstrap the bot for receiving the JSON Payload. The only things you'll need will be the Adguard Home installed and the `agh_session` token. Here is a gif of how you could get one
 
 ![AGH_Session-GIF](https://file.coffee/u/nuAQBNHR_M.gif)
 
@@ -49,11 +49,11 @@ func main() {
     body, _ := ioutil.ReadAll(res.Body)
 }
 ```
-The next step was to unmarshal the Json to be used in Go.
+The next step was to unmarshal the JSON to be used in Go.
 
-### Json → Go
+### JSON → Go
 
-The Json payload received was long since it had the data regarding the blocked domains too. I used a [Json to Struct](https://mholt.github.io/json-to-go/) to convert the Json to it's valid struct types. But the some Json arrays were hard for it comprehend so it made each struct key for each key, which was not the expected one. So I used [Go Maps](https://gobyexample.com/maps) to make it workable. This is the struct type of the Json payload
+The JSON payload received was long since it had the data regarding the blocked domains too. I used a [Json to Struct](https://mholt.github.io/json-to-go/) to convert the JSON to its valid struct types. But some JSON arrays were hard for it to comprehend so it made each struct key for each key, which was not the expected one. So I used [Go Maps](https://gobyexample.com/maps) to make it workable. This is the struct type of the JSON payload
 
 ```go
 // Stats represents the data from Adguard as JSON
@@ -74,7 +74,7 @@ type Stats struct {
 	TopQueriedDomains []map[string]float64 `json:"top_queried_domains"`
 }
 ```
-So this struct unmarshals the Json to Go readable types. This makes it easier to handle the data wranglling in Go. Here is the code which parses the Json and use it.
+So this struct unmarshals the Json to Go readable types. This makes it easier to handle the data wrangling in Go. Here is the code which parses the JSON and uses it.
 
 ```go
 package main
@@ -125,11 +125,11 @@ func main() {
 		log.Println(err)
     }
 ```
-Nothing fancy of anytype, just plain Go code. The next is to generate the Ascii graph from the data we got.
+Nothing fancy of any type, just plain Go code. The next is to generate the Ascii graph from the data we got.
 
 ### Ascii 📈
 
-There was a [package in Go](https://github.com/guptarohit/asciigraph)  which generates Ascii graphs, not to reinvent the wheel, I just hooked it up to work with the data received. I reduced it's height to enclose it inside a sinlge message. Here is the code and output of the graph
+There was a [package in Go](https://github.com/guptarohit/asciigraph)  which generates Ascii graphs, not to reinvent the wheel, I just hooked it up to work with the data received. I reduced it's height to enclose it inside a single message. Here are the code and output of the graph
 
 ```go
 
@@ -148,7 +148,7 @@ func (s *Stats) generateGraph(tp string) string {
 }
 
 ```
-This is not a function but a method in Go. This depends on the Struct type Stats(specifically the pointer) to completely work. I also introduced a map to get the data of the specified stuff like no. of DNS queries and the number of blocked queries.  
+This is not a function but a method in Go. This depends on the Struct type Stats(specifically the pointer) to work. I also introduced a map to get the data of the specified stuff like no. of DNS queries and the number of blocked queries.  
 
 Here is a sample output of the Graphs from the data I received both the DNS Queries and Blocked queries
 
@@ -190,11 +190,11 @@ Blocked Graph:
 
 ```
 
-The graph data is an array of 24 elements which means data for each hour. I don't use my laptop 24 hours so the 0 lines in some places. We call this method from the main function just as we unmarshal the Json.
+The graph data is an array of 24 elements which means data for each hour. I don't use my laptop 24 hours so the 0 lines in some places. We call this method from the main function just as we unmarshal the JSON.
 
 ### Pie  📈
 
-The Pie Chart will be the data of the Top Blocked Domains. I used `github.com/wcharczuk/go-chart` as the charting library for the pie graph. Initially it was a bt hard to work with but got the idea of it after sometime tinkering with it. It creates an Image unlike the Ascii Chart which is just string. Here is the code for the generating the Pie Chart image.
+The Pie Chart will be the data of the Top Blocked Domains. I used `github.com/wcharczuk/go-chart` as the charting library for the pie graph. Initially, it was a bit hard to work with but got the idea of it after some time tinkering with it. It creates an image, unlike the Ascii Chart which is just string. Here is the code for the generating the Pie Chart image.
 
 ```go
 func (s *Stats) pieGrph() {
@@ -215,7 +215,7 @@ func (s *Stats) pieGrph() {
 	defer f.Close()
     pie.Render(chart.PNG, f)
 ```
-This too is a method. This method creates a 512x512 image and saves it as `output.png`. This image will be sent to us via telegram. We also call this method from the main function just as we unmarshal the Json.
+This too is a method. This method creates a 512x512 image and saves it as `output.png`. This image will be sent to us via telegram. We also call this method from the main function just as we unmarshal the JSON.
 
 ### Sending the Message
 
@@ -237,16 +237,16 @@ func (s *Stats) sendTGMessage() {
 }
 ```
 
-This send a bit more numerical values which are related to Adguard. It just takes in the image in `output.png` and sends it to the chat. Here is the output image. The ugly thing is that there is a lot of data than the piegraph can actually hold so it renders some of the text quite poorly but personally I don't mind that. Here is the output for the above method.
+This sends a bit more numerical values which are related to Adguard. It just takes in the image in `output.png` and sends it to the chat. Here is the output image. The ugly thing is that there is a lot of data than the pie graph can hold so it renders some of the text quite poorly but I don't mind that. Here is the output for the above method.
 
 ```text
-Total DNS Queries : 5273
+Total DNS Queries: 5273
 
-DNS Queries Blocked : 927
+DNS Queries Blocked: 927
 
 -----
 
-Percent of Queries Blocked: 17.58%
+Per cent of Queries Blocked: 17.58%
 
 -----
 
