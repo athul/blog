@@ -22,9 +22,9 @@ Special thanks to Abhijith Kannan for making the Logo
 ### Posts
 
 <!--START_SECTION:posts-->
+* [Telegram Bot with Adguard](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;adbot-tg&#x2F;)
 * [Jiofi-CLI](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;jiofi&#x2F;)
 * [Updating GitHub Readme with Waka-readme](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;readme_ghactions&#x2F;)
 * [FastAPI + Deta &#x3D; ⚡️](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;fastapi_deta&#x2F;)
 * [Hacking the Quarantine](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;hack&#x2F;)
-* [Dumb and Dumber](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;dumb&#x2F;)
 <!--END_SECTION:posts-->
