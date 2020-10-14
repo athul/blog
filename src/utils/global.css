@@ -1,11 +1,7 @@
-/* html{
-	background-color: lightcyan;
-} */
 /* global.css */
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/fira-sans.min.css");
+@import url("https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/cascadia-code.min.css");
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
-
 
 body.dark {
   --bg: #121116	;
@@ -272,8 +268,9 @@ div .callout::before{
  pre[class*='language-'] {
    color: white;
    background: none;
-   font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+   font-family: 'Cascadia Code', monospace;
    font-feature-settings: normal;
+   font-size: medium;
    text-align: left;
    white-space: pre;
    word-spacing: normal;
