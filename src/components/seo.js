@@ -53,6 +53,10 @@ function SEO({ description, lang, meta, title }) {
           content: `website`,
         },
         {
+          property: `og:image`,
+          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl}`
+        },
+        {
           name: `twitter:card`,
           content: `summary`,
         },
@@ -70,7 +74,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:image`,
-          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetada.siteUrl}`,
+          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl}`,
         },
         {
           name: `twitter:card`,
