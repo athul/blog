@@ -14,6 +14,7 @@ const shortcodes = {
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.mdx
+    console.log(this.props.pageContext.slug)
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
 
@@ -22,6 +23,7 @@ class BlogPostTemplate extends React.Component {
         <SEO
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
+          slug={this.props.pageContext.slug}
         />
         <h1
           align="center"
