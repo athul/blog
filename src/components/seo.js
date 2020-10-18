@@ -19,6 +19,7 @@ function SEO({ description, lang, meta, title }) {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -69,7 +70,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:image`,
-          content: `https://raw.githubusercontent.com/athul/blog/master/content/assets/n1.png`,
+          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetada.siteUrl}`,
         },
         {
           name: `twitter:card`,
