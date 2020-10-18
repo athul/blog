@@ -27,7 +27,7 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
-
+  const currentUrl = window.location.pathname;
   return (
     <Helmet
       htmlAttributes={{
@@ -54,7 +54,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           property: `og:image`,
-          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl}`
+          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl+currentUrl}`
         },
         {
           name: `twitter:card`,
@@ -74,7 +74,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:image`,
-          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl}`,
+          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl+currentUrl}`,
         },
         {
           name: `twitter:card`,
