@@ -73,7 +73,7 @@ function SEO({ description, lang, meta, title,slug }) {
         },
         {
           name: `twitter:image`,
-          content: `https://www.mugshotbot.com/m?mode=dark&color=red&pattern=charlie_brown&url=${site.siteMetadata.siteUrl+slug}`,
+          content: `https://hqasco.deta.dev/img?url=${site.siteMetadata.siteUrl+slug}`,
         },
         {
           name: `twitter:card`,
