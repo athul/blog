@@ -81,6 +81,7 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
+        <noscript><img src="https://shynet-aca.herokuapp.com/ingress/fceebb68-4dce-49df-9d7e-3ecea758fc9e/pixel.gif"/></noscript> <script src="https://shynet-aca.herokuapp.com/ingress/fceebb68-4dce-49df-9d7e-3ecea758fc9e/script.js"></script>
       </Layout>
     )
   }
