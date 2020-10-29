@@ -27,6 +27,11 @@ function SEO({ description, lang, meta, title,slug }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  if(slug === undefined){
+    slug ="/"
+    console.log("prcd slug")
+  }
+
   return (
     <Helmet
       htmlAttributes={{

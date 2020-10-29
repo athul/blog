@@ -3,11 +3,11 @@ module.exports = {
   siteMetadata: {
     title: `dayDreams ++`,
     author: `Athul Cyriac Ajay`,
-    description: `Because I DayDream Incremetally`,
+    description: `Because I DayDream Incrementally`,
 	  siteUrl: `https://blog.athulcyriac.co`,
     social: {
       twitter: `athulcajay`,
-      github: `Athul-CA`,
+      github: `athul`,
     },
   },
   plugins: [
