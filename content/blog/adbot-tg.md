@@ -2,9 +2,8 @@
 title: Telegram Bot with Adguard
 date: "2020-10-10"
 description: A Telegram Bot for receiving Adguard Home statistics
-new: true 
 ---
-Recently I had this idea of setting up a network-level adblocker in my Home. But sadly I don't use a fibre/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to [Adguard Home](https://github.com/AdguardTeam/AdguardHome) on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole. It was easy to set up and running and they give the instructions quite well. 
+Recently I had this idea of setting up a network-level adblocker in my Home. But sadly I don't use a fibre/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to [Adguard Home](https://github.com/AdguardTeam/AdguardHome) on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole. It was easy to set up and running and they give the instructions quite well.
 
 > I use Brave as my daily driver, It blocks almost all the ads(even Spotify ads on the web player)
 
