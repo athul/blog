@@ -4,7 +4,7 @@ module.exports = {
     title: `dayDreams ++`,
     author: `Athul Cyriac Ajay`,
     description: `Because I DayDream Incrementally`,
-	  siteUrl: `https://blog.athulcyriac.co`,
+    siteUrl: `https://blog.athulcyriac.co`,
     social: {
       twitter: `athulcajay`,
       github: `athul`,
@@ -42,12 +42,6 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-	{
-	resolve:`gatsby-remark-prismjs`,
-            options: {
-              inlineCodeMarker: '÷',
-            },
-          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
@@ -55,14 +49,8 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: `UA-143385382-1`,
-      },
-    },
     `gatsby-plugin-feed-mdx`,
-{
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `dayDreams ++`,
@@ -89,11 +77,11 @@ module.exports = {
       },
     },
     'gatsby-plugin-dark-mode',
-      {
-        resolve: `gatsby-remark-responsive-iframe`,
-        options: {
-          wrapperStyle: `margin-bottom: 1.0725rem`,
-        },
+    {
+      resolve: `gatsby-remark-responsive-iframe`,
+      options: {
+        wrapperStyle: `margin-bottom: 1.0725rem`,
       },
+    },
   ],
 }
