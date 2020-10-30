@@ -8,7 +8,8 @@ Personal Blog of Athul Cyriac Ajay.
 You can find it on https://blog.athulcyriac.co or [at My GitHub Pages](https://athul.github.io/blog)
 --------
 
-I'll try to post something new every week it may be techical or you know the opposite of that.   
+Uses [Shynet](https://github.com/milesmcc/shynet) for Analytics.
+
 For feedback or suggestion use **Issues** 😁
 
 -------
