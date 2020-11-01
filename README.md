@@ -23,9 +23,9 @@ Special thanks to Abhijith Kannan for making the Logo
 ### Posts
 
 <!--START_SECTION:posts-->
+* [Link Preview Generator in Python](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;image-gen&#x2F;)
 * [Telegram Bot with Adguard](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;adbot-tg&#x2F;)
 * [Jiofi-CLI](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;jiofi&#x2F;)
 * [Updating GitHub Readme with Waka-readme](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;readme_ghactions&#x2F;)
 * [FastAPI + Deta &#x3D; ⚡️](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;fastapi_deta&#x2F;)
-* [Hacking the Quarantine](https:&#x2F;&#x2F;blog.athulcyriac.co&#x2F;hack&#x2F;)
 <!--END_SECTION:posts-->
