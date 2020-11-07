@@ -1,7 +1,7 @@
 {
   "name": "dayDreams",
   "private": true,
-  "description": "Athul's blog powered by Gatsby and Markdown",
+  "description": "Athul's blog powered by Gatsby and MDX",
   "version": "0.1.0",
   "author": "Athul Cyriac Ajay <athul8720@gmail.com>",
   "bugs": {
