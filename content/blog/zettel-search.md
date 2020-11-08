@@ -10,7 +10,7 @@ Search was a most wanted feature for me since it would reduce my time to look in
 
 ## Searching to set up search
 
-Since Zettel was made with Hugo, I initially searched for how to implement a search feature in a Hugo[^1] website. The results I got from google was from the official Hugo [docs](https://gohugo.io/tools/search/). There were a few commercial services and a few hacked up ones. The [fastSearch](https://gist.github.com/cmod/5410eae147e4318164258742dd053993) gist was quite interesting and matched to my usecase. The next step was how I could port that from Hugo to zettel.
+Since Zettel was made with Go, I first searched on how to implement a search feature in a Hugo[^1] website. The results I got from google was from the official Hugo [docs](https://gohugo.io/tools/search/). There were a few commercial services and a few hacked up ones. The [fastSearch](https://gist.github.com/cmod/5410eae147e4318164258742dd053993) gist was quite interesting and matched to my usecase. The next step was how I could port that from Hugo to zettel.
 
 ## Indexing
 
@@ -61,6 +61,7 @@ And this will act as the search index for the pages. Next was to work on the fro
 ## Fu'z'ing
 
 After the Index we need to use a Js library to parse the json index and return us the result. fastSearch gist uses [Fuze.js](https://fusejs.io/) so I too used the same. Fuze.js is a fuzzy search library which takes in a JSON index and returns from the JSON index if the item is found as Js Arrays. The code for making the search work was available on the gist but needed some modifications for the current use case. I'm not that familiar with Js but I could read and understand the code. I was able to ahck the code up and made it working.
+
 ```js
 // Code by Craig Mod under MIT License
 // https://gist.github.com/cmod/5410eae147e4318164258742dd053993
@@ -154,15 +155,28 @@ function executeSearch(term) {
   }
 }
 ```
+
 I also added some fun highlighting for the resulted search terms using the `<mark>` tag of HTML(semantic HTML FTW🙌). I modified the Js code from the original one and removed the `CMD + /` option to start the search. The keys to search from the index are the title and tags. Indexing the contents will add a lot of page load time and the JSON will be of much bigger size when scaled.
 
-The CSS part was a tad tricky since I don't know CSS. I had some help from my friend who over a call made it look better and more compact. 
+The CSS part was a tad tricky since I don't know CSS. I had some help from my friend who over a call made it look better and more compact.
 
 Here is the End Result 👇
 
 ![](./img/search.gif)
 
-I have added the whole code for the JS part and the CSS part as a GitHub Gist[^2] 😁 with instructions too.
+I have added the whole code for the JS part and the CSS part as a GitHub Gist[^2] 😁 with instructions too. If you'reinstrested in Digital Garden's and Zettel, make sure you checkout
+
+- [Maggie Appleton's Repo for Digital Gardens](https://github.com/MaggieAppleton/digital-gardeners)
+- A [subreddit] for Digital Gardeners
+- [Personal fork of Zettel]
+
+
+---
+
+If you found it useful, you can donate me on [BMC ☕️](https://www.buymeacoffee.com/athulca) or [Paypal](https://paypal.me/athulca) and can reach out to me on [Twitter](https://twitter.com/athulcajay)
 
 [^1]: Hugo is a static site generator in Go, https://gohugo.io 
 [^2]:https://gist.github.com/athul/0d47f7e1b677de3f3ed2b756ae1fffac 
+
+[subreddit]:https://www.reddit.com/r/DigitalGardens/
+[Personal fork of Zettel]:https://github.com/athul/zet
