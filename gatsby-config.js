@@ -4,7 +4,7 @@ module.exports = {
     title: `dayDreams ++`,
     author: `Athul Cyriac Ajay`,
     description: `Because I DayDream Incrementally`,
-    siteUrl: `https://blog.athulcyriac.co`,
+    siteUrl: `https://blog.athulcyriac.xyz`,
     social: {
       twitter: `athulcajay`,
       github: `athul`,

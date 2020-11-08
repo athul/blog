@@ -48,12 +48,12 @@ I'd totally suggest this since I had simply pushed without any testing and I had
 
 ## GoDownloader
 You can install godownloader from their [releases page](https://github.com/goreleaser/godownloader/releases). Follow the next steps to use it Globally
-```sh
+```shell
 $ tar -xvf <filename>.tar.gz
 $ mv godownloader /usr/local/bin/
 ```
 Now go to your working folder and run
-```sh
+```shell
 $ godownloader --repo=<user>/<repo> > godownloader.sh
 ```
 This will make a `godownlaoder.sh` file which can be used as an installation script.
