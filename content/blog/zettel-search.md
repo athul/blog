@@ -162,7 +162,7 @@ The CSS part was a tad tricky since I don't know CSS. I had some help from my fr
 
 Here is the End Result 👇
 
-![](./img/search.gif)
+![](https://i.imgur.com/antb6h4.gif)
 
 I have added the whole code for the JS part and the CSS part as a GitHub Gist[^2] 😁 with instructions too. If you'reinstrested in Digital Garden's and Zettel, make sure you checkout
 
