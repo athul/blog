@@ -2,7 +2,6 @@
 title: Indexed 🧠 and Fuzzy 🔍
 date: "2020-11-08"
 description: How I implemented a search feature on statically generated site in Go 
-new: true 
 ---
 In these past few months, I had a plan to set up a wiki for myself. I was exploring my options on what tool I should use. This thought came up in September and this was the same time for FOSS United's Hackathon. Post Hackathon discussions on the group was quite interesting and this was where the whole idea of a [Digital Garden](https://joelhooks.com/digital-garden)  came up. On further research this seemed a good option for me to organize my notes and ideas. I looked at my Options, There were [Roam Research](https://roamresearch.com/) and [Obsidian](https://obsidian.md/) which were quite cool but Roam was paid  and Obsidian was an electron app😬. I also wanted to make these Publically available when it was good, so **hosting** it was also necessary for me so I went on with my searching. Then there was [Foam](https://foambubble.github.io/foam/) and [TiddlyWiki](https://tiddlywiki.com/) but sadly for me these were less *hackable* except for tiddlywiki. Then comes [zettel](https://github.com/hackstream/zettel) which was a project for the said hackathon. In simple terms zettel is a SSG/CLI for markdown files. It supported wikilinks(`[[]]`) and was made with Go 😻. I had been contributing to it's codebase. I had implemented the syntax highlighting and Math Features to it.
 

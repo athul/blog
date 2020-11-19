@@ -179,6 +179,11 @@ hr{
   background: fuchsia;
   color: white ;
 }
+.gatsby-highlight pre[class*='language-html']::before{
+  content: 'html';
+  background: orangered;
+  color: white ;
+}
 .gatsby-highlight pre[class*='language-css']::before{
   content: 'css';
   background: cyan;
