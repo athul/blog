@@ -1,8 +1,7 @@
 ---
 title: FastAPI Auth + Login Page
-date: "2020-11-09"
+date: "2020-11-19"
 description: Using auth in Fastapi and connecting it to a Login Form
-new: true 
 ---
 This past week I had been working on something(will release it in the coming days) which used FastAPI for the Backend and Jinja for Templating. I had never used Jinja before and it was quite useful and easy to use. The abstraction is enjoyable. No need for an API to send the data to the frontend. Then I had to implement an Authentication system for the frontend since the project consists of some personal info. I had to refresh my HTML form skills for the same and I found that the resources available for these were less.
 
