@@ -10,13 +10,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
-    - name: Gatsby Publish
-      run: yarn install&&yarn add gatsby-cli&&node_modules/.bin/gatsby build --prefix-paths
-      
-    - name: deploy
-      uses: peaceiris/actions-gh-pages@v1.1.0
-      if: success()
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./public
+    - uses: enriikke/gatsby-gh-pages-action@v2
+      with:
+        access-token: ${{ secrets.GITHUB_TOKEN }}
+        deploy-branch: gh-pages
+        gatsby-args: --prefix-paths
