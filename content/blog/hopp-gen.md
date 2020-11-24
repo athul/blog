@@ -1,5 +1,5 @@
 ---
-title: HoppScotch Doc Generation
+title: HoppScotch Doc Generation, a breakdown
 date: "2020-11-25"
 description: Implementing Hopp-CLI's new feature of Automatic Documentation Generation in Go with Markdown
 new: true 
@@ -7,9 +7,12 @@ new: true
 
 [Hoppscotch](https://hoppscotch.io) is a popular Open Source project on GitHub. Recently it surpassed the 25k Stars milestone on GitHub. I am the **author** and current maintainer of [Hopp-CLI](hhtps:github.com/hoppscotch/hopp-cli). It had been dormant till October when I revamped the project and it underwent a major refactor. I was cursing myself for the code I had written 6 months ago. I was so ashamed at myself for that Spaghetti code I had written. The rewrite gave me new ideas like implementing a tabular output and Documentation Generation. Tabular output was easily implemented and I had to wait over a month to implement the Doc Generation.
 
+> TL;DR: You can use `text/template` to write to markdown files and populate them in Go
+
+
 ## Initial Thoughts
 
-The Doc generation was an already implemented feature in another Official CLI of HoppScotch. It was named as [`hopp-doc-gen`](https://githbu.com/hoppscotch/hopp-doc-gen) and it was made with JavaScript. The downside I found was that it used Vuepress to generate the docs. Vuepress is a great tool, no doubt about it, but the thought of installing vuepress or any other NPM package for docs generation is alarming. NPM tends to be data hungry and personally I seldom install NPM packages. I'm not a Js Freak. I've heard about Kube CLI generating docs with the CLI and on further research I found that this was done with the `text/template` package of Go. Go provides a Templating library by itself, how cool is that. So without having much experience in templating with Go. I took the challenge. I had commented on a [Lobste.rs](https://lobste.rs/s/q8n0le/what_are_you_doing_this_weekend#c_zvajxk) post that this was my weekend task.
+The Doc generation was an already implemented feature in another Official CLI of HoppScotch. It was named as [`hopp-doc-gen`](https://github.com/hoppscotch/hopp-doc-gen) and it was made with JavaScript. The downside I found was that it used Vuepress to generate the docs. Vuepress is a great tool, no doubt about it, but the thought of installing vuepress or any other NPM package for docs generation is alarming. NPM tends to be data hungry and personally I seldom install NPM packages. I'm not a Js Freak. I've heard about Kube CLI generating docs with the CLI and on further research I found that this was done with the `text/template` package of Go. Go provides a Templating library by itself, how cool is that. So without having much experience in templating with Go. I took the challenge. I had commented on a [Lobste.rs](https://lobste.rs/s/q8n0le/what_are_you_doing_this_weekend#c_zvajxk) post that this was my weekend task.
 
 ## HTML Templates FTW or so I thought...
 
@@ -152,4 +155,114 @@ Yeah the data part works but I could't get the full out of docsify js and it bec
 
 ### Down Under
 
-Usage of Markdown is where docsify shines. Docsify automatically parses the markdown and you'll get a wonderful webpage with the docs. I searched on Google to find any blogs or stuff regarding writing templates for markdown and injecting data into them same as injecting data to HTMl. Sadly I couldn't find any........ So I tried my hand in that and it worked.
+Usage of Markdown is where docsify shines. Docsify automatically parses the markdown and you'll get a wonderful webpage with the docs. I searched on Google to find any blogs or stuff regarding writing templates for markdown and injecting data into them same as injecting data to HTMl. Sadly I couldn't find any........ So I tried my hand in that and it worked. I wanted to write to a markdown file with the data from the JSON file. 
+
+Docsify uses the README.md file as the default file for generating the docs. So I created a folder called `templates` and inside it, a simple HTML file called `index.html` for loading the webpage. I created a new markdown file called `template.md` and added Go's template tags. I wrote some code to parse that file, and execute the template and save it another file called `README.md` inside the templates folder.
+
+Here is the Go side of things
+
+```go
+t := template.Must(template.ParseFiles(filepath.Join(cwd, "methods/templates/template.md")))
+
+// Create the file
+f, err := os.Create(filepath.Join(cwd, "methods/templates/README.md"))
+if err != nil {
+    log.Printf("File Creation Error: %v", err)
+}
+
+// Execute the template to the file.
+if err = t.Execute(f, colls); err != nil {
+    log.Println(err)
+}
+
+// Close the file when done.
+f.Close()
+```
+
+Implementing this was quite easy than I expected. Here is a snippet of the Markdown templates
+
+```md
+{{ range .  }}
+
+# {{.Name}}
+
+{{-  if .Folders}}
+{{- range .Folders}}
+
+---
+
+## Folder: {{.Name}}
+{{-  range .Requests }}
+
+---
+
+### {{.Name}}
+```
+
+This will generate a Markdown file like this,
+
+```md
+
+# Collection #1 - Prod
+
+---
+
+## Folder: GET
+
+---
+
+### GET + Params
+```
+
+The major takeaway was that 
+**just like using Go templates in HTML, we could also use that in Markdown too**
+
+Here is the whole Code for the Genrate Function
+
+```go
+package methods
+
+import (
+    "log"
+    "net/http"
+    "os"
+    "path/filepath"
+    "text/template"
+
+    "github.com/pkg/browser"
+)
+
+//GenerateDocs generates the Documentation site from the hoppscotch-collection.json
+func GenerateDocs(filename string) {
+cwd, _ := os.Getwd()
+colls, err := ReadCollection(filename)
+if err != nil {
+    log.Printf("Error Occured %v", err)
+}
+t := template.Must(template.ParseFiles(filepath.Join(cwd, "methods/templates/template.md")))
+
+// Create the file
+f, err := os.Create(filepath.Join(cwd, "methods/templates/README.md"))
+if err != nil {
+    log.Printf("File Creation Error: %v", err)
+}
+
+// Execute the template to the file.
+if err = t.Execute(f, colls); err != nil {
+    log.Println(err)
+}
+
+// Close the file when done.
+f.Close()
+fs := http.FileServer(http.Dir(filepath.Join(cwd, "methods/templates/")))
+http.Handle("/", fs)
+
+log.Printf("\033[1;36m%s\033[0m", "Server Listening at http://localhost:1341")
+browser.OpenURL("http://localhost:1341/") // AutoOpen the Broswer
+http.ListenAndServe(":1341", nil)
+}
+```
+
+---
+
+If you found this useful, consider donating me on [BMC ☕️](https://www.buymeacoffee.com/athulca) or [Paypal](https://paypal.me/athulca) and can reach out to me on [Twitter](https://twitter.com/athulcajay) 😄
