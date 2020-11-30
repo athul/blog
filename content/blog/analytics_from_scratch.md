@@ -1,7 +1,7 @@
 ---
-title: Building Analytics Servers because Why not?
+title: Harnessing Headers; Building a Custom Analytics Server
 date: "2020-12-01"
-description: Using FastAPI and deta.sh bases to build an Analytics Site from scratch
+description: Using Python and Deta.sh to build a simple Analytics Server from Scratch
 new: true
 ---
 Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up early or sit infront of my computer all day long. Anyways these sleepless paved way for quite a handfull of ideas and the most recent one was an Analytics Server. 
