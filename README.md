@@ -23,9 +23,9 @@ Special thanks to Abhijith Kannan for making the Logo
 ### Posts
 
 <!--START_SECTION:posts-->
+* [Harnessing Headers; Building a Custom Analytics Server](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;analytics_from_scratch&#x2F;)
 * [HoppScotch Doc Generation, a breakdown](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;hopp-gen&#x2F;)
 * [Desk Setup - 2020](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;desk-2020&#x2F;)
 * [FastAPI Auth + Login Page](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;fastapi-auth&#x2F;)
 * [Indexed 🧠 and Fuzzy 🔍](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;zettel-search&#x2F;)
-* [Link Preview Generator in Python](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;image-gen&#x2F;)
 <!--END_SECTION:posts-->
