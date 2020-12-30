@@ -2,7 +2,6 @@
 title: Harnessing Headers; Building a Custom Analytics Server
 date: "2020-12-01"
 description: Using Python and Deta.sh to build a simple Analytics Server from Scratch
-new: true
 ---
 Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up late or sit in front of my computer all day long. Anyways this sleeplessness paved way for quite a handful of ideas and the most recent one was an Analytics Server. 
 I was heavily inspired by [Shynet](https://github.com/milesmcc/shynet) for its simplicity and aesthetics and I had been using it for getting the analytics of this Blog and a few Personal Projects. Shynet was built with Django which again piqued my interest.
