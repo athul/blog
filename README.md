@@ -5,7 +5,10 @@
 
 # DayDreams++
 Personal Blog of Athul Cyriac Ajay.   
-You can find it on https://blog.athulcyriac.co or [at My GitHub Pages](https://athul.github.io/blog)
+You can find it on https://blog.athulcyriac.co or [at My GitHub Pages](https://athul.github.io/blog). 
+
+**This is my personal blog and not under the no-license policy. The code making this blog(styling and words) belongs is not for public usage. If you want to fork it and us it as your own, make significant changes to it and remove my analytics code.**
+
 --------
 
 Uses [Shynet](https://github.com/milesmcc/shynet) for Analytics.
