@@ -2,7 +2,6 @@
 title: HoppScotch Doc Generation, a breakdown
 date: "2020-11-25"
 description: Implementing Hopp-CLI's new feature of Automatic Documentation Generation in Go with Markdown
-new: true 
 ---
 
 [Hoppscotch](https://hoppscotch.io) is a popular Open Source project on GitHub. Recently it surpassed the 25k Stars milestone on GitHub. I am the **author** and current maintainer of [Hopp-CLI](hhtps:github.com/hoppscotch/hopp-cli). It had been dormant till October when I revamped the project and it underwent a major refactor. I was cursing myself for the code I had written 6 months ago. I was so ashamed at myself for that Spaghetti code I had written. The rewrite gave me new ideas like implementing a tabular output and Documentation Generation. Tabular output was easily implemented and I had to wait over a month to implement the Doc Generation.
