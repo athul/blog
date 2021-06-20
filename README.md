@@ -26,9 +26,9 @@ Special thanks to Abhijith Kannan for making the Logo
 ### Posts
 
 <!--START_SECTION:posts-->
-* [The Speech Rant](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;speech&#x2F;)
 * [Getting new Lobste.rs feed with Python and Telegram](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;lobsters_feed&#x2F;)
 * [The 2020!](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;2020&#x2F;)
 * [Harnessing Headers; Building a Custom Analytics Server](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;analytics_from_scratch&#x2F;)
 * [HoppScotch Doc Generation, a breakdown](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;hopp-gen&#x2F;)
+* [Desk Setup - 2020](https:&#x2F;&#x2F;blog.athulcyriac.xyz&#x2F;desk-2020&#x2F;)
 <!--END_SECTION:posts-->
