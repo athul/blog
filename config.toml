@@ -1,0 +1,41 @@
+baseURL = "https://blog.athulcyriac.xyz"
+languageCode = "en-us"
+title = "dayDreams ++"
+theme="archie"
+copyright = "© Athul"
+pygmentsstyle = "dracula"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+paginate=6
+[params]
+	favicon="https://img.icons8.com/officel/16/000000/chevron-right.png"
+	og_image="https://raw.githubusercontent.com/athul/archie/master/images/archie-dark.png"
+	mode="dark"
+	useCDN=true
+	subtitle = "Personal Blog of **Athul Cyriac Ajay** who is an Undergraduate Engineering Student in College of Engineering Kidangoor, a [GitHub Campus Expert](https://githubcampus.expert/athul) and a Python, Go lover."
+	description = "Because I daydream as incrementally"
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/athul"
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/athulcajay/"
+
+[[params.social]]
+name = "GitLab"
+icon = "gitlab"
+url = "https://gitlab.com/athul/"
+
+[[menu.main]]
+name = "RSS"
+url = "/index.xml"
+weight = 2
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 1

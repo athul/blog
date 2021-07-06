@@ -1,0 +1,58 @@
+---
+title: Termchat - Chat from your Terminal with Websockets
+date: "2020-05-17"
+description: Termchat is small a side project which uses Websockets to commnunicate with a group from the Terminal.
+---
+"Websockets... Websockets... Websockets...", I could do this all hour like Paul Allen shouted "Developers...Developers...Developers..." in some Microsoft Conference. I don't remember the specific conference but you get the point. Websockets are the bread and butter of many Realtime systems today. They're easy to implement in Node.js and mostly it is limited to web. 
+
+![Toy Story Meme](img/ws2.jpeg)
+
+## Phase - 1 | Brainstorm
+
+I had searched google sometime ago on using websockets other than from browsers. Couldn't find a non browser usage of websockets. I was also inspired by a project called [Niltalk](https://github.com/knadh/niltalk) which uses Go's websocket's implementation with React but hey that too used the browser. So I went forth to make something using websockets and not TCP sockets. I wanted to write in Go since I knew Go and Go's websocket implementation was ⚡️. I had never used websockets before writing Termchat and boy oh boy... They're super cool.
+
+## Phase - 2 | Writing Code
+
+![](img/cat-typing.gif)
+
+Everytime I try to code in Go, I learn new things and use things in the Go STDlib that I had never used before. I for the First time used Goroutines and Structs here. The building part was a bit tricky since most of the blog posts or tutorials used webscokets where they sre usually used, in the Browser. Anyways the [Gorilla/Websocket](https://github.com/gorilla/websocket) package is well documented and had better "reviews" than the Standard Go Websocket implementation. I used some of the code from their example and mashed this up.
+<Callout emoji="💡">
+"You can copy/paste code, but knowing what changes what is the key to making something from 0"
+</Callout><br/>
+The code uses goroutines for basic data transfer from client to Hub. There is a Hub and Client struct for the Data part. The User inputs the data and forwards it to the Hub and the gup broadcasts it to all other clients connected to the server.
+The `runner.go` file helps the clients connect to the server. It dials up to the websocket url and gives and input buffer for text entry. 
+It was by accident when I actually found that this whole code actually works. 
+
+**Here is a sample working 👇**
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t_xoW_JUtvE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The command part and connection is a simple `goroutine` dialing the websocket and connecting to it, but the difference here is that it connects from a Terminal🤪.
+
+## Phase 3 - Making it Better
+<Callout emoji="🌐">
+    You can find the source code on <a href="https://github.com/athul/termchat">GitHub</a>
+</Callout><br/>
+This is not the perfect implementation but it works, so sharing this 😅. I felt so proud that I hacked this up in the quarantine and learned a bit more of Go and websockets with this. Who knows, makng this better may help someone in some way. 
+Some ways it could be used is,<br/>
+
+- Secret message passing in Local network(Like in Programming labs in college😂)
+- Organization Messaging
+- Hackathons for messaging mentors and organizers
+
+**This phase is still going on and might improve Termchat's functionality or design in the near future(I Hope).**
+
+### What I learned from hacking this
+Learning is a part of everyday now, so hacking this up helped me a learn a lot about
+- Goroutines
+- Structs in Go
+- Interfaces in Go
+- Websockets
+
+> The chat in video is me talking to myself in 3 other aliases 🤪
+
+Here is another nerdy websoket Meme 👇
+
+![2nd Nerdy Meme](img/sw1.jpg)
+
+> If you find any typos or have any suggestions or questions, feel free to use the comments section
