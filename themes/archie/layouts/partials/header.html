@@ -15,7 +15,8 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
-	<meta property="og:image" content="{{ .Site.Params.og_image }}"/>
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url={{strings.TrimSuffix "/" .Site.BaseURL}}{{ .RelPermalink }}"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url={{strings.TrimSuffix "/" .Site.BaseURL}}{{ .RelPermalink }}"/>
 	{{ with .OutputFormats.Get "rss" -}}
 	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 	{{ end -}}
@@ -27,20 +28,11 @@
 	{{- else if (isset .Site.Params "social") -}}
 		<script src="{{ .Site.BaseURL }}js/feather.min.js"></script>
 	{{ end }}
-	{{ if .Site.Params.useCDN | default false -}}
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-	{{- else -}}
-	{{ $fontstyle := resources.Get "css/fonts.css" | fingerprint }}
-        <link href="{{ $fontstyle.Permalink }}" rel="stylesheet">
-	{{ end }}
-
-	{{ $style := resources.Get "css/main.css" | fingerprint }}
+	{{ $style := resources.Get "css/main.css" | fingerprint | resources.Minify }}
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.Permalink }}" />
 
 	{{- if or (eq .Site.Params.mode "auto") (eq .Site.Params.mode "dark") -}}
-		{{ $darkstyle := resources.Get "css/dark.css" | fingerprint }}
+		{{ $darkstyle := resources.Get "css/dark.css" | fingerprint | resources.Minify }}
 		<link rel="stylesheet" type="text/css" href="{{ $darkstyle.Permalink }}" {{ if eq .Site.Params.mode "auto" }}media="(prefers-color-scheme: dark)"{{ end }} />
 	{{ end }}
 	
@@ -58,4 +50,5 @@
 	<script src="{{ $.Site.BaseURL }}{{ . }}"></script>
 	{{- end }}
 	{{- end }}
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 </head>
