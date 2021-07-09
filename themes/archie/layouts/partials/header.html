@@ -17,6 +17,7 @@
 	<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
 	<meta property="og:image" content="https://hqasco.deta.dev/img?url={{strings.TrimSuffix "/" .Site.BaseURL}}{{ .RelPermalink }}"/>
 	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url={{strings.TrimSuffix "/" .Site.BaseURL}}{{ .RelPermalink }}"/>
+	<meta property="twitter:card" content="summary_large_image"/>
 	{{ with .OutputFormats.Get "rss" -}}
 	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 	{{ end -}}
