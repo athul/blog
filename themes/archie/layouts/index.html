@@ -14,7 +14,7 @@
         {{- end -}}
       </div>
       {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-      {{ $paginator := .Paginate (where $pages"Params.hidden" "ne" true) }} 
+      {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }} 
       {{ range $paginator.Pages }}
       <section class="list-item">
         <h3 class="head" style="margin-bottom: 0.4375rem">
