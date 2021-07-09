@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://blog.athulcyriac.xyz"
 languageCode = "en-us"
 title = "dayDreams ++"
 theme="archie"
