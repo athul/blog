@@ -6,7 +6,7 @@
 	<article>
 		<div class="title">
 			<h1 class="title" align="center" style="color: lightseagreen;">{{ .Title }}</h1>
-			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on {{ dateFormat "Jan 2, 2006" .Date }}{{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</div>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on {{ dateFormat "Jan 2, 2006" .Date }} | {{math.Round (div (countwords .Content) 250.0)}} minutes {{ if .Draft }} <span class="draft-label">DRAFT</span> {{ end }}</div>
 		</div>
 		{{ if isset .Params "tldr" }}
 		<div class="tldr">

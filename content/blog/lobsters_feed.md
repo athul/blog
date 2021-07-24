@@ -2,7 +2,6 @@
 title: Getting new Lobste.rs feed with Python and Telegram
 date: "2021-03-28"
 description: Writing a small script to get New Lobsters feed in Telegram with Python and Cron Jobs
-new: true
 ---
 
 It's been some time since I written a new technical post. It was because I took a small break from writing code. I have no idea why but it wasn't worth it anyways.
