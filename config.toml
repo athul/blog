@@ -11,7 +11,7 @@ paginate=6
 	favicon="/n1.png"
 	mode="dark"
 	useCDN=true
-	subtitle = "Personal Blog of **Athul Cyriac Ajay** who is an Undergraduate Engineering Student in College of Engineering Kidangoor, a [GitHub Campus Expert](https://githubcampus.expert/athul) and a Python, Go lover."
+	subtitle = "Personal Blog of **Athul Cyriac Ajay**. Find more about me [here](https://athulcyriac.xyz)"
 	description = "Because I daydream as incrementally"
 
 [[params.social]]
