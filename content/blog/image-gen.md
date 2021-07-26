@@ -2,6 +2,7 @@
 title: Link Preview Generator in Python 
 date: "2020-10-30"
 description: Build a Link Preview | meta image | og-image | twitter-card generator with Python, FastAPI and Pillow 
+aliases: [/image-gen]
 ---
 One day I was scrolling through Reddit and found a post in r/SideProject about [MugshotBot](https://www.mugshotbot.com/) and it's the ease of use intrigued me. So I immediately hacked this blog to use MugShotBot to generate Link Previews. Gatsby was a bit tedious to hack on and I'm not a Js peep myself. I just know how most of this stuff works and not to code much Js. Eventually, I made it to work with MugShotBot and this happened at midnight. I got excited and immediately implemented it 🤷‍♂️.
 

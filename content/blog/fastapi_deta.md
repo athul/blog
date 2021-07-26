@@ -2,6 +2,7 @@
 title: FastAPI + Deta = ⚡️
 date: "2020-07-07"
 description: Getting Started with FastAPI with Deta by creating a mailing list API
+aliases: [/fastapi-deta]
 ---
 [FastAPI](https://fastapi.tiangolo.com/) is a a Python Framework for building RESTful APIs. It has all the simplicity of Python with a added advantages of Async⚡️, automatic Schema Generation and OpenAPI and Python Types✨(with Pydantic). FastAPI is relatively a new Project and is gaining quite a good traction in the Dev world. It has got nearly [16k stars on GitHub](https://github.com/tiangolo/fastapi) and about 160 contributors. The main plus side of FastAPI is the documentation which is **Top Notch**.
 
