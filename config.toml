@@ -32,6 +32,11 @@ url = "https://gitlab.com/athul/"
 [[menu.main]]
 name = "RSS"
 url = "/index.xml"
+weight = 3
+
+[[menu.main]]
+name = "All Posts"
+url = "/blog"
 weight = 2
 
 [[menu.main]]
