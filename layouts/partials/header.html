@@ -31,7 +31,6 @@
 	{{ end }}
 	{{ $style := resources.Get "css/main.css" | fingerprint | resources.Minify }}
 	<link rel="stylesheet" type="text/css" media="screen" href="{{ $style.Permalink }}" />
-
 	{{- if or (eq .Site.Params.mode "auto") (eq .Site.Params.mode "dark") -}}
 		{{ $darkstyle := resources.Get "css/dark.css" | fingerprint | resources.Minify }}
 		<link rel="stylesheet" type="text/css" href="{{ $darkstyle.Permalink }}" {{ if eq .Site.Params.mode "auto" }}media="(prefers-color-scheme: dark)"{{ end }} />

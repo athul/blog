@@ -1,12 +1,11 @@
 baseURL = "https://blog.athulcyriac.xyz"
 languageCode = "en-us"
 title = "dayDreams ++"
-theme="archie"
 copyright = "© Athul"
+paginate=6
 pygmentsstyle = "dracula"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
-paginate=6
 [params]
 	favicon="/n1.png"
 	mode="dark"
