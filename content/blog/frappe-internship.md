@@ -2,7 +2,6 @@
 title: The Intern
 date: "2021-07-24"
 description: Internship Journey @Frappe
-new: True
 ---
 
 Recently I had been an Intern at [Frappe](https://frappe.io). To get more context, Frappe is the company behind [ERPNext](https://erpnext.com). ERPNext is an Open Source ERP built on top of the Frappe homegrown Python Framework called **Frappe Framework** and I don't think many Indian companies have a framework of their own.
@@ -14,7 +13,7 @@ The point I'm trying to say is I didn't dream to be part of a Google or Microsof
 
 > "What good will it be for someone to gain the whole world, yet forfeit their soul?" Matthew 16:26
 
-After all this ranting on my life philosophies(I may regret this later 🙈). 
+After all this ranting on my life philosophies(I may regret this later 🙈).
 
 I can't tell you on what I've worked there, but these are some rants on what I learned
 
@@ -36,6 +35,6 @@ This is a tech sided stuff but hell yeah, this was one of the best things I've l
 
 ---
 
-People were so good there. We had games on Discord every Friday and everyone gave their honest feedback at all times. People appreciate you to for a smallest achievement you made, and the flexible timing made the environment stress free. But on a personal note, it was a tough time for me from a mental aspect. I was feeling a lot dejected and lonely and the people there helped me a lot. They gave me new perspectives of music, new perspective of movies and series and yes of course books. Frappe gave me good friends and that's something I'm really grateful for 💖. 
+People were so good there. We had games on Discord every Friday and everyone gave their honest feedback at all times. People appreciate you to for a smallest achievement you made, and the flexible timing made the environment stress free. But on a personal note, it was a tough time for me from a mental aspect. I was feeling a lot dejected and lonely and the people there helped me a lot. They gave me new perspectives of music, new perspective of movies and series and yes of course books. Frappe gave me good friends and that's something I'm really grateful for 💖.
 
 > P.S: This was written after months of procrastinating from blogging. People won't read it much but I guess I have lost the flair on writing too.
