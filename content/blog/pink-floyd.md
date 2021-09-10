@@ -1,7 +1,7 @@
 ---
 title: "Coming Back to Pink Floyd"
-date: "2021-08-31"
-description: Rant on Pink Floyd's Music and how it shaped my Rock Taste
+date: "2021-09-10"
+description: Rant on Pink Floyd's Music
 ---
 
 _"For long you live and high you fly_
