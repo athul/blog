@@ -1,10 +1,10 @@
 <footer>
   <div class="footer_nav">
-  <nav style="float:right;">
-    {{ range .Site.Menus.main }}
-    <a href="{{ .URL }}">{{ .Name }}</a>
-    {{ end }}
-  </nav>
+    <nav style="float: right">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
   </div>
   {{- range $index, $key := .Site.Params.Social -}}
   <a class="soc" href="{{ $key.url }}" title="{{ $key.name }}"
@@ -14,14 +14,12 @@
   Built with <a href="https://gohugo.io">Hugo</a>
 </footer>
 {{ if not .Site.IsServer }}
-<script>
-    window.goatcounter = {
-        path: function(p) { return location.host + p }
-    }
-</script>
-<script data-goatcounter="https://a2hu1.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-{{- end }}
-{{- if (isset .Site.Params "social") -}}
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script>
+{{- end }} {{- if (isset .Site.Params "social") -}}
 <script>
   feather.replace();
 </script>
