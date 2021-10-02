@@ -2,6 +2,7 @@
 title: Getting new Lobste.rs feed with Python and Telegram
 date: "2021-03-28"
 description: Writing a small script to get New Lobsters feed in Telegram with Python and Cron Jobs
+tags: ["code", "tech"]
 ---
 
 It's been some time since I written a new technical post. It was because I took a small break from writing code. I have no idea why but it wasn't worth it anyways.
@@ -45,7 +46,7 @@ This function was more that enough to get the required data. We'll update the co
         <pubDate>Sat, 20 Mar 2021 02:52:03 -0500</pubDate>
         <comments>https://lobste.rs/s/v5y4jb/how_safe_is_zig</comments>
         <description>
-          
+
             &#60;p&#62;&#60;a href=&#34;https://lobste.rs/s/v5y4jb/how_safe_is_zig&#34;&#62;Comments&#60;/a&#62;&#60;/p&#62;
         </description>
           <category>c</category>
@@ -56,7 +57,7 @@ This function was more that enough to get the required data. We'll update the co
 
 ## Connecting it to Telegram
 
-Connecting this data to Telegram is also quite straightforward and easy. The only requirements for doing this is to get a Telegram Bot API token and the Chat ID. You can refer [here](https://blog.athulcyriac.xyz/telegram-bot-gh-actions/)  for getting started. So we use Telegram's BOT HTTP API to send messages to the specified chat id via a bot. Here is the code for sending that message. I have made into a function so it can be reused.
+Connecting this data to Telegram is also quite straightforward and easy. The only requirements for doing this is to get a Telegram Bot API token and the Chat ID. You can refer [here](https://blog.athulcyriac.xyz/telegram-bot-gh-actions/) for getting started. So we use Telegram's BOT HTTP API to send messages to the specified chat id via a bot. Here is the code for sending that message. I have made into a function so it can be reused.
 
 ```py
 import requests

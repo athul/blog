@@ -2,6 +2,7 @@
 title: Hackathons and Students
 date: "2020-02-12"
 description: The Importance of Students and Hackathons
+tags: ["tech","hackathons"]
 ---
 Since I went to my first hackathon on Aug 1st at ETHIndia, Bangalore, I loved going to hackathons ever since. I organized about 2 hackathons a year since then. I went to about 6 Hackathons from 2019 to 2020 February. I don't know why but I just love going to hackathons. The energy you feel at a Hackathon can be found nowhere else. 
 

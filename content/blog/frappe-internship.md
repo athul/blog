@@ -2,6 +2,7 @@
 title: The Intern
 date: "2021-07-24"
 description: Internship Journey @Frappe
+tags: ["tech", "life", "personal"]
 ---
 
 Recently I had been an Intern at [Frappe](https://frappe.io). To get more context, Frappe is the company behind [ERPNext](https://erpnext.com). ERPNext is an Open Source ERP built on top of the Frappe homegrown Python Framework called **Frappe Framework** and I don't think many Indian companies have a framework of their own.

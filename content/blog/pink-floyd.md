@@ -2,7 +2,7 @@
 title: "Coming Back to Pink Floyd"
 date: "2021-09-10"
 description: Rant on Pink Floyd's Music
-new: true
+tags: ["music", "personal"]
 ---
 
 _"For long you live and high you fly_
