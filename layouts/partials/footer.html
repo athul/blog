@@ -2,8 +2,7 @@
   <div class="footer_nav">
     <nav style="float: right">
       {{ range .Site.Menus.main }}
-      <a href="{{ .URL }}">{{ .Name }}</a>
-      {{ end }}
+      <a href="{{ .URL }}">{{ .Name }}</a> |{{ end }}
     </nav>
   </div>
   {{- range $index, $key := .Site.Params.Social -}}

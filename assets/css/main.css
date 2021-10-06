@@ -33,11 +33,11 @@ body {
   margin-bottom: 2rem;
   display: flex;
 }
-.desc a{
+.desc a {
   color: var(--textLink);
   text-decoration: none;
 }
-.desc b,strong{
+.desc strong {
   color: hotpink;
 }
 .content {
@@ -147,11 +147,11 @@ h1 {
   text-decoration: none;
   color: tomato;
 }
-.main a:hover{
+.main a:hover {
   color: tomato;
 }
 .head a:hover {
-  color:red;
+  color: red;
   background-color: var(--hovercolor);
 }
 
@@ -161,7 +161,6 @@ article a {
   text-decoration: none;
 }
 footer a {
-  box-shadow: 0 1px 0 0 currentColor;
   color: plum;
   text-decoration: none;
 }
@@ -170,7 +169,7 @@ footer a {
   color: paleturquoise;
   text-decoration: none;
 }
-.list-item h3 a:hover{
+.list-item h3 a:hover {
   background-color: var(--bg);
 }
 .meta {
@@ -182,7 +181,7 @@ footer a {
   text-decoration: none;
   color: tomato;
 }
-.single_header a:hover{
+.single_header a:hover {
   color: tomato;
 }
 .single_header h3 {

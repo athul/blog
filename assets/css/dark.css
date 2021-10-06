@@ -45,11 +45,12 @@ a {
 }
 
 .tags a {
+  color: paleturquoise;
   border-bottom: 3px solid var(--darkMaincolor);
 }
 .tags a:hover {
   background-color: var(--darkMaincolor);
-  color: black;
+  color: plum;
 }
 
 .site-title a {
@@ -66,7 +67,7 @@ a {
   background-color: #333;
 }
 .soc:hover {
-  color: black;
+  color: plum;
 }
 .draft-label {
   color: var(--darkMaincolor);
