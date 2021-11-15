@@ -1,4 +1,4 @@
-baseURL = "https://blog.athulcyriac.xyz"
+baseURL = "https://blog.athulcyriac.in"
 languageCode = "en-us"
 title = "dayDreams ++"
 copyright = "© Athul"
@@ -12,7 +12,7 @@ enableEmoji = true
 favicon = "/n1.png"
 mode = "dark"
 useCDN = true
-subtitle = "Personal Blog of **Athul Cyriac Ajay**. Find more about me [here](https://athulcyriac.xyz)"
+subtitle = "Personal Blog of **Athul Cyriac Ajay**. Find more about me [here](https://athulcyriac.in)"
 description = "Because I daydream as incrementally"
 
 [[params.social]]
