@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Deploy a Hugo Website to GH Pages - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Deploy a Hugo website to GitHub Pages with GitHub Actions" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/deploy-hugo/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/deploy-hugo/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Deploy a Hugo Website to GH Pages" />
+<meta property="og:description" content="Deploy a Hugo website to GitHub Pages with GitHub Actions" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/deploy-hugo/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-04-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-18T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deploy a Hugo Website to GH Pages"/>
+<meta name="twitter:description" content="Deploy a Hugo website to GitHub Pages with GitHub Actions"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Deploy a Hugo Website to GH Pages</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Apr 18, 2020 | 2 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>Due to the quarantine I thought of doing something good and useful for others. So I hacked up a theme for Hugo called <a href="https://athul.github.io/archie">Archie</a>. The design was inspired from <a href="https://blog.jse.li">https://blog.jse.li</a> and was hacked from the ezhil theme for Hugo. The main reason why I built it was due to the Hugo-Ink theme built by <a href="https://github.com/knadh">knadh</a> since I&rsquo;m totally a fanboy of him. So deploying Archie to GitHub Pages was quite fun and easily managable. GitHub Actions made it a lot easier since I don&rsquo;t have to rely on any other platforms for deployment.</p>
+<h2 id="steps-to-deploy-the-hugo-site">Steps to Deploy the Hugo Site</h2>
+<p>There are a few steps to deploy the Hugo site to GitHub Pages and this is these steps are taken from a <a href="https://discourse.gohugo.io/t/deploy-hugo-project-to-github-pages-with-github-actions/20725">Discussion Thread</a> in the Hugo Forum</p>
+<h3 id="create-the-ssh-deploy-keys">Create the SSH Deploy Keys</h3>
+<p>A question arises here&hellip;. Why SSH keys? SSH keys are safe because they are secured with a SHA256 hash. It&rsquo;s also better to use the Deploy key than a GitHub API token as it should be confidential.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh-keygen -t rsa -b <span style="color:#bd93f9">4096</span> -C <span style="color:#f1fa8c">&#34;</span><span style="color:#ff79c6">$(</span>git config user.email<span style="color:#ff79c6">)</span><span style="color:#f1fa8c">&#34;</span> -f gh-pages -N <span style="color:#f1fa8c">&#34;&#34;</span>
+</code></pre></div><p>Execute this command and it will generate 2 files:</p>
+<ul>
+<li><code>gh-pages.pub</code> (public key)</li>
+<li><code>gh-pages</code>     (private key)</li>
+</ul>
+<p>Now we need to add these files to GitHub,for that go to repository setting and click on the Deploy Keys button, add your public key with the Allow write access
+<img src="dpl.png" alt=""></p>
+<p>Next go to the Secrets button and add the Private key(<code>gh-pages</code>) as <code>ACTION_DEPLOY_KEY.</code></p>
+<p>To copy the public / private keys just run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat gh-pages | pbcopy
+</code></pre></div><p>and it will copy the private key to the clipboard</p>
+<h3 id="defining-the-workflow">Defining the Workflow</h3>
+<p>A workflow is a a file which runs your action on the GitHub Environment, the Workflow is a Yaml file and  it contains specific instructions on what to do and how to do it.</p>
+<p>For our purpose we&rsquo;ll be defining a workflow for deploying to GitHub Pages whenever we get a push to the <code>master</code> branch. Paste these in the <code>.github/workflows/gh-pages.yml</code> file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">name</span>: Github Pages
+<span style="color:#ff79c6">on</span>:
+  <span style="color:#ff79c6">push</span>:
+    <span style="color:#ff79c6">branches</span>:
+      - master
+<span style="color:#ff79c6">jobs</span>:
+  <span style="color:#ff79c6">deploy</span>:
+    <span style="color:#ff79c6">runs-on</span>: ubuntu-18.04
+    <span style="color:#ff79c6">steps</span>:
+      - <span style="color:#ff79c6">uses</span>: actions/checkout@v2
+        <span style="color:#ff79c6">with</span>:
+          <span style="color:#ff79c6">submodules</span>: <span style="color:#ff79c6">true</span>
+
+      - <span style="color:#ff79c6">name</span>: Setup Hugo
+        <span style="color:#ff79c6">uses</span>: peaceiris/actions-hugo@v2
+        <span style="color:#ff79c6">with</span>:
+          <span style="color:#ff79c6">hugo-version</span>: <span style="color:#f1fa8c">&#39;0.67.1&#39;</span>
+      - <span style="color:#ff79c6">name</span>: Build
+        <span style="color:#ff79c6">run</span>: hugo --minify
+      - <span style="color:#ff79c6">name</span>: Deploy
+        <span style="color:#ff79c6">uses</span>: peaceiris/actions-gh-pages@v3
+        <span style="color:#ff79c6">with</span>:
+          <span style="color:#ff79c6">deploy_key</span>: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          <span style="color:#ff79c6">publish_dir</span>: ./public
+</code></pre></div><blockquote>
+<p>Note: Before deploying, just add the url to which you&rsquo;re going to deploy in the baseURL of the <code>config.toml</code> file with a trailing <code>/</code></p>
+</blockquote>
+<hr>
+<h3 id="what-i-learned">What I learned?</h3>
+<p>With Archie too 😁,</p>
+<ul>
+<li>Hugo as a SSG</li>
+<li>CSS styling</li>
+<li>Hugo Templating syntax</li>
+<li>Deploying with Deploy Keys in GitHub</li>
+<li>Designing New Hugo Shortcodes</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

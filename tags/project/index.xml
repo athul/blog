@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>project on dayDreams &#43;&#43;</title>
+    <link>https://athul.github.io/blog/tags/project/</link>
+    <description>Recent content in project on dayDreams &#43;&#43;</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Athul</copyright>
+    <lastBuildDate>Tue, 01 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://athul.github.io/blog/tags/project/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Harnessing Headers; Building a Custom Analytics Server</title>
+      <link>https://athul.github.io/blog/blog/analytics_from_scratch/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/analytics_from_scratch/</guid>
+      <description>Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up late or sit in front of my computer all day long. Anyways this sleeplessness paved way for quite a handful of ideas and the most recent one was an Analytics Server. I was heavily inspired by Shynet for its simplicity and aesthetics and I had been using it for getting the analytics of this Blog and a few Personal Projects.</description>
+    </item>
+    
+    <item>
+      <title>Shelby, the Shell Prompt</title>
+      <link>https://athul.github.io/blog/blog/shelby/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/shelby/</guid>
+      <description>What??? Shelby is a bash and zsh shell prompt with more focus on improving the terminal productivity while not compromising the speed and size.
+Why?? I use the terminal. I use it a LOT. Mostly editing,running scripts and servers. I use zsh because I ❤️ oh-my-zsh. I used to use Spaceship Prompt and it felt like quite slow to me. Then I flipped to Starship Prompt by the awesome @matchai.</description>
+    </item>
+    
+  </channel>
+</rss>

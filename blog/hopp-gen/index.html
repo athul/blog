@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>HoppScotch Doc Generation, a breakdown - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Implementing Hopp-CLI&#39;s new feature of Automatic Documentation Generation in Go with Markdown" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/hopp-gen/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/hopp-gen/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="HoppScotch Doc Generation, a breakdown" />
+<meta property="og:description" content="Implementing Hopp-CLI&#39;s new feature of Automatic Documentation Generation in Go with Markdown" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/hopp-gen/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-25T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-25T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HoppScotch Doc Generation, a breakdown"/>
+<meta name="twitter:description" content="Implementing Hopp-CLI&#39;s new feature of Automatic Documentation Generation in Go with Markdown"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">HoppScotch Doc Generation, a breakdown</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Nov 25, 2020 | 5 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p><a href="https://hoppscotch.io">Hoppscotch</a> is a popular Open Source project on GitHub. Recently it surpassed the 25k Stars milestone on GitHub. I am the <strong>author</strong> and current maintainer of <a href="hhtps:github.com/hoppscotch/hopp-cli">Hopp-CLI</a>. It had been dormant till October when I revamped the project and it underwent a major refactor. I was cursing myself for the code I had written 6 months ago. I was so ashamed at myself for that Spaghetti code I had written. The rewrite gave me new ideas like implementing a tabular output and Documentation Generation. Tabular output was easily implemented and I had to wait over a month to implement the Doc Generation.</p>
+<blockquote>
+<p>TL;DR: You can use <code>text/template</code> to write to markdown files and populate them in Go</p>
+</blockquote>
+<h2 id="initial-thoughts">Initial Thoughts</h2>
+<p>The Doc generation was an already implemented feature in another Official CLI of HoppScotch. It was named as <a href="https://github.com/hoppscotch/hopp-doc-gen"><code>hopp-doc-gen</code></a> and it was made with JavaScript. The downside I found was that it used Vuepress to generate the docs. Vuepress is a great tool, no doubt about it, but the thought of installing vuepress or any other NPM package for docs generation is alarming. NPM tends to be data hungry and personally I seldom install NPM packages. I&rsquo;m not a Js Freak. I&rsquo;ve heard about Kube CLI generating docs with the CLI and on further research I found that this was done with the <code>text/template</code> package of Go. Go provides a Templating library by itself, how cool is that. So without having much experience in templating with Go. I took the challenge. I had commented on a <a href="https://lobste.rs/s/q8n0le/what_are_you_doing_this_weekend#c_zvajxk">Lobste.rs</a> post that this was my weekend task.</p>
+<h2 id="html-templates-ftw-or-so-i-thought">HTML Templates FTW or so I thought&hellip;</h2>
+<p>Aesthetics are a big part of a Docs site and CSS is the main thing that makes a Webpage aesthetic. TBH I&rsquo;m not so good with CSS either, so I went on to search for any doc generators. <a href="https://docsify.js.org">Doscify</a> seemed a good option and I went forward with it.</p>
+<p>I created an <code>index.html</code> file and added the templates. The data to be injected was to be taken from a JSON file which looks like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+  {
+    <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Collection #1 - Prod&#34;</span>,
+    <span style="color:#ff79c6">&#34;folders&#34;</span>: [
+      {
+        <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;GET&#34;</span>,
+        <span style="color:#ff79c6">&#34;requests&#34;</span>: [
+          {
+            <span style="color:#ff79c6">&#34;url&#34;</span>: <span style="color:#f1fa8c">&#34;https://httpbin.org&#34;</span>,
+            <span style="color:#ff79c6">&#34;path&#34;</span>: <span style="color:#f1fa8c">&#34;/get&#34;</span>,
+            <span style="color:#ff79c6">&#34;method&#34;</span>: <span style="color:#f1fa8c">&#34;GET&#34;</span>,
+            <span style="color:#ff79c6">&#34;auth&#34;</span>: <span style="color:#f1fa8c">&#34;Basic Auth&#34;</span>,
+            <span style="color:#ff79c6">&#34;httpUser&#34;</span>: <span style="color:#f1fa8c">&#34;user@mail.com&#34;</span>,
+            <span style="color:#ff79c6">&#34;httpPassword&#34;</span>: <span style="color:#f1fa8c">&#34;password&#34;</span>,
+            <span style="color:#ff79c6">&#34;passwordFieldType&#34;</span>: <span style="color:#f1fa8c">&#34;password&#34;</span>,
+            <span style="color:#ff79c6">&#34;bearerToken&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;headers&#34;</span>: [],
+            <span style="color:#ff79c6">&#34;params&#34;</span>: [],
+            <span style="color:#ff79c6">&#34;bodyParams&#34;</span>: [],
+            <span style="color:#ff79c6">&#34;rawParams&#34;</span>: <span style="color:#f1fa8c">&#34;{}&#34;</span>,
+            <span style="color:#ff79c6">&#34;rawInput&#34;</span>: <span style="color:#ff79c6">true</span>,
+            <span style="color:#ff79c6">&#34;contentType&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;requestType&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;preRequestScript&#34;</span>: <span style="color:#f1fa8c">&#34;// pw.env.set(&#39;variable&#39;, &#39;value&#39;);&#34;</span>,
+            <span style="color:#ff79c6">&#34;testScript&#34;</span>: <span style="color:#f1fa8c">&#34;// pw.expect(&#39;variable&#39;).toBe(&#39;value&#39;);&#34;</span>,
+            <span style="color:#ff79c6">&#34;label&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;GET + Basic Auth&#34;</span>,
+            <span style="color:#ff79c6">&#34;collection&#34;</span>: <span style="color:#bd93f9">0</span>
+          },
+        ]
+      },
+      {
+        <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;POST&#34;</span>,
+        <span style="color:#ff79c6">&#34;requests&#34;</span>: [
+          {
+            <span style="color:#ff79c6">&#34;url&#34;</span>: <span style="color:#f1fa8c">&#34;https://httpbin.org&#34;</span>,
+            <span style="color:#ff79c6">&#34;path&#34;</span>: <span style="color:#f1fa8c">&#34;/post&#34;</span>,
+            <span style="color:#ff79c6">&#34;method&#34;</span>: <span style="color:#f1fa8c">&#34;POST&#34;</span>,
+            <span style="color:#ff79c6">&#34;auth&#34;</span>: <span style="color:#f1fa8c">&#34;None&#34;</span>,
+            <span style="color:#ff79c6">&#34;httpUser&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;httpPassword&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;passwordFieldType&#34;</span>: <span style="color:#f1fa8c">&#34;password&#34;</span>,
+            <span style="color:#ff79c6">&#34;bearerToken&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;headers&#34;</span>: [],
+            <span style="color:#ff79c6">&#34;params&#34;</span>: [],
+            <span style="color:#ff79c6">&#34;bodyParams&#34;</span>: [
+              {
+                <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;bparam1&#34;</span>,
+                <span style="color:#ff79c6">&#34;value&#34;</span>: <span style="color:#f1fa8c">&#34;bval1&#34;</span>
+              },
+              {
+                <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;bparam2&#34;</span>,
+                <span style="color:#ff79c6">&#34;value&#34;</span>: <span style="color:#f1fa8c">&#34;bval2&#34;</span>
+              }
+            ],
+            <span style="color:#ff79c6">&#34;rawParams&#34;</span>: <span style="color:#f1fa8c">&#34;{}&#34;</span>,
+            <span style="color:#ff79c6">&#34;rawInput&#34;</span>: <span style="color:#ff79c6">false</span>,
+            <span style="color:#ff79c6">&#34;contentType&#34;</span>: <span style="color:#f1fa8c">&#34;application/json&#34;</span>,
+            <span style="color:#ff79c6">&#34;requestType&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;preRequestScript&#34;</span>: <span style="color:#f1fa8c">&#34;// pw.env.set(&#39;variable&#39;, &#39;value&#39;);&#34;</span>,
+            <span style="color:#ff79c6">&#34;testScript&#34;</span>: <span style="color:#f1fa8c">&#34;// pw.expect(&#39;variable&#39;).toBe(&#39;value&#39;);&#34;</span>,
+            <span style="color:#ff79c6">&#34;label&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+            <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;POST + Body Params&#34;</span>,
+            <span style="color:#ff79c6">&#34;collection&#34;</span>: <span style="color:#bd93f9">0</span>,
+            <span style="color:#ff79c6">&#34;folder&#34;</span>: <span style="color:#bd93f9">1</span>
+          },
+        ]
+      }
+    ]
+  },
+]
+</code></pre></div><p>So many key and values right, but thankfully for the above mentioned refactor, I had rewrote the JSON parsing to be more ⚡️ and as a function for multipurpose use.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">ReadCollection</span>(filename <span style="color:#8be9fd">string</span>) ([]Collection, <span style="color:#8be9fd">error</span>) {
+	data, err <span style="color:#ff79c6">:=</span> ioutil.<span style="color:#50fa7b">ReadFile</span>(filename)
+	<span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">string</span>(data) <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;&#34;</span> {
+		<span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>, errors.<span style="color:#50fa7b">New</span>(<span style="color:#f1fa8c">&#34;PATH is needed&#34;</span>)
+	}
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>, err
+	}
+
+	<span style="color:#8be9fd;font-style:italic">var</span> jsonArr []Collection
+	err = json.<span style="color:#50fa7b">Unmarshal</span>([]<span style="color:#8be9fd;font-style:italic">byte</span>(data), <span style="color:#ff79c6">&amp;</span>jsonArr) <span style="color:#6272a4">// Unmarshal JSON to Collection Type
+</span><span style="color:#6272a4"></span>	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		<span style="color:#ff79c6">return</span> <span style="color:#ff79c6">nil</span>, fmt.<span style="color:#50fa7b">Errorf</span>(<span style="color:#f1fa8c">&#34;Error parsing JSON: %s&#34;</span>, err.<span style="color:#50fa7b">Error</span>())
+	}
+	<span style="color:#ff79c6">return</span> jsonArr, <span style="color:#ff79c6">nil</span>
+}
+</code></pre></div><blockquote>
+<p>I might have to add better error messages for this</p>
+</blockquote>
+<p>Go&rsquo;s templating is relatively easy and the main plus point is that it comes out of the Box. Like Jinja2 templating, Go templating uses <code>{{ }}</code> to define the entrypoints. For the specific purpose here, we had to loop over the <code>Collection</code> struct since it is parsed from a JSOn array. We can loop in Go Templating using <code>range</code> keyword.</p>
+<ul>
+<li>Eg: <code>{{ range .Folders }} ... {{ end }}</code></li>
+</ul>
+<p>Go&rsquo;s templating also supports Conditional Statements(if,else) and comparision operators(equal to, not equal to&hellip;.).</p>
+<p>With a basic understanding, I hacked up a basic template with all the important outputs and ran an HTTP Server to display the docs. Here is a snippet of the template.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-django" data-lang="django"><span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">range</span> . -<span style="color:#ff79c6">}}</span>
+      &lt;h1&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.Name</span><span style="color:#ff79c6">}}</span>&lt;/h1&gt;
+    <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">.Folders</span><span style="color:#ff79c6">}}{{</span><span style="color:#8be9fd;font-style:italic">range</span> <span style="color:#8be9fd;font-style:italic">.Folders</span><span style="color:#ff79c6">}}</span>
+        &lt;h2&gt;Folder: <span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.Name</span><span style="color:#ff79c6">}}</span>&lt;/h2&gt;
+    <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">range</span> <span style="color:#8be9fd;font-style:italic">.Requests</span> -<span style="color:#ff79c6">}}</span>
+        &lt;hr/&gt;&lt;h3&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.Name</span><span style="color:#ff79c6">}}</span>&lt;/h3&gt; 
+            &lt;p&gt;Method: &lt;b&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.Method</span><span style="color:#ff79c6">}}</span>&lt;/b&gt;&lt;/p&gt;
+            &lt;li&gt;<span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">.URL</span> -<span style="color:#ff79c6">}}{{</span><span style="color:#8be9fd;font-style:italic">.Path</span><span style="color:#ff79c6">}}</span>&lt;/li&gt;
+            <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">.Params</span><span style="color:#ff79c6">}}</span>
+                &lt;p&gt;Params&lt;/p&gt;
+                <span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">range</span> <span style="color:#8be9fd;font-style:italic">.Params</span><span style="color:#ff79c6">}}</span>
+                        &lt;b&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.key</span><span style="color:#ff79c6">}}</span>&lt;/b&gt;:&lt;i&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.value</span><span style="color:#ff79c6">}}</span>&lt;/i&gt;&lt;br/&gt;
+                <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">end</span> -<span style="color:#ff79c6">}}</span>
+            <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">end</span> -<span style="color:#ff79c6">}}</span>
+        <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">ne</span> <span style="color:#8be9fd;font-style:italic">.RawParams</span> <span style="color:#f1fa8c">&#34;{}&#34;</span><span style="color:#ff79c6">}}</span>
+        &lt;pre v-pre data-lang=&#34;json&#34;&gt;&lt;code class=&#34;lang-json&#34;&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.RawParams</span><span style="color:#ff79c6">}}</span>&lt;/code&gt;&lt;/pre&gt;
+        <span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">end</span><span style="color:#ff79c6">}}</span>
+        &lt;p&gt;Pre Request Script&lt;/p&gt;
+        &lt;pre v-pre data-lang=&#34;js&#34;&gt;&lt;code class=&#34;lang-js&#34;&gt;<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">.PreRequestScript</span><span style="color:#ff79c6">}}</span>&lt;/code&gt;&lt;/pre&gt; 
+    <span style="color:#ff79c6">{{</span><span style="color:#ff79c6">-</span> <span style="color:#8be9fd;font-style:italic">end</span> -<span style="color:#ff79c6">}}</span>
+<span style="color:#ff79c6">{{</span><span style="color:#8be9fd;font-style:italic">end</span><span style="color:#ff79c6">}}</span>
+</code></pre></div><p>This was the initial implementation which I later rewrote. The data came out perfectly, more perfect than I had imagined.</p>
+<p>Yeah the data part works but I could&rsquo;t get the full out of docsify js and it became less aesthetic than what I was expecting. So I ditched writing the template in HTML and tried to rewrite the same in MarkDown.</p>
+<h3 id="down-under">Down Under</h3>
+<p>Usage of Markdown is where docsify shines. Docsify automatically parses the markdown and you&rsquo;ll get a wonderful webpage with the docs. I searched on Google to find any blogs or stuff regarding writing templates for markdown and injecting data into them same as injecting data to HTMl. Sadly I couldn&rsquo;t find any&hellip;&hellip;.. So I tried my hand in that and it worked. I wanted to write to a markdown file with the data from the JSON file.</p>
+<p>Docsify uses the README.md file as the default file for generating the docs. So I created a folder called <code>templates</code> and inside it, a simple HTML file called <code>index.html</code> for loading the webpage. I created a new markdown file called <code>template.md</code> and added Go&rsquo;s template tags. I wrote some code to parse that file, and execute the template and save it another file called <code>README.md</code> inside the templates folder.</p>
+<p>Here is the Go side of things</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">t <span style="color:#ff79c6">:=</span> template.<span style="color:#50fa7b">Must</span>(template.<span style="color:#50fa7b">ParseFiles</span>(filepath.<span style="color:#50fa7b">Join</span>(cwd, <span style="color:#f1fa8c">&#34;methods/templates/template.md&#34;</span>)))
+
+<span style="color:#6272a4">// Create the file
+</span><span style="color:#6272a4"></span>f, err <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Create</span>(filepath.<span style="color:#50fa7b">Join</span>(cwd, <span style="color:#f1fa8c">&#34;methods/templates/README.md&#34;</span>))
+<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;File Creation Error: %v&#34;</span>, err)
+}
+
+<span style="color:#6272a4">// Execute the template to the file.
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">if</span> err = t.<span style="color:#50fa7b">Execute</span>(f, colls); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    log.<span style="color:#50fa7b">Println</span>(err)
+}
+
+<span style="color:#6272a4">// Close the file when done.
+</span><span style="color:#6272a4"></span>f.<span style="color:#50fa7b">Close</span>()
+</code></pre></div><p>Implementing this was quite easy than I expected. Here is a snippet of the Markdown templates</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">{{ range .  }}
+
+<span style="font-weight:bold"># {{.Name}}
+</span><span style="font-weight:bold"></span>
+{{-  if .Folders}}
+{{- range .Folders}}
+
+---
+
+<span style="font-weight:bold">## Folder: {{.Name}}
+</span><span style="font-weight:bold"></span>{{-  range .Requests }}
+
+---
+
+<span style="font-weight:bold">### {{.Name}}
+</span></code></pre></div><p>This will generate a Markdown file like this,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">
+<span style="font-weight:bold"># Collection #1 - Prod
+</span><span style="font-weight:bold"></span>
+---
+
+<span style="font-weight:bold">## Folder: GET
+</span><span style="font-weight:bold"></span>
+---
+
+<span style="font-weight:bold">### GET + Params
+</span></code></pre></div><p>The major takeaway was that
+<strong>just like using Go templates in HTML, we could also use that in Markdown too</strong></p>
+<p>Here is the whole Code for the Genrate Function</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> methods
+
+<span style="color:#ff79c6">import</span> (
+    <span style="color:#f1fa8c">&#34;log&#34;</span>
+    <span style="color:#f1fa8c">&#34;net/http&#34;</span>
+    <span style="color:#f1fa8c">&#34;os&#34;</span>
+    <span style="color:#f1fa8c">&#34;path/filepath&#34;</span>
+    <span style="color:#f1fa8c">&#34;text/template&#34;</span>
+
+    <span style="color:#f1fa8c">&#34;github.com/pkg/browser&#34;</span>
+)
+
+<span style="color:#6272a4">//GenerateDocs generates the Documentation site from the hoppscotch-collection.json
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">GenerateDocs</span>(filename <span style="color:#8be9fd">string</span>) {
+cwd, _ <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Getwd</span>()
+colls, err <span style="color:#ff79c6">:=</span> <span style="color:#50fa7b">ReadCollection</span>(filename)
+<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;Error Occured %v&#34;</span>, err)
+}
+t <span style="color:#ff79c6">:=</span> template.<span style="color:#50fa7b">Must</span>(template.<span style="color:#50fa7b">ParseFiles</span>(filepath.<span style="color:#50fa7b">Join</span>(cwd, <span style="color:#f1fa8c">&#34;methods/templates/template.md&#34;</span>)))
+
+<span style="color:#6272a4">// Create the file
+</span><span style="color:#6272a4"></span>f, err <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Create</span>(filepath.<span style="color:#50fa7b">Join</span>(cwd, <span style="color:#f1fa8c">&#34;methods/templates/README.md&#34;</span>))
+<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;File Creation Error: %v&#34;</span>, err)
+}
+
+<span style="color:#6272a4">// Execute the template to the file.
+</span><span style="color:#6272a4"></span><span style="color:#ff79c6">if</span> err = t.<span style="color:#50fa7b">Execute</span>(f, colls); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+    log.<span style="color:#50fa7b">Println</span>(err)
+}
+
+<span style="color:#6272a4">// Close the file when done.
+</span><span style="color:#6272a4"></span>f.<span style="color:#50fa7b">Close</span>()
+fs <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">FileServer</span>(http.<span style="color:#50fa7b">Dir</span>(filepath.<span style="color:#50fa7b">Join</span>(cwd, <span style="color:#f1fa8c">&#34;methods/templates/&#34;</span>)))
+http.<span style="color:#50fa7b">Handle</span>(<span style="color:#f1fa8c">&#34;/&#34;</span>, fs)
+
+log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;\033[1;36m%s\033[0m&#34;</span>, <span style="color:#f1fa8c">&#34;Server Listening at http://localhost:1341&#34;</span>)
+browser.<span style="color:#50fa7b">OpenURL</span>(<span style="color:#f1fa8c">&#34;http://localhost:1341/&#34;</span>) <span style="color:#6272a4">// AutoOpen the Broswer
+</span><span style="color:#6272a4"></span>http.<span style="color:#50fa7b">ListenAndServe</span>(<span style="color:#f1fa8c">&#34;:1341&#34;</span>, <span style="color:#ff79c6">nil</span>)
+}
+</code></pre></div><hr>
+<p>If you found this useful, consider donating me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a> and can reach out to me on <a href="https://twitter.com/athulcajay">Twitter</a> 😄</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

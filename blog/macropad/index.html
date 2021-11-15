@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Of Wires and Solder - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Building a Macropad with Mechanical Keys and a Raspberry Pi Pico" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/macropad/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/macropad/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Of Wires and Solder" />
+<meta property="og:description" content="Building a Macropad with Mechanical Keys and a Raspberry Pi Pico" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/macropad/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-10-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-02T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Of Wires and Solder"/>
+<meta name="twitter:description" content="Building a Macropad with Mechanical Keys and a Raspberry Pi Pico"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Of Wires and Solder</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Oct 2, 2021 | 6 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>I am interested in Keyboards, from the title you might&rsquo;ve connected the dots to Mechanical Keyboards and yes I love Mechanical Keyboards. The clickety-clack of typing and annoying your friends(sibiling and family in my case) is so satisfying. I use gateron brown switches on my daily driver but always wanted to experiment on more switch types and keyboards. Sadly I was cut short into this experiment due to the diminishing bank balances and the anxiety of acquiring a new rabbithole-ish hobby which will drain my bank for times to come. Honestly the money part of Mechanical Keyboards were the main issue 😅.</p>
+<h2 id="why-build">Why build?</h2>
+<p>Why do we do anything ourselves? We know many tasks which are trivial for us to do but we do it anyway right? Take me writing and maintaing this blog as an example. Why do you think I do it? First of all to show off(I&rsquo;m straightforward at times) to my peers and to write down my thoughts and views. Most times I want to write about personal stuff. This blogging gives me a feeling of <em>ownership</em> and it gives me the freedom to customize and make it apart. This Freedom is very important to me, and this <em>ownership</em> and freedom is quite rewarding. To call something your own and to say to someone, <em><em>I built it</em></em> is another level of personal achievement, the idea of using something you made by yourself and something that you actually own is so motivating.<br>
+The Own yourself part can be addressed with the questions &lsquo;When do we own something? When we buy it? What if we can&rsquo;t customize something we bought? Isn&rsquo;t that a denial of our consumer right?&rsquo; so on&hellip; Most of us doesn&rsquo;t take care about these and it&rsquo;s because our society is built around it(Capitalism duh..).</p>
+<blockquote>
+<p>You might then ask, <em>Why build a macropad?</em></p>
+</blockquote>
+<p>The answer is simple. To Learn! What&rsquo;s the best way to learn soldering, about microcontrollers and diodes and other &ldquo;electronic&rdquo; stuff other than playing with them? We learn better with Trial-and-error. Plus the sheer enjoyment of working with Mechanical Switches, Electronic Components(controllers,led, diodes etc..) and building something that I&rsquo;ll be using everyday (and accidentaly burning my skin with the soldering iron 🤪)</p>
+<h2 id="the-macropad">The Macropad</h2>
+<p>I&rsquo;ve named this project MacroKuttan, which doesn&rsquo;t mean anything of sorts other than &lsquo;Kuttan&rsquo; being a pet name in my native toungue. I have 0 reasons why I named it but it fits in my perspective. It&rsquo;s a 3x3 macropad or it has 9 keys. The making of the said macropad was after a lot of research and the cheapest way possible.The things used for making the macropad was</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Item</th>
+<th style="text-align:center">Price</th>
+<th style="text-align:center">Number of Items</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Raspberry Pi Pico</td>
+<td style="text-align:center">₹349</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">Switches</td>
+<td style="text-align:center">₹18</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center">Case(3D Printed)</td>
+<td style="text-align:center">₹200</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">Diodes(1N4148)</td>
+<td style="text-align:center">₹2</td>
+<td style="text-align:center">9</td>
+</tr>
+</tbody>
+</table>
+<p>This made the total cost of the macropad to be under ₹1000 or nearly equal ₹729 + Delivery Costs. The 3D printed case was from a friend of a friend who did it with transparent PLA, which turned out to give a translucent finish to the case.</p>
+<h2 id="the-build">The Build</h2>
+<p>I didn&rsquo;t solder much before the project, so this was my first soldering project. I had actually a day in our College lab to learn soldering but I slept throught that one and it ended up biting me in the back with this macropad build. Eventually after looking at youtube and soldering small wires, I guess I eventually learned how to solder. It wasn&rsquo;t perfect in any way but ended up being working.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Learn soldering</li>
+</ul>
+<p>I actually bought a local soldering iron for the first time and it stopped working after using it a few times to desolder old switches from another keyboard which I salvaged from my college. So I had to buy a new soldering iron, and this time bought one by Soldron. I had to buy a new &lsquo;pointy&rsquo; tip for soldering sice the spade one was not working out for me well. I had tinted the soldering iron and started to solder the Keys and the diodes.</p>
+<p>Most macropads have a PCB which the the keys only have to be soldered onto, but I opted for handwiring since it was easy on the pocket and it was a good oppurtunity to solder and learn about how a keyboard works inside 😉. Handwiring is relatively simple. The idea is to build a matrix with the switches and wires.</p>
+<p>Since the macropad has 9 switches in a 3x3 manner, we need to have 3 columns and 3 rows of the switches. We just solder one leg/contact of 3 switches with a single wire and we do that for 3 time(3 columns) and we do the same with the 1N4148 Diodes with the other leg/contact of a switch. This resulted in something like this</p>
+<figure><img src="/blog/img/solder_1.jpeg" width="50%" height="50%"/>
+</figure>
+
+<p>Yeah I know, very poorly soldered 🤪 but It&rsquo;s the best I could do without any prior experience. I&rsquo;m proud of what I did with the soldering. The Keys used are Cherry MX-Blacks salavaged from an old board. It works decently well but I had bought a few Gateron Blues and will use that in another macropad. Here the Black wires will act as a Column wires and the Blue/Diode wires will act as the row wires.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Understand Keyboard Matrixes</li>
+</ul>
+<p>After soldering the matrix, I soldered these to the Pi Pico. 3 GPIO pins for the column wires and 3 GPIO pins for the row wires. Phew, the soldering part is complete ⚡</p>
+<h2 id="programming-the-macropad">Programming the Macropad</h2>
+<p>This is actually a very big freedom when you build your own keyboard/macropad. You can choose how you want your keys to be. If you want layers, you can add them, program a key to do multiple things and many more. This flexibility can be attained with a few firmwares specific to building keyboads and languages designed for microcontrollers. The main firmware for keyboards is <a href="https://qmk.fm/">QMK</a>. QMK is written in C and has a large community behind it and a lot of controllers support QMK. There are other firmwares like <a href="https://zmk.dev">ZMK</a> and TMK and so on. All these are quite complex to start with and it takes some experience with C to CMake to start with. C was overkill for me 🙈.</p>
+<p>I searched over Reddit and GitHub and found about <a href="https://github.com/KMKfw/kmk_firmware">KMK</a>. KMK is in Python 🐍. KMK allows to program the keyboard/controller with Python and it works on top of CircuitPython which makes it even better. CircuitPython is by the folks at Adafruit which makes good electronic Components and related software(Their macropad is very cool). I also contributed a bit of docs to the KMK project which were a bit confusing at first.</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Learn CircuitPython and Programming microcontrollers</li>
+</ul>
+<p>Programming the board was the easiet part of the build. It took a bit of trial-and-error to program it fully. Honestly I actually didn&rsquo;t have a clear idea on what I should program the keys to do and later ended up keymaps to mute and unmute Google Meet calls for Online class. I also added some media key support and led animation switching. Also added a keymap to call Spotlight/Siri(hold) in Mac. Since the RPI Pico only needs a single <code>code.py</code> file to run when connected, it makes a lot simple to use the macropad. Plug-n-Play FTW!</p>
+<p>Here is the whole config for the macropad.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">import</span> board
+<span style="color:#ff79c6">from</span> kmk.extensions.LED <span style="color:#ff79c6">import</span> LED
+<span style="color:#ff79c6">from</span> kmk.extensions.media_keys <span style="color:#ff79c6">import</span> MediaKeys
+<span style="color:#ff79c6">from</span> kmk.handlers.sequences <span style="color:#ff79c6">import</span> send_string <span style="color:#ff79c6">as</span> ss
+<span style="color:#ff79c6">from</span> kmk.keys <span style="color:#ff79c6">import</span> KC
+<span style="color:#ff79c6">from</span> kmk.kmk_keyboard <span style="color:#ff79c6">import</span> KMKKeyboard
+<span style="color:#ff79c6">from</span> kmk.matrix <span style="color:#ff79c6">import</span> DiodeOrientation
+
+keyboard <span style="color:#ff79c6">=</span> KMKKeyboard()
+led_ext <span style="color:#ff79c6">=</span> LED(
+    led_pin<span style="color:#ff79c6">=</span>board<span style="color:#ff79c6">.</span>GP0,
+    brightness_step<span style="color:#ff79c6">=</span><span style="color:#bd93f9">5</span>,
+    brightness_limit<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>,
+    breathe_center<span style="color:#ff79c6">=</span><span style="color:#bd93f9">1.5</span>,
+    animation_mode<span style="color:#ff79c6">=</span><span style="color:#bd93f9">3</span>,
+    animation_speed<span style="color:#ff79c6">=</span><span style="color:#bd93f9">0.1</span>,
+    val<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>,
+)
+keyboard<span style="color:#ff79c6">.</span>extensions <span style="color:#ff79c6">=</span> [led_ext, MediaKeys()]
+<span style="color:#6272a4"># keyboard.debug_enabled = True</span>
+
+keyboard<span style="color:#ff79c6">.</span>col_pins <span style="color:#ff79c6">=</span> (board<span style="color:#ff79c6">.</span>GP19, board<span style="color:#ff79c6">.</span>GP20, board<span style="color:#ff79c6">.</span>GP21)
+keyboard<span style="color:#ff79c6">.</span>row_pins <span style="color:#ff79c6">=</span> (board<span style="color:#ff79c6">.</span>GP11, board<span style="color:#ff79c6">.</span>GP12, board<span style="color:#ff79c6">.</span>GP13)
+keyboard<span style="color:#ff79c6">.</span>diode_orientation <span style="color:#ff79c6">=</span> DiodeOrientation<span style="color:#ff79c6">.</span>COLUMNS
+
+GMEET_MIC <span style="color:#ff79c6">=</span> KC<span style="color:#ff79c6">.</span>LGUI(KC<span style="color:#ff79c6">.</span>D)
+GMEET_VID <span style="color:#ff79c6">=</span> KC<span style="color:#ff79c6">.</span>LGUI(KC<span style="color:#ff79c6">.</span>E)
+send_roll_no <span style="color:#ff79c6">=</span> ss(<span style="color:#f1fa8c">&#34;15 &#34;</span>)
+
+keyboard<span style="color:#ff79c6">.</span>keymap <span style="color:#ff79c6">=</span> [
+    [
+        KC<span style="color:#ff79c6">.</span>LGUI(KC<span style="color:#ff79c6">.</span>C),KC<span style="color:#ff79c6">.</span>LGUI(KC<span style="color:#ff79c6">.</span>V),KC<span style="color:#ff79c6">.</span>LGUI(KC<span style="color:#ff79c6">.</span>SPC),  <span style="color:#6272a4"># 1st row</span>
+        KC<span style="color:#ff79c6">.</span>LED_TOG,KC<span style="color:#ff79c6">.</span>MPLY,KC<span style="color:#ff79c6">.</span>MNXT,  <span style="color:#6272a4"># 2nd Row</span>
+        GMEET_VID,GMEET_MIC,send_roll_no,  <span style="color:#6272a4"># 3rd Row</span>
+    ]
+]
+
+<span style="color:#ff79c6">if</span> __name__ <span style="color:#ff79c6">==</span> <span style="color:#f1fa8c">&#34;__main__&#34;</span>:
+    keyboard<span style="color:#ff79c6">.</span>go()
+</code></pre></div><p>With this the whole macropad works. I also added a Breathe LED animation with a single LED lying around. The case is translucent and the breathe animation gives it a good aesthetic to the macropad and the desk. I had some old(like really old) keycaps lying around and added that to the keyboard which gave a retro look to the whole macropad. I&rsquo;m very proud of myself with how it turned out.</p>
+<p>Here is the final image after the build.</p>
+<figure><img src="/blog/img/mp_1.jpeg" width="50%" height="50%"/>
+</figure>
+
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+				<div class="tags">
+				<i>Tags</i>: 
+					
+					<span><a href="/blog/tags/hobby">#hobby</a></span>
+					
+					<span><a href="/blog/tags/keyboads">#keyboads</a></span>
+					
+					<span><a href="/blog/tags/tech">#tech</a></span>
+														        
+				</div>
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

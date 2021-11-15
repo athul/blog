@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on dayDreams &#43;&#43;</title>
+    <link>https://athul.github.io/blog/blog/</link>
+    <description>Recent content in Blogs on dayDreams &#43;&#43;</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Athul</copyright>
+    <lastBuildDate>Wed, 20 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://athul.github.io/blog/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Two Planets</title>
+      <link>https://athul.github.io/blog/blog/two-planets/</link>
+      <pubDate>Wed, 20 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/two-planets/</guid>
+      <description>I was watching a video about Echoes by Pink Floyd on Youtube and came to know that Waters was inspired by the poem &amp;ldquo;Two Planets&amp;rdquo; by Muhammed Iqbal. I went on to search more about the poem and it goes like this,
+&amp;ldquo;Two planets meeting face to face,
+One to the other cried, ‘How sweet
+If endlessly we might embrace,
+And here for ever stay! how sweet
+If Heaven a little might relent,</description>
+    </item>
+    
+    <item>
+      <title>Of Wires and Solder</title>
+      <link>https://athul.github.io/blog/blog/macropad/</link>
+      <pubDate>Sat, 02 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/macropad/</guid>
+      <description>I am interested in Keyboards, from the title you might&amp;rsquo;ve connected the dots to Mechanical Keyboards and yes I love Mechanical Keyboards. The clickety-clack of typing and annoying your friends(sibiling and family in my case) is so satisfying. I use gateron brown switches on my daily driver but always wanted to experiment on more switch types and keyboards. Sadly I was cut short into this experiment due to the diminishing bank balances and the anxiety of acquiring a new rabbithole-ish hobby which will drain my bank for times to come.</description>
+    </item>
+    
+    <item>
+      <title>Coming Back to Pink Floyd</title>
+      <link>https://athul.github.io/blog/blog/pink-floyd/</link>
+      <pubDate>Fri, 10 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/pink-floyd/</guid>
+      <description>&amp;ldquo;For long you live and high you fly
+And smiles you&amp;rsquo;ll give and tears you&amp;rsquo;ll cry
+And all you touch and all you see
+Is all your life will ever be&amp;rdquo;
+- Breathe, Pink Floyd
+ Coming Back to Life Pink Floyd, the band of the 70&amp;rsquo;s and 80&amp;rsquo;s which brought mainstream attention to Psychedelic Rock and Progressive rock as a whole is an important part of my daily listening activity.</description>
+    </item>
+    
+    <item>
+      <title>The Intern</title>
+      <link>https://athul.github.io/blog/blog/frappe-internship/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/frappe-internship/</guid>
+      <description>Recently I had been an Intern at Frappe. To get more context, Frappe is the company behind ERPNext. ERPNext is an Open Source ERP built on top of the Frappe homegrown Python Framework called Frappe Framework and I don&amp;rsquo;t think many Indian companies have a framework of their own. Frappe is so cool, the people, the philosophy and the values. The People were so kind and helpful and the best of all a great learning experience.</description>
+    </item>
+    
+    <item>
+      <title>Getting new Lobste.rs feed with Python and Telegram</title>
+      <link>https://athul.github.io/blog/blog/lobsters_feed/</link>
+      <pubDate>Sun, 28 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/lobsters_feed/</guid>
+      <description>It&amp;rsquo;s been some time since I written a new technical post. It was because I took a small break from writing code. I have no idea why but it wasn&amp;rsquo;t worth it anyways.
+Back to the point, I&amp;rsquo;ve recently discovered https://lobste.rs and found the discussions quite good. But as anyone who writes code, I was lazy to open my browser and navigate to the website. Telegram is one of the major apps I use to get my feed, so I thought why not write a script to get the newest posts from lobste.</description>
+    </item>
+    
+    <item>
+      <title>The 2020!</title>
+      <link>https://athul.github.io/blog/blog/2020/</link>
+      <pubDate>Thu, 31 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/2020/</guid>
+      <description>2020 was hell of a year and I mean that not as an idiom but literally it was hellish. But I learned a lot in 2020. Let it be how to actually drive a car or do Yoga, it&amp;rsquo;s all due to 2020. I&amp;rsquo;ve only been around the Sun for 20 times.As of Jan 1 2021, I&amp;rsquo;m only 20.5 years old.
+2020 gave me a new view on life. Too much Kurzgesagt give you an existential crisis mind.</description>
+    </item>
+    
+    <item>
+      <title>Harnessing Headers; Building a Custom Analytics Server</title>
+      <link>https://athul.github.io/blog/blog/analytics_from_scratch/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/analytics_from_scratch/</guid>
+      <description>Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up late or sit in front of my computer all day long. Anyways this sleeplessness paved way for quite a handful of ideas and the most recent one was an Analytics Server. I was heavily inspired by Shynet for its simplicity and aesthetics and I had been using it for getting the analytics of this Blog and a few Personal Projects.</description>
+    </item>
+    
+    <item>
+      <title>HoppScotch Doc Generation, a breakdown</title>
+      <link>https://athul.github.io/blog/blog/hopp-gen/</link>
+      <pubDate>Wed, 25 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/hopp-gen/</guid>
+      <description>Hoppscotch is a popular Open Source project on GitHub. Recently it surpassed the 25k Stars milestone on GitHub. I am the author and current maintainer of Hopp-CLI. It had been dormant till October when I revamped the project and it underwent a major refactor. I was cursing myself for the code I had written 6 months ago. I was so ashamed at myself for that Spaghetti code I had written. The rewrite gave me new ideas like implementing a tabular output and Documentation Generation.</description>
+    </item>
+    
+    <item>
+      <title>Desk Setup - 2020</title>
+      <link>https://athul.github.io/blog/blog/desk-2020/</link>
+      <pubDate>Tue, 24 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/desk-2020/</guid>
+      <description>My Desk is a small corner of the house. It&amp;rsquo;s where my system stands, every Eureka moment I had and &amp;ldquo;Why the hell isn&amp;rsquo;t this working?&amp;rdquo; happened. It doesn&amp;rsquo;t have much unlike the desk showoff counterparts but has quite the basic stuffs which I need. As a college student going to &amp;ldquo;Google Meet&amp;rdquo; my desk setup is more than enough for video calls with the video off as most of my classes do.</description>
+    </item>
+    
+    <item>
+      <title>FastAPI Auth &#43; Login Page</title>
+      <link>https://athul.github.io/blog/blog/fastapi-auth/</link>
+      <pubDate>Thu, 19 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/fastapi-auth/</guid>
+      <description>This past week I had been working on something(will release it in the coming days) which used FastAPI for the Backend and Jinja for Templating. I had never used Jinja before and it was quite useful and easy to use. The abstraction is enjoyable. No need for an API to send the data to the frontend. Then I had to implement an Authentication system for the frontend since the project consists of some personal info.</description>
+    </item>
+    
+    <item>
+      <title>Indexed 🧠 and Fuzzy 🔍</title>
+      <link>https://athul.github.io/blog/blog/zettel-search/</link>
+      <pubDate>Sun, 08 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/zettel-search/</guid>
+      <description>In these past few months, I had a plan to set up a wiki for myself. I was exploring my options on what tool I should use. This thought came up in September and this was the same time for FOSS United&amp;rsquo;s Hackathon. Post Hackathon discussions on the group was quite interesting and this was where the whole idea of a Digital Garden came up. On further research this seemed a good option for me to organize my notes and ideas.</description>
+    </item>
+    
+    <item>
+      <title>Link Preview Generator in Python</title>
+      <link>https://athul.github.io/blog/blog/image-gen/</link>
+      <pubDate>Fri, 30 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/image-gen/</guid>
+      <description>One day I was scrolling through Reddit and found a post in r/SideProject about MugshotBot and it&amp;rsquo;s the ease of use intrigued me. So I immediately hacked this blog to use MugShotBot to generate Link Previews. Gatsby was a bit tedious to hack on and I&amp;rsquo;m not a Js peep myself. I just know how most of this stuff works and not to code much Js. Eventually, I made it to work with MugShotBot and this happened at midnight.</description>
+    </item>
+    
+    <item>
+      <title>Telegram Bot with Adguard</title>
+      <link>https://athul.github.io/blog/blog/adbot-tg/</link>
+      <pubDate>Sat, 10 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/adbot-tg/</guid>
+      <description>Recently I had this idea of setting up a network-level adblocker in my Home. But sadly I don&amp;rsquo;t use a fibre/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to Adguard Home on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole.</description>
+    </item>
+    
+    <item>
+      <title>Jiofi-CLI</title>
+      <link>https://athul.github.io/blog/blog/jiofi/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/jiofi/</guid>
+      <description>JioFi ia a portable wifi hotspot for personal use by Jio. They have somewhat generous plans and are a major telecom provider in India. Jiofi has a web dashboard to display the current details regarding the data usage, battery status and number of devices connected to the network. But I am too lazy to go to the dashboard to check the data out. So I built a small Python CLI to monitor the jiofi device from the network.</description>
+    </item>
+    
+    <item>
+      <title>Updating GitHub Readme with Waka-readme</title>
+      <link>https://athul.github.io/blog/blog/readme_ghactions/</link>
+      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/readme_ghactions/</guid>
+      <description>Profile Readme are a new way to show off your GitHub profile and gives you all the powers of Markdown for doing it. Let&amp;rsquo;s discuss some ways you can update your profile readme with Python and GitHub Actions and how I use them to update my Profile Readme.
+So I would like to introduce you to waka-readme. Its built with Python and can be used to generate a graph like this in your Profile Repo.</description>
+    </item>
+    
+    <item>
+      <title>FastAPI &#43; Deta = ⚡️</title>
+      <link>https://athul.github.io/blog/blog/fastapi_deta/</link>
+      <pubDate>Tue, 07 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/fastapi_deta/</guid>
+      <description>FastAPI is a a Python Framework for building RESTful APIs. It has all the simplicity of Python with a added advantages of Async⚡️, automatic Schema Generation and OpenAPI and Python Types✨(with Pydantic). FastAPI is relatively a new Project and is gaining quite a good traction in the Dev world. It has got nearly 16k stars on GitHub and about 160 contributors. The main plus side of FastAPI is the documentation which is Top Notch.</description>
+    </item>
+    
+    <item>
+      <title>Hacking the Quarantine</title>
+      <link>https://athul.github.io/blog/blog/hack/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/hack/</guid>
+      <description>If you are reading this, I hope you are safe and in good Health
+The quarantine is tough. While the time of writing this, I&amp;rsquo;m nearing 3 months of sitting at home and doing stuff excluding college. It was easy at first and now I&amp;rsquo;m all sloppy and don&amp;rsquo;t think about college or studies now. I got to be a bit better at something these these and I&amp;rsquo;m proud of that.</description>
+    </item>
+    
+    <item>
+      <title>Dumb and Dumber</title>
+      <link>https://athul.github.io/blog/blog/dumb/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/dumb/</guid>
+      <description>Let me kick off with a tweet, that&amp;rsquo;ll be better
+If you personally know me, you&amp;rsquo;ll know which definition suits me, for those who don&amp;rsquo;t, I fall in the former category and that has been one of my failures in these 19 years and I&amp;rsquo;m reluctant to address this single point of failure.
+I&amp;rsquo;ve been hearing this since school days and multiple times I tried to change it and I never got cured of it.</description>
+    </item>
+    
+    <item>
+      <title>Custom MDX Components for Gatsby</title>
+      <link>https://athul.github.io/blog/blog/custom-mdx/</link>
+      <pubDate>Sun, 26 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/custom-mdx/</guid>
+      <description>So this week I updated my Blog in Gatsby to use MDX rather than usual Markdown for writing content. The major reason I had done this was because I could use React components inside the contents itself to make it more interactive and user-friendly.
+ Life update: Started as an intern in a Bangalore Based Startup called Algoshelf
+ As a noob in this React ecosystem, I found it hard to implement custom components to be used in MDX and the number of blog posts were less too, so I thought why not implement it and write a blog&amp;hellip;.</description>
+    </item>
+    
+    <item>
+      <title>Deploy a Hugo Website to GH Pages</title>
+      <link>https://athul.github.io/blog/blog/deploy-hugo/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/deploy-hugo/</guid>
+      <description>Due to the quarantine I thought of doing something good and useful for others. So I hacked up a theme for Hugo called Archie. The design was inspired from https://blog.jse.li and was hacked from the ezhil theme for Hugo. The main reason why I built it was due to the Hugo-Ink theme built by knadh since I&amp;rsquo;m totally a fanboy of him. So deploying Archie to GitHub Pages was quite fun and easily managable.</description>
+    </item>
+    
+    <item>
+      <title>Unmadam-2020</title>
+      <link>https://athul.github.io/blog/blog/iv/</link>
+      <pubDate>Thu, 19 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/iv/</guid>
+      <description>College is hard, like super tough. To have more weightage to attendance than knowledge is the worst thing in College and it sometimes comes hard on you. But with all the worst things in college, the only good thing is the classmates and the friends you make. That environment you get when you feel like a family of nearly 50 is something only blessed people like you and me reading this will get.</description>
+    </item>
+    
+    <item>
+      <title>Hackathons and Students</title>
+      <link>https://athul.github.io/blog/blog/hackathons/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/hackathons/</guid>
+      <description>Since I went to my first hackathon on Aug 1st at ETHIndia, Bangalore, I loved going to hackathons ever since. I organized about 2 hackathons a year since then. I went to about 6 Hackathons from 2019 to 2020 February. I don&amp;rsquo;t know why but I just love going to hackathons. The energy you feel at a Hackathon can be found nowhere else.
+People usually when speaking of hackathons define them as just a sprint where you solve a problem statement and live on.</description>
+    </item>
+    
+    <item>
+      <title>From 0 to Go, Building a CLI for Postwoman</title>
+      <link>https://athul.github.io/blog/blog/pwcli/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/pwcli/</guid>
+      <description>&amp;ldquo;All power is within you. You can do anything and everything. Believe in that&amp;rdquo; - Swami Vivekananda
+ You might be thinking why I started with a quote by Swami Vivekananda. This quote has been a driving factor in my pursuits to learn new things and building stuff and moving forward.
+I have been into Go for about 2 months now. I just wrote up two hacks in Go too.</description>
+    </item>
+    
+    <item>
+      <title>2019 in an Oyster&#39;s Shell-I</title>
+      <link>https://athul.github.io/blog/blog/2019-1/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/2019-1/</guid>
+      <description>Okay, when you&amp;rsquo;re reading this, I am 2020% sure that you wont be in 2019.😝
+ 2020 ended as every year ends, FAST and obviously fucked. Mine was just same&amp;hellip; There were a lot of good things that happened like making this blog and becoming old. 2019 wasn&amp;rsquo;t that harsh on me like the years before that.
+I got to do a lot of stuff I wished to do. I learned lots of stuff.</description>
+    </item>
+    
+    <item>
+      <title>Call Your Friend</title>
+      <link>https://athul.github.io/blog/blog/birthday/</link>
+      <pubDate>Sun, 12 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/birthday/</guid>
+      <description>when was the last time someone called to wish you a &amp;ldquo;Happy Birthday&amp;rdquo;?
+ All of us Humans have our Birthdays, this is as true as the sun rises in the east and sets in the west stuff&amp;hellip; The universal truth stuff.
+Otherwise if you&amp;rsquo;re a robot, you&amp;rsquo;ll have a manufacturing date.
+We all greet our friends with a lousy &amp;ldquo;Happy Birthday&amp;rdquo; in Whatsapp or Instagram (or Facebook) or someother social media platform.</description>
+    </item>
+    
+    <item>
+      <title>Go ❤️ Travis&#43;Gorelaser</title>
+      <link>https://athul.github.io/blog/blog/gorelaser/</link>
+      <pubDate>Sun, 05 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/gorelaser/</guid>
+      <description>Past Month, I&amp;rsquo;ve been wworking on Shelby a lot. I had set up my CI pipeline using Travis CI by a .travis.yml file from Powerline Go.I used a shell script from Mimir&amp;rsquo;s documentaion to help users install the binary or tar.
+I had tweaked both of em a bit to make it work for Shelby&amp;rsquo;s requirements.
+The Email One day morning, I e-mailed @talal since I used some of the source code from Mimir for bootstrapping the project.</description>
+    </item>
+    
+    <item>
+      <title>Love and Other......</title>
+      <link>https://athul.github.io/blog/blog/love-and-other/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/love-and-other/</guid>
+      <description>A few months ago one of our professors came into class. He was having some trouble speaking since he had a sore throat. He said he wasn&amp;rsquo;t gonna teach anything but he told everyone to write a paragraph on Love. So I concluded my paragraph like this,
+ Love is like Rust, its friggin fast. Love is like Haskell, It makes us functional. Love is like Clojure, we won&amp;rsquo;t understand a damn shit on what&amp;rsquo;s written(no offence Clojure people).</description>
+    </item>
+    
+    <item>
+      <title>Get GitHub action Notification in Telegram ⚡️⚡️</title>
+      <link>https://athul.github.io/blog/blog/tgnotify/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/tgnotify/</guid>
+      <description>The Story Behind So, these few days I&amp;rsquo;ve been working on Shelby a lot. For handling the releases section I used Travis CI and Travis really does a good job at it.
+The only thing about travis is that it takes time to complete the build and deploy cycle. Starting with the docker container to the deployment. We&amp;rsquo;d have to wait in the build page for a few minutes till the build&amp;amp;deploy is completed.</description>
+    </item>
+    
+    <item>
+      <title>Shelby, the Shell Prompt</title>
+      <link>https://athul.github.io/blog/blog/shelby/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/shelby/</guid>
+      <description>What??? Shelby is a bash and zsh shell prompt with more focus on improving the terminal productivity while not compromising the speed and size.
+Why?? I use the terminal. I use it a LOT. Mostly editing,running scripts and servers. I use zsh because I ❤️ oh-my-zsh. I used to use Spaceship Prompt and it felt like quite slow to me. Then I flipped to Starship Prompt by the awesome @matchai.</description>
+    </item>
+    
+    <item>
+      <title>Using your Old System Better</title>
+      <link>https://athul.github.io/blog/blog/useful/</link>
+      <pubDate>Sat, 14 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/useful/</guid>
+      <description>Using your Old System Better We all went through that stage(most of us), when we buy a New Laptop and we forget about out Old Computer. This is a much common trait of us. Most us has spend a lot of money fixing that old system and improving it. We&amp;rsquo;ve upgraded the RAM and HDD and still when we get this fancy new laptop and all of a sudden we Forget our PC.</description>
+    </item>
+    
+    <item>
+      <title>ETHIndia/Bangalore Days</title>
+      <link>https://athul.github.io/blog/blog/bangalore/</link>
+      <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/bangalore/</guid>
+      <description>Bangalore Hacks So for the First Time I went to Bangalore and that too for a Hackathon. The Hackathon was so awesome that I love Hackathons now and Apply for every Hackathon I hear about. Plus I didn&amp;rsquo;t like Bangalore much because of its dry nature. Its just Bleh. From a person coming from a Humid Atmosphere, it takes time to cope to that one. I&amp;rsquo;ll write all where it started from to most of the details I remember.</description>
+    </item>
+    
+    <item>
+      <title>My System Setup</title>
+      <link>https://athul.github.io/blog/blog/my-setup/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/my-setup/</guid>
+      <description>Coding is one of my favorite Hobbies apart from Music and Films. My system is a Desktop with 4Gigs of RAM and an Intel Pentium Processor with 1024+ 160 Gigs of HDD Space.I&amp;rsquo;ve got a Windows and Linux Setup in my Desktop. I use Linux more than Windows. The only use for windows is for transferring files from the Pendrives and my Drives.
+My Linux Setup I use Ubuntu with KDE Plasma as the Desktop Environment which makes it Kubuntu.</description>
+    </item>
+    
+    <item>
+      <title>Making GitHub apps with Probot</title>
+      <link>https://athul.github.io/blog/blog/probot/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/probot/</guid>
+      <description>GitHub Apps with Probot Ever see in any issues or Pull Request in GitHub where a bot comments on the PR/Issue or adds labels to the PR/Issue? If you have, they are generally termed as GitHub apps and can be made relatively easily.
+Most of these apps are written in JavaScript (Node.js) using Probot, a framework for building apps for GitHub. Probot is written in Typescript, a superset of JavaScript. You can find more about on their website.</description>
+    </item>
+    
+    <item>
+      <title>Shell Scripting to Automation</title>
+      <link>https://athul.github.io/blog/blog/automate-stuff/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/automate-stuff/</guid>
+      <description>Ever encountered a time when you have a few working branches which you update daily? Then you&amp;rsquo;ll know how tiresome it is to checkout to every branch and typing git push &amp;lt;branch name&amp;gt; . If you haven&amp;rsquo;t encountered this,try doing it once, you&amp;rsquo;ll know what I&amp;rsquo;m saying😏😏.
+We could always automate these stuff just by a few line of shell code.It&amp;rsquo;s quite easy you know. Starting by taking the above said situation,you&amp;rsquo;ve got 5 branches and you want to push to all these 5 branches.</description>
+    </item>
+    
+    <item>
+      <title>Programming on your Phone</title>
+      <link>https://athul.github.io/blog/blog/mob-dev/</link>
+      <pubDate>Sun, 23 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/mob-dev/</guid>
+      <description>What is Termux? Termux is a Terminal Emulator which can be used on Android.
+Why Termux?  &amp;ldquo;Start by answering the Whys&amp;rdquo;- Simon Sinek
+ Termux is quite useful if you are a aspiring dev and doesn&amp;rsquo;t have a budget to buy a laptop or If your machine goes on frequent strikes(as for me). You can do mostly anything that you do in a Linux terminal, like exploring files,editing them,moving them and using tools for Python,C,JavaScript(Node) etc&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Freshman Year</title>
+      <link>https://athul.github.io/blog/blog/first-year/</link>
+      <pubDate>Sat, 22 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/first-year/</guid>
+      <description>It all formally started with the First Day of August 2018, I came to the Campus of College of Engineering Kidangoor,the Lush Green Campu🌳🌲 and the Meenachil River🌊 were something totally new for me. New people,new place, New possibilities&amp;hellip;.
+Pre-College Drama But most of the beginning of College for me started about 2 months ago after my entrance examination. Oh, I was totally sure I&amp;rsquo;d come here in Kidangoor as my performance in exams was way off the charts and this was my only best option for Engineering.</description>
+    </item>
+    
+  </channel>
+</rss>

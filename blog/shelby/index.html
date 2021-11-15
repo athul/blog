@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Shelby, the Shell Prompt - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Shelby is one of my Side Projects. It&#39;s a shell prompt written in Go for speed and minimalism" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/shelby/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/shelby/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Shelby, the Shell Prompt" />
+<meta property="og:description" content="Shelby is one of my Side Projects. It&#39;s a shell prompt written in Go for speed and minimalism" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/shelby/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-12-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-26T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shelby, the Shell Prompt"/>
+<meta name="twitter:description" content="Shelby is one of my Side Projects. It&#39;s a shell prompt written in Go for speed and minimalism"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Shelby, the Shell Prompt</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Dec 26, 2019 | 2 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<h2 id="what">What???</h2>
+<p>Shelby is a <strong>bash and zsh</strong> shell prompt with more focus on improving the terminal productivity while not compromising the speed and size.</p>
+<h2 id="why">Why??</h2>
+<p>I use the terminal. I use it a LOT. Mostly editing,running scripts and servers. I use zsh because I ❤️ oh-my-zsh. I used to use <a href="https://github.com/denysdovhan/spaceship-prompt">Spaceship Prompt</a> and it felt like quite slow to me. Then I flipped to <a href="starship.rs">Starship Prompt</a> by the awesome <a href="https://github.com/matchai">@matchai</a>.</p>
+<p>I really fell in love with Starship. It&rsquo;s fast, it&rsquo;s built with Rust were too big to be for me to fall in ❤️. The only drawback was that it showed a lot of info. A lot. I didn&rsquo;t want to customize it much because I was lazy(obviously) and writing another TOML file was meh.</p>
+<p>Then on this fine evening(Dec 2nd) before going to sleep, during to the Study Leaves before my Uni Exams, I thought of writing a shell prompt in Go. I wanted it be <strong>fast</strong>, to only show the <strong>needed info</strong>(virtualenvs,SSH and git), and has a <strong>small size</strong>. The small package size maybe because I use a Macbook Air with 128gigs of storage and not wasting data for downloading the stuff.
+I&rsquo;ve seen Go and Rust programs get photo finishes at speed benchmarks and I thought, why not learn Go on the go and write this Stuff????</p>
+<blockquote>
+<p>This was also the time I found out that Study Leaves increases the productivity and improves out of the box thinking.</p>
+</blockquote>
+<p>Then I wanted a name for it. I didn&rsquo;t want it to be a ship anymore but more personally and technically relatable. So I named it <strong><em>Shelby</em></strong> because <em>Shell+feminine name (because ships are mostly given feminine names🤪)</em> and my childhood caretaker&rsquo;s name was Silby😁.</p>
+<h2 id="code">Code</h2>
+<p>I started a bit on it like setting up the repo both local and remote and went to sleep. Since being a total noob to Go(I started learning a few days ago), I searched for any other implementations of the same. I stumbled upon <a href="https://github.com/justjanne/powerline-go">Powerline Go by @justjanne</a> and <a href="https://github.com/talal/mimir">Mimir by @talal</a>. I found both the code hard to follow but grasped their logic in time. Shelby still use mimir&rsquo;s code in some functions😅.</p>
+<p>So, forward a few weeks after my 3rd paper(Discrete Mathematics) I got to spend a bit more time into it and on 22nd Decemeber 2019, I released the <em>Alpha</em> of Shelby. It still has bugs in it but due to my lack of knowledge in Go, I&rsquo;m still searching for fixes🙂.</p>
+<p>Some of it&rsquo;s properties are:</p>
+<ul>
+<li>Small Size(binary ~= 2MB, tar ~= 700KB)</li>
+<li>Shows if a Virtualenv is enabled</li>
+<li>Shows the Username and Hostname if that system is accessed via SSH</li>
+<li>Shows the Git branch</li>
+<li>Shows the number of untracked and unstaged files as <code>[+]</code> and <code>[!]</code> respectively. There will be a count of both of the files unstaged or untracked.</li>
+</ul>
+<p>You can find Shelby on GitHub <a href="https://github.com/athul/shelby">here</a> do give it a try and open an issue or two if you find anything unusual😃. It also passed 35 stars on GitHub(my highest starred repo). I also built a GitHub Action to keep me posted on any new stars on telegram just to keep me motivated😊.</p>
+<p>I&rsquo;d like to also thank<a href="https://github.com/GopikrishnanSasikumar">Gopikrishnan Sasikumar</a> for providing me with a much needed mental support and being my mentor😇, and my Friend Kiran for the support and ideas .</p>
+<p>Thanks</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+				<div class="tags">
+				<i>Tags</i>: 
+					
+					<span><a href="/blog/tags/code">#code</a></span>
+					
+					<span><a href="/blog/tags/project">#project</a></span>
+														        
+				</div>
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

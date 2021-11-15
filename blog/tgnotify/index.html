@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Get GitHub action Notification in Telegram ⚡️⚡️ - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Get Notifications of GitHub Actions in Telegram by using only a Shell Script and a Bot" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/tgnotify/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/tgnotify/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Get GitHub action Notification in Telegram ⚡️⚡️" />
+<meta property="og:description" content="Get Notifications of GitHub Actions in Telegram by using only a Shell Script and a Bot" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/tgnotify/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-01-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Get GitHub action Notification in Telegram ⚡️⚡️"/>
+<meta name="twitter:description" content="Get Notifications of GitHub Actions in Telegram by using only a Shell Script and a Bot"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Get GitHub action Notification in Telegram ⚡️⚡️</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jan 1, 2020 | 2 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<h3 id="the-story-behind">The Story Behind</h3>
+<p>So, these few days I&rsquo;ve been working on <a href="https://github.com/athul/shelby">Shelby</a> a lot. For handling the releases section I used Travis CI and Travis really does a good job at it.<br>
+The only thing about travis is that it takes time to <em>complete the build and deploy cycle</em>. Starting with the docker container to the deployment. We&rsquo;d have to wait in the build page for a few minutes till the build&amp;deploy is completed. That&rsquo;s just waste of productive time I&rsquo;d say. Maybe in that time we could do something else like searhing stackoverflow for a previous error or read the docs to find out how it works better. And to check if the build failed or succeded, I&rsquo;d have to go back to Travis' page and meh, it&rsquo;s just lazy.</p>
+<p>So I googled for any solutions to get me notified. I found this medium article where the author made a Shell Script to use it with Travis and sends you a notification on the <strong>build&rsquo;s status in Telegram using a Bot.</strong> I didn&rsquo;t knew that a Shell Script is enough for a telegram bot to work.</p>
+<p>I loved the idea, and copied the script and used it with some changes in the output message. It was fast alright. As soon as the build completed I&rsquo;d get a Message in Telegram regarding the status.</p>
+<h3 id="the-story-now">The Story Now</h3>
+<p>I tweaked the same script to use it along GitHub Actions and boy, its fast alright.
+The solution I used before this was a GitHub Action I made for notifying meon Builds using GitHub actions. It was called <a href="https://github.com/athul/statusoli">Statusoli</a>.  <br>
+I made it using docker actions template and Go. I made different versions for it in different branches of the Repo. The <code>star</code> branch had an output message for notifying about new stars in the repo. The <code>notify</code> branch is for notifying about any new pull  request or issues opened,closed,assigned or reopened. The <code>master</code> branch is just for sending a message regarding only the build status.
+And all of it included a Malayalam Text, I made it just for fun🤷‍♂️.</p>
+<p>Now the shell script for GitHub Actions Telegram Notify is a small one, You can find all of my scripts <a href="https://github.com/athul/autom">here</a>.</p>
+<p>You just have to add these lines to the action</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">    - <span style="color:#ff79c6">name</span>: Notifier
+      <span style="color:#ff79c6">env</span>:
+        <span style="color:#ff79c6">TELEGRAM_CHAT_ID</span>: ${{ secrets.TELEGRAM_CHAT_ID}}
+        <span style="color:#ff79c6">TELEGRAM_TOKEN</span>: ${{secrets.TELEGRAM_TOKEN }}
+        <span style="color:#ff79c6">INPUT_STATUS</span>: ${{ job.status }}
+      <span style="color:#ff79c6">run</span>: sh -c &#34;$(curl -sL https://raw.githubusercontent.com/athul/autom/master/tg_gh_action_noti.sh)&#34;
+
+</code></pre></div><blockquote>
+<p>The <code>TELEGRAM_TOKEN</code> and the <code>TELEGRAM_CHAT_ID</code> should be added to the repository secrets in the repository settings. Be in mind that these Secret&rsquo;s Name is case sensitive.</p>
+</blockquote>
+<ul>
+<li>Here the <code>TELEGRAM_CHAT_ID</code> is the chat id you want the bot to send the messages to. You can find your chat id by speaking to <code>jsondumpbot</code> in telegram.</li>
+<li>The <code>TELEGRAM_TOKEN</code> is your Telegram bot&rsquo;s API Key. You can create a new bot by talking to <code>botfather</code> bot in Telegram</li>
+<li>The <code>INPUT_STATUS</code> is something the actions have, you don&rsquo;t have to pass anything to it.
+The Shell script mostly uses Action&rsquo;s Environment Variables. So you&rsquo;d have to define the trigger on which the action should be done. Check <a href="https://help.github.com/en/actions/automating-your-workflow-with-github-actions/events-that-trigger-workflows">this Guide</a> for references.
+And</li>
+</ul>
+<hr>
+<p>Screenshots:  1. Shell Script, 2. Statuoli<br>
+<img src="p1.png" alt="Shell Script"><br>
+<img src="p2.png" alt="Statusoli">  <br>
+<strong>Happy New Year Ya&rsquo;ll</strong></p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

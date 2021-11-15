@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Shell Scripting to Automation - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/automate-stuff/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/automate-stuff/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Shell Scripting to Automation" />
+<meta property="og:description" content="Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/automate-stuff/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-07-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-07-02T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shell Scripting to Automation"/>
+<meta name="twitter:description" content="Automating Basic Unix stuff with Shell Scripts/Bash Scripts. From Pushing to different branches to saving you a Few Keypresses"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Shell Scripting to Automation</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jul 2, 2019 | 2 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>Ever encountered a time when you have a few working branches which you update daily? Then you&rsquo;ll know how tiresome it is to <code>checkout</code> to every branch and typing <code>git push &lt;branch name&gt;</code> . If you haven&rsquo;t encountered this,try doing it once, you&rsquo;ll know what I&rsquo;m saying😏😏.<br>
+We could always automate these stuff just by a few line of shell code.It&rsquo;s quite <strong>easy</strong> you know. Starting by taking the above said situation,you&rsquo;ve got 5 branches and you want to push to all these 5 branches. We&rsquo;ll write a shell script for it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">cd</span> ~/path/to/git/repository/ <span style="color:#6272a4">#Assuming you are anywhere</span>
+<span style="color:#ff79c6">for</span> i in <span style="color:#f1fa8c">&#39;master&#39;</span> <span style="color:#f1fa8c">&#39;dev&#39;</span> <span style="color:#f1fa8c">&#39;fix1&#39;</span> <span style="color:#f1fa8c">&#39;patch1&#39;</span> <span style="color:#f1fa8c">&#39;dope-branch-name&#39;</span>
+<span style="color:#ff79c6">do</span>
+	git checkout <span style="color:#8be9fd;font-style:italic">$i</span>
+	git pull origin <span style="color:#8be9fd;font-style:italic">$i</span> <span style="color:#ff79c6">&amp;&amp;</span> git push origin <span style="color:#8be9fd;font-style:italic">$i</span>
+<span style="color:#ff79c6">done</span>
+</code></pre></div><p>This 7 line script can help you save some keystrokes.You should save this script with a <code>.sh</code> extension and can be  run by typing <code>sh script_filename.sh</code> So now,what does this mean? It&rsquo;s the same thing you type in the terminal with a for loop as for extra a <em>&ldquo;dev&rdquo;</em> touch😁😁. <br>
+The looping variable <code>i</code> will loop through the strings we&rsquo;ve passed through, these will be our branch names and inside the for loop the variable is passed by a <em>$</em> prefix. Now wherever we use the <em>$</em> as prefix for the variable name,the script will automatically pass the variable&rsquo;s value, just like that :snap:⚡⚡.  Everything that needs to be executed inside the loop should be between the <code>do</code> and <code>done</code> keywords. The loop will go on till the parameters are over.</p>
+<hr>
+<p>Now let us make a script which runs a python program,saves its output to another file and commits it and git push it.
+Here I&rsquo;ll be pushing it to a <a href="https://gist.github.com">Gist</a>.<br>
+So some days ago I started using (Wakatime)[] which gets track on your coding activity and its super cool,showing it off in your GitHub profile seemed cool and one <a href="phamous.dev">Campus Expert,John Pham</a> did do it and it looked super cool. But the way he did was using GitHub Actions, and no I didn&rsquo;t apply for the Beta of GH Actions. So I made a Python🐍 script to make something like his. You can find it <a href="https://github.com/Athul-CA/wakatime-metrics">here</a>. <br>
+It&rsquo;s a tad manual since API requests are 😰😱. The manual thing is you&rsquo;ve got to copy a json file from your wakatime dasboard&rsquo;s &ldquo;embed&rdquo; page. The rest of the work is done by a shell script👻👻. For showing the activity in my Profile too,I made a public gist with a <code>.txt</code> file in GitHub and cloned it to my local machine. The shell script goes like this,👇👇</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">cd</span> ~/path/to_the/python_file and json file
+nvim filename.json
+python main.py filename.json &gt; ~/path_to_cloned_gist_repo/filename.txt
+<span style="color:#8be9fd;font-style:italic">cd</span> ~/path_to_gist_repo
+git commit -a -m <span style="color:#f1fa8c">&#34;New Metrics&#34;</span>
+git push origin master
+
+</code></pre></div><p>When running this script, you&rsquo;ll be first prompted to paste the <code>json</code> text you copied from the Wakatime dashboard. You should delete the current contents and paste the new ones and save it. You can use any editor of your choice, I use NeoVim. It will run the python program and it will push the changes to GitHub. Easy Right? Just with a few line of Bash Script we can automate quite a good amount of Tedious Tasks.    <br>
+We can set up a script for launching the terminal just as the System turns on but I believe its for you to find out more about it. This post might&rsquo;ve helped and possibly this will be the needed push for you to explore the world of shell scripting and automation✌️✌️✌️. <br>
+I will post some more on this when I understand more of this some day.👻</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

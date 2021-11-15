@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>FastAPI Auth &#43; Login Page - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Using auth in Fastapi and connecting it to a Login Form" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/fastapi-auth/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/fastapi-auth/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="FastAPI Auth &#43; Login Page" />
+<meta property="og:description" content="Using auth in Fastapi and connecting it to a Login Form" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/fastapi-auth/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-19T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FastAPI Auth &#43; Login Page"/>
+<meta name="twitter:description" content="Using auth in Fastapi and connecting it to a Login Form"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">FastAPI Auth &#43; Login Page</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Nov 19, 2020 | 4 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>This past week I had been working on something(will release it in the coming days) which used FastAPI for the Backend and Jinja for Templating. I had never used Jinja before and it was quite useful and easy to use. The abstraction is enjoyable. No need for an API to send the data to the frontend. Then I had to implement an Authentication system for the frontend since the project consists of some personal info. I had to refresh my HTML form skills for the same and I found that the resources available for these were less.</p>
+<blockquote>
+<p>I&rsquo;m assuming that you know Python and you have used FastAPI at some point. You can check my other blog post about FastAPI and <a href="https://deta.sh">Deta</a> to build a mailing list server <a href="/fastapi_deta">here</a></p>
+</blockquote>
+<h2 id="auth">Auth</h2>
+<p>FastAPI has an excellent auth system but that being said it&rsquo;s hard to implement everything if you&rsquo;re on a schedule. I had searched on GitHub for some helper libs and found the perfect and easier one. It supports cookie auth too 😍.  It&rsquo;s called <code>fastapi_login</code> and it made the Auth part a lot easier. I&rsquo;ll be using <code>fastapi_login</code> for implementing the login/auth with 🍪.</p>
+<p>To Install <code>fastapi_login</code>, you can just,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ pip install fastapi_login
+</code></pre></div><p>You might also need to install the Form handling package of FastAPI, <code>python-multipart</code> using pip too.</p>
+<p>I&rsquo;m also assuming you have a file which uses FastAPI for routing and all, I&rsquo;m calling that <code>main.py</code> and in that <code>main.py</code> you can just call it using the import statement of Python. We&rsquo;ll only implement the Auth side of things in the file. We&rsquo;ll import a builtin FastAPI form class for Auth, a Response type, status code class and a function from the same.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> Depends,status <span style="color:#6272a4"># Assuming you have the FastAPI class for routing</span>
+<span style="color:#ff79c6">from</span> fastapi.responses <span style="color:#ff79c6">import</span> RedirectResponse,HTMLResponse
+<span style="color:#ff79c6">from</span> fastapi.security <span style="color:#ff79c6">import</span> OAuth2PasswordRequestForm
+<span style="color:#ff79c6">from</span> fastapi_login <span style="color:#ff79c6">import</span> LoginManager <span style="color:#6272a4">#Loginmanager Class</span>
+<span style="color:#ff79c6">from</span> fastapi_login.exceptions <span style="color:#ff79c6">import</span> InvalidCredentialsException <span style="color:#6272a4">#Exception class</span>
+
+SECRET <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;secret-key&#34;</span>
+<span style="color:#6272a4"># To obtain a suitable secret key you can run | import os; print(os.urandom(24).hex())</span>
+
+manager <span style="color:#ff79c6">=</span> LoginManager(SECRET,tokenUrl<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/auth/login&#34;</span>,use_cookie<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+manager<span style="color:#ff79c6">.</span>cookie_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;some-name&#34;</span>
+</code></pre></div><p>the <code>tokenUrl</code> should be our auth endpoint and this route will be implemented later. We also need a DB for the user data(username and password) and for example purposes, I&rsquo;ll create a python dictionary with the username and unhashed password.</p>
+<blockquote>
+<p>The unhashed password method should not be used and you should use an encrypting lib like <code>bcrypt</code> for creating a hashed password</p>
+</blockquote>
+<p>In our endpoint, we&rsquo;ll use this DB to fetch the user if the password is correct or not and if successful we&rsquo;ll Redirect the user to another route on the server itself. Like a Dashboard or something.</p>
+<p>Continuing on <code>main.py</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">DB <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;username&#34;</span>:{<span style="color:#f1fa8c">&#34;password&#34;</span>:<span style="color:#f1fa8c">&#34;qwertyuiop&#34;</span>}} <span style="color:#6272a4"># unhashed</span>
+
+@manager<span style="color:#ff79c6">.</span>user_loader
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">load_user</span>(username:<span style="color:#8be9fd;font-style:italic">str</span>):
+    user <span style="color:#ff79c6">=</span> DB<span style="color:#ff79c6">.</span>get(username)
+    <span style="color:#ff79c6">return</span> user
+
+@app<span style="color:#ff79c6">.</span>post(<span style="color:#f1fa8c">&#34;/auth/login&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">login</span>(data: OAuth2PasswordRequestForm <span style="color:#ff79c6">=</span> Depends()):
+    username <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>username
+    password <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>password
+    user <span style="color:#ff79c6">=</span> load_user(username)
+    <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> user:
+        <span style="color:#ff79c6">raise</span> InvalidCredentialsException
+    <span style="color:#ff79c6">elif</span> password <span style="color:#ff79c6">!=</span> user[<span style="color:#f1fa8c">&#39;password&#39;</span>]:
+        <span style="color:#ff79c6">raise</span> InvalidCredentialsException
+    access_token <span style="color:#ff79c6">=</span> manager<span style="color:#ff79c6">.</span>create_access_token(
+        data<span style="color:#ff79c6">=</span>{<span style="color:#f1fa8c">&#34;sub&#34;</span>:username}
+    )
+    resp <span style="color:#ff79c6">=</span> RedirectResponse(url<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/private&#34;</span>,status_code<span style="color:#ff79c6">=</span>status<span style="color:#ff79c6">.</span>HTTP_302_FOUND)
+    manager<span style="color:#ff79c6">.</span>set_cookie(resp,access_token)
+    <span style="color:#ff79c6">return</span> resp
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/private&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getPrivateendpoint</span>(_<span style="color:#ff79c6">=</span>Depends(manager))
+    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;You are an authentciated user&#34;</span>
+</code></pre></div><p>The decorator <code>@manager.user_loader</code> will use the function <code>load_user</code> to check whether the user exists in the DB. Next, we define our endpoint called <code>/auth/login</code> if you recall correctly this is the same URL we used for the <code>manager</code> object. If the user is not identified we&rsquo;ll throw the <code>InvalidCredentialsException</code> exception. If the authentication was successful then it will redirect to the specified URL in our RedirectResponse class. If you&rsquo;re redirecting to a <code>GET</code> endpoint make sure to add the status code too. Once we set our response class we set the cookie with response class and access token.</p>
+<p>This is enough for the Auth part. You can check out the <a href="https://github.com/MushroomMaula/fastapi_login">repository</a> for docs and this <a href="https://gist.github.com/MushroomMaula/2eaae0c5f467e5b64338953e891f7de9">gist</a> by the author of <code>fastapi_login</code> for more details.</p>
+<h2 id="login-form">Login Form</h2>
+<p>FastAPI has a builtin Template class with Jinja2. here we won&rsquo;t be using Jinja since we don&rsquo;t have any data from the backend to be used up front. It&rsquo;s totally upto you if you want to use it. Here is the code,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#ff79c6">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#ff79c6">html</span> <span style="color:#50fa7b">lang</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;en&#34;</span>&gt;
+&lt;<span style="color:#ff79c6">head</span>&gt;
+    &lt;<span style="color:#ff79c6">meta</span> <span style="color:#50fa7b">charset</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">meta</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;viewport&#34;</span> <span style="color:#50fa7b">content</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+    &lt;<span style="color:#ff79c6">title</span>&gt;Login&lt;/<span style="color:#ff79c6">title</span>&gt;
+    &lt;<span style="color:#ff79c6">link</span> <span style="color:#50fa7b">rel</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;stylesheet&#34;</span> <span style="color:#50fa7b">href</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;https://unpkg.com/twinklecss@1.1.0/twinkle.min.css&#34;</span>/&gt;
+&lt;/<span style="color:#ff79c6">head</span>&gt;
+&lt;<span style="color:#ff79c6">body</span>&gt;
+    &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;flex p-4 m-6 justify-center&#34;</span>&gt;
+        &lt;<span style="color:#ff79c6">form</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4&#34;</span> <span style="color:#50fa7b">method</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;POST&#34;</span> <span style="color:#50fa7b">action</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/auth/login&#34;</span> &gt;
+          &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;mb-4&#34;</span>&gt;
+            &lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;block text-gray-700 text-sm font-bold mb-2&#34;</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;username&#34;</span>&gt;
+              Username
+            &lt;/<span style="color:#ff79c6">label</span>&gt;
+            &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;username&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;username&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;text&#34;</span>&gt;
+          &lt;/<span style="color:#ff79c6">div</span>&gt;
+          &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;mb-6&#34;</span>&gt;
+            &lt;<span style="color:#ff79c6">label</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;block text-gray-700 text-sm font-bold mb-2&#34;</span> <span style="color:#50fa7b">for</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;password&#34;</span>&gt;
+              Password
+            &lt;/<span style="color:#ff79c6">label</span>&gt;
+            &lt;<span style="color:#ff79c6">input</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline&#34;</span> <span style="color:#50fa7b">id</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;password&#34;</span> <span style="color:#50fa7b">name</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;password&#34;</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;password&#34;</span>&gt;
+          &lt;/<span style="color:#ff79c6">div</span>&gt;
+          &lt;<span style="color:#ff79c6">div</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;flex items-center justify-between&#34;</span>&gt;
+            &lt;<span style="color:#ff79c6">button</span> <span style="color:#50fa7b">type</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;submit&#34;</span> <span style="color:#50fa7b">class</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline&#34;</span>&gt;
+              Sign In
+            &lt;/<span style="color:#ff79c6">button</span>&gt;
+          &lt;/<span style="color:#ff79c6">div</span>&gt;
+        &lt;/<span style="color:#ff79c6">form</span>&gt;
+      &lt;/<span style="color:#ff79c6">div</span>&gt;
+&lt;/<span style="color:#ff79c6">body</span>&gt;
+&lt;/<span style="color:#ff79c6">html</span>&gt;
+</code></pre></div><p>I had used Twinkle CSS which is a size-friendly build of Tailwind CSS but you can use any CSS framework of your choice. You can see that the form action is set to the <code>/auth/login</code> endpoint which is our route which handles the auth part. So when we click the &ldquo;Sign In&rdquo; button we&rsquo;ll be taken to the <code>/private</code> route if successful. Adding this to FastAPI is quite easy. I had named the above file as <code>login.html</code> inside a templates folder. We&rsquo;ll use HTMLResponse class to return the HTML file and render that in the browser. This will be the additional code to <code>main.py</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">import</span> path
+
+pth <span style="color:#ff79c6">=</span> path<span style="color:#ff79c6">.</span>dirname(__file__)
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/&#34;</span>,response_class<span style="color:#ff79c6">=</span>HTMLResponse)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">loginwithCreds</span>(request:Request):
+    <span style="color:#ff79c6">with</span> <span style="color:#8be9fd;font-style:italic">open</span>(path<span style="color:#ff79c6">.</span>join(pth, <span style="color:#f1fa8c">&#34;templates/login.html&#34;</span>)) <span style="color:#ff79c6">as</span> f:
+        <span style="color:#ff79c6">return</span> HTMLResponse(content<span style="color:#ff79c6">=</span>f<span style="color:#ff79c6">.</span>read())
+</code></pre></div><p>This will render the login screen on the <code>/</code> endpoint. Here is a working Demo</p>
+<p><img src="https://i.imgur.com/p9P0Ug5.gif" alt="Demo"></p>
+<hr>
+<p>Here is the Full Source Code for the Python side of things</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI,Depends,status
+<span style="color:#ff79c6">from</span> fastapi.responses <span style="color:#ff79c6">import</span> RedirectResponse,HTMLResponse
+<span style="color:#ff79c6">from</span> fastapi.security <span style="color:#ff79c6">import</span> OAuth2PasswordRequestForm
+<span style="color:#ff79c6">from</span> fastapi_login <span style="color:#ff79c6">import</span> LoginManager <span style="color:#6272a4">#Loginmanager Class</span>
+<span style="color:#ff79c6">from</span> fastapi_login.exceptions <span style="color:#ff79c6">import</span> InvalidCredentialsException <span style="color:#6272a4">#Exception class</span>
+<span style="color:#ff79c6">import</span> path
+
+app<span style="color:#ff79c6">=</span> FastAPI()
+
+SECRET <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;secret-key&#34;</span>
+<span style="color:#6272a4"># To obtain a suitable secret key you can run | import os; print(os.urandom(24).hex())</span>
+pth <span style="color:#ff79c6">=</span> path<span style="color:#ff79c6">.</span>dirname(__file__)
+templates <span style="color:#ff79c6">=</span> Jinja2Templates(directory<span style="color:#ff79c6">=</span>path<span style="color:#ff79c6">.</span>join(pth, <span style="color:#f1fa8c">&#34;templates&#34;</span>))
+
+manager <span style="color:#ff79c6">=</span> LoginManager(SECRET,tokenUrl<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/auth/login&#34;</span>,use_cookie<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+manager<span style="color:#ff79c6">.</span>cookie_name <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;some-name&#34;</span>
+
+DB <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;username&#34;</span>:{<span style="color:#f1fa8c">&#34;password&#34;</span>:<span style="color:#f1fa8c">&#34;qwertyuiop&#34;</span>}} <span style="color:#6272a4"># unhashed</span>
+
+@manager<span style="color:#ff79c6">.</span>user_loader
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">load_user</span>(username:<span style="color:#8be9fd;font-style:italic">str</span>):
+    user <span style="color:#ff79c6">=</span> DB<span style="color:#ff79c6">.</span>get(username)
+    <span style="color:#ff79c6">return</span> user
+
+@app<span style="color:#ff79c6">.</span>post(<span style="color:#f1fa8c">&#34;/auth/login&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">login</span>(data: OAuth2PasswordRequestForm <span style="color:#ff79c6">=</span> Depends()):
+    username <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>username
+    password <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>password
+    user <span style="color:#ff79c6">=</span> load_user(username)
+    <span style="color:#ff79c6">if</span> <span style="color:#ff79c6">not</span> user:
+        <span style="color:#ff79c6">raise</span> InvalidCredentialsException
+    <span style="color:#ff79c6">elif</span> password <span style="color:#ff79c6">!=</span> user[<span style="color:#f1fa8c">&#39;password&#39;</span>]:
+        <span style="color:#ff79c6">raise</span> InvalidCredentialsException
+    access_token <span style="color:#ff79c6">=</span> manager<span style="color:#ff79c6">.</span>create_access_token(
+        data<span style="color:#ff79c6">=</span>{<span style="color:#f1fa8c">&#34;sub&#34;</span>:username}
+    )
+    resp <span style="color:#ff79c6">=</span> RedirectResponse(url<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;/private&#34;</span>,status_code<span style="color:#ff79c6">=</span>status<span style="color:#ff79c6">.</span>HTTP_302_FOUND)
+    manager<span style="color:#ff79c6">.</span>set_cookie(resp,access_token)
+    <span style="color:#ff79c6">return</span> resp
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/private&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getPrivateendpoint</span>(_<span style="color:#ff79c6">=</span>Depends(manager))
+    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;You are an authentciated user&#34;</span>
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/&#34;</span>,response_class<span style="color:#ff79c6">=</span>HTMLResponse)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">loginwithCreds</span>(request:Request):
+    <span style="color:#ff79c6">with</span> <span style="color:#8be9fd;font-style:italic">open</span>(path<span style="color:#ff79c6">.</span>join(pth, <span style="color:#f1fa8c">&#34;templates/login.html&#34;</span>)) <span style="color:#ff79c6">as</span> f:
+        <span style="color:#ff79c6">return</span> HTMLResponse(content<span style="color:#ff79c6">=</span>f<span style="color:#ff79c6">.</span>read())
+</code></pre></div><hr>
+<p>If you found this useful, consider donating me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a> and can reach out to me on <a href="https://twitter.com/athulcajay">Twitter</a> 😄</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

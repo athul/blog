@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Using your Old System Better - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Using your Old System as your Private Server,GitHub, Cloud and Whatnot" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/useful/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/useful/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Using your Old System Better" />
+<meta property="og:description" content="Using your Old System as your Private Server,GitHub, Cloud and Whatnot" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/useful/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-12-14T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-14T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using your Old System Better"/>
+<meta name="twitter:description" content="Using your Old System as your Private Server,GitHub, Cloud and Whatnot"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Using your Old System Better</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Dec 14, 2019 | 3 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<h1 id="using-your-old-system-better">Using your Old System Better</h1>
+<p>We all went through that stage(most of us), when we buy a New Laptop and we forget about out Old Computer. This is a much common trait of us.
+Most us has spend a lot of money fixing that old system and improving it. We&rsquo;ve upgraded the RAM and HDD and still when we get this fancy new laptop and all of a sudden we Forget our PC.
+This <strong>Negelected</strong> peice of ICs and Love could be your next big side project. For me I was totally sad of not using my PC for weeks after buying my Laptop. I even felt empathatic for my PC.
+<img src="https://media.giphy.com/media/xULW8m5Vmtz9oOSFpu/giphy.gif" alt="Old comp"></p>
+<h3 id="what-did-i-do">What did I do?</h3>
+<p>So after all this introspection and empathizing, I thought why not set my system to be my Server?
+Why not use it as my Storage Space? Why not use it as my Git Server???? Why not my Personal Cloud??????  <br>
+So I started to work on this stuff.</p>
+<hr>
+<h3 id="act-1-ssh">Act 1, SSH</h3>
+<ol>
+<li>The First was of course I searched on What should I do? I found a lot of stuff for a server but most of them included booting to a new OS. I didn&rsquo;t want that. So I searched for other solutions</li>
+<li>I currently run Manjaro and Ubuntu on my System and my Laptop is a Macbook. I couldn&rsquo;t drop neither of my OS. So I continued my Search.</li>
+<li>Then I thought &ldquo;Hey, I could just SSH into my PC and see what its like.&rdquo; I spend Half a Day just for the initial Connection. I have a Wifi card and a modem with WIFI, so I justed SSHed into my PC
+For SSHing use these commands</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ssh-keygen
+$ ssh-copy-id host@hostname/ip
+$ ssh host@hostname/ip
+</code></pre></div><p>And congratulations you justed SSHed into your PC from a Laptop. 🚀
+Now you get the Terminal of your PC(linux) and you&rsquo;re like the God of the Terminal now
+4. You can run any commands like <code>curl</code>,<code>wget</code>, <code>npm install</code> etc&hellip;
+<img src="https://media.giphy.com/media/65n8RPEa3r65q/giphy.gif" alt=""></p>
+<hr>
+<h3 id="act-2-personal-git-storage">Act 2, Personal Git Storage</h3>
+<p>GitHub is one of the famous(and my fav) Git Repository storing &amp; hosting platform. Why not a Personal GitHub lookalike for you? You could save all your private projects here without any risk or Costs.<br>
+Some Self Hosted Git Platforms are</p>
+<ul>
+<li>GitLab Community Edition 🆓</li>
+<li>Gogs 🆓</li>
+<li>Gitea 🆓</li>
+<li>GitHub Enterprize Server 💸</li>
+</ul>
+<p>I used <strong>Gitea</strong> since it was easy to install and setup. You only have to download a binary from gitea.io and voíla you get an instant GitHub lookalike webapp.<br>
+My advice is that if you want to use it cross-device install it in the central server and ssh to it from any device and for that(ssh-ing) I&rsquo;d higly suggest (not a promotion)<a href="https://termius.com">Termius</a>. It has got a 14 day free trial of premium and you can get the pro pack from the <a href="https://termius.com/education">GitHub Student Developer Pack</a>.
+Or you can just enter the IP of the server followed by the port number in your browser like <code>192.168.322.12:3000</code> and you will get the webapp.
+Now create some repositories and use Gitea 🎉🎉</p>
+<hr>
+<h3 id="act-3-the-file-storage-shenanigan">Act 3, The File Storage shenanigan</h3>
+<p>Yep, use it as your personal data center. Store all your stuff. Your films,songs and <em>study materials</em>. Do it coz only you&rsquo;re the only one who can access all that since you&rsquo;re the one who knows how the folder structure is. Add a media server and you can use it with  your Smart TV and forget about paying any bills for streaming.
+<img src="https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif" alt="Roll Safe Meme"></p>
+<hr>
+<h3 id="act-4-the-future">Act 4, The Future</h3>
+<p>&ldquo;Wait what? This is what you&rsquo;ve been Bragging about?&rdquo; you might ask? I&rsquo;d say yes since the next big selfhosted stuff maybe your best Ideas. You can self-host anything from Websites, Games to Even Media Servers</p>
+<p>Here are some good Places to find out more on what to selfhost</p>
+<ul>
+<li><a href="https://github.com/awesome-selfhosted/awesome-selfhosted">https://github.com/awesome-selfhosted/awesome-selfhosted</a> The GitHub Repo tells it all</li>
+<li><a href="https://www.reddit.com/r/selfhosted/">https://www.reddit.com/r/selfhosted/</a> The Epic Place to get all the info .</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

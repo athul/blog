@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Custom MDX Components for Gatsby - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Make custom MDX components for a Gatsby Website/Blog" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/custom-mdx/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/custom-mdx/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Custom MDX Components for Gatsby" />
+<meta property="og:description" content="Make custom MDX components for a Gatsby Website/Blog" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/custom-mdx/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-04-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-04-26T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Custom MDX Components for Gatsby"/>
+<meta name="twitter:description" content="Make custom MDX components for a Gatsby Website/Blog"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Custom MDX Components for Gatsby</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Apr 26, 2020 | 3 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>So this week I updated my <strong>Blog in Gatsby</strong> to use MDX rather than usual Markdown for writing content. The major reason I had done this was because I could use React components inside the contents itself to make it more interactive and user-friendly.</p>
+<blockquote>
+<p>Life update: Started as an intern in a Bangalore Based Startup called Algoshelf</p>
+</blockquote>
+<p>As a noob in this React ecosystem, I found it hard to implement custom components to be used in MDX and the number of blog posts were less too, so I thought why not implement it and write a blog&hellip;. And here we are now :)</p>
+<h2 id="mdx">MDX</h2>
+<p><em>&ldquo;MDX is an authorable format that lets you seamlessly write JSX in your Markdown documents. You can import components, such as interactive charts or alerts, and embed them within your content. This makes writing long-form content with components a blast 🚀.&quot;</em> - <a href="https://mdxjs.com/">MDX Website</a></p>
+<p>In simpler terms, you can use React Components inside Markdown.</p>
+<h2 id="authoring-components">Authoring Components</h2>
+<p>Authoring custom components for mdx is quite easy. Easily said it&rsquo;s just a React Component and if you know react well then this will be easy as pie.</p>
+<p>Here we&rsquo;ll implement a custom callout like component with basic styling. This callout will have an emoji in the beginning and followed by text. So let&rsquo;s get to it</p>
+<h3 id="the-component-itself">The Component Itself</h3>
+<p>This will be first thing that we&rsquo;ll define. Here is the code, and we&rsquo;ll be defining the code in the <code>src/components/callout.js</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#ff79c6">import</span> React from <span style="color:#f1fa8c">&#34;react&#34;</span>
+
+<span style="color:#ff79c6">const</span> Callout <span style="color:#ff79c6">=</span> ({ emoji, children }) =&gt; {
+    <span style="color:#ff79c6">return</span> (
+            <span style="color:#ff79c6">&lt;</span>div className<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;callout&#34;</span> emoji<span style="color:#ff79c6">=</span>{emoji}<span style="color:#ff79c6">&gt;</span>
+                <span style="color:#ff79c6">&lt;</span>div className<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;callout-inner&#34;</span><span style="color:#ff79c6">&gt;</span>
+                    {children}
+                <span style="color:#ff79c6">&lt;</span>/div&gt;
+            <span style="color:#ff79c6">&lt;</span>/div&gt;
+    )
+}
+
+<span style="color:#ff79c6">export</span> <span style="color:#ff79c6">default</span> Callout
+</code></pre></div><p>Here we&rsquo;re making a new Callout function with 2 arguments. The Emoji argument is for the for the emoji for the callout and the children argument is the data that will be enclosed inside the component&rsquo;s tags while in use. We&rsquo;re appending the emoji tag to the div as an attribute for getting the data with CSS.</p>
+<p>Now we need to be able to use it in the blog/website. I&rsquo;ll show an example of a blog.</p>
+<p>In your <code>src/templates/blog-post.js</code> file add these in the top</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#ff79c6">import</span> { MDXProvider } from <span style="color:#f1fa8c">&#34;@mdx-js/react&#34;</span>
+<span style="color:#ff79c6">import</span> Callout from <span style="color:#f1fa8c">&#34;../components/callout&#34;</span>
+<span style="color:#ff79c6">const</span> shortcodes <span style="color:#ff79c6">=</span> {
+  Callout
+}
+</code></pre></div><p>and for using the callout inside the markdown content, paste this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx">    &lt;<span style="color:#ff79c6">MDXProvider</span> <span style="color:#50fa7b">components</span><span style="color:#ff79c6">=</span>{shortcodes}&gt;
+        &lt;<span style="color:#ff79c6">MDXRenderer</span>&gt;{post.body}&lt;/<span style="color:#ff79c6">MDXRenderer</span>&gt;
+    &lt;/<span style="color:#ff79c6">MDXProvider</span>&gt;
+</code></pre></div><p>Now we&rsquo;ll be able to use it with our content.</p>
+<h3 id="styling-the-component">Styling the Component</h3>
+<p>I&rsquo;ve used CSS styling for the component since i&rsquo;m comfortable with CSS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#50fa7b">callout</span> {
+  <span style="color:#ff79c6">color</span>: <span style="color:#ff79c6">black</span>;
+  <span style="color:#ff79c6">background</span>: <span style="color:#ff79c6">azure</span>;
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">1.5</span><span style="color:#8be9fd">em</span> <span style="color:#bd93f9">1.25</span><span style="color:#8be9fd">em</span>;
+  <span style="color:#ff79c6">border-radius</span>: <span style="color:#bd93f9">25</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">display</span>: <span style="color:#ff79c6">flex</span>;
+  <span style="color:#ff79c6">flex-direction</span>: <span style="color:#ff79c6">row</span>;
+  <span style="color:#ff79c6">margin-top</span>: <span style="color:#bd93f9">20</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border-bottom-width</span>: <span style="color:#bd93f9">4</span><span style="color:#8be9fd">px</span> ;
+  <span style="color:#ff79c6">border-bottom-style</span>: <span style="color:#ff79c6">solid</span>;
+  <span style="color:#ff79c6">border-bottom-color</span>: <span style="color:#bd93f9">#50fa7b</span>;
+  <span style="color:#ff79c6">border-left-color</span>: <span style="color:#bd93f9">#50fa7b</span>;
+  <span style="color:#ff79c6">border-left-width</span>: <span style="color:#bd93f9">6</span><span style="color:#8be9fd">px</span>;
+  <span style="color:#ff79c6">border-left-style</span>: <span style="color:#ff79c6">solid</span>;
+}
+.<span style="color:#50fa7b">callout-inner</span> {
+  <span style="color:#ff79c6">font-style</span>: <span style="color:#ff79c6">italic</span>;
+  <span style="color:#ff79c6">margin-left</span>: <span style="color:#bd93f9">1</span><span style="color:#8be9fd">em</span>;
+}
+
+@<span style="color:#ff79c6">media</span> <span style="color:#ff79c6">(</span><span style="color:#ff79c6">max-width</span><span style="color:#ff79c6">:</span> <span style="color:#ff79c6">767px</span><span style="color:#ff79c6">)</span> {
+  .<span style="color:#50fa7b">callout</span> {
+  <span style="color:#ff79c6">padding</span>: <span style="color:#bd93f9">1.5</span><span style="color:#8be9fd">em</span> <span style="color:#bd93f9">0.75</span><span style="color:#8be9fd">em</span> <span style="color:#bd93f9">1.5</span><span style="color:#8be9fd">em</span> <span style="color:#bd93f9">0.6</span><span style="color:#8be9fd">em</span>;
+  }
+  .<span style="color:#50fa7b">callout-inner</span> {
+    <span style="color:#ff79c6">margin-left</span>: <span style="color:#bd93f9">0.5</span><span style="color:#8be9fd">em</span>;
+  }
+}
+
+<span style="color:#ff79c6">div</span> .<span style="color:#50fa7b">callout</span>::before{
+  <span style="color:#ff79c6">color</span>:<span style="color:#ff79c6">red</span>;
+  <span style="color:#ff79c6">content</span>: <span style="color:#8be9fd;font-style:italic">attr</span>(emoji);
+}
+</code></pre></div><p>You can use any other framework or library for styling and it&rsquo;s upto personal preference.</p>
+<h3 id="using-the-component">Using the component</h3>
+<p>Now we want out custom made callout component to be used with our content. For that just call the components inside our post like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">&lt;<span style="color:#ff79c6">Callout</span> <span style="color:#50fa7b">emoji</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;🔮&#34;</span>&gt;
+This data will be displayed in the callout component
+&lt;/<span style="color:#ff79c6">Callout</span>&gt;
+</code></pre></div><!-- raw HTML omitted -->
+<p>So that was easy right? Creating a new component and using it here and all the stuff.</p>
+<p>Even better, you can use already other components too other than the custom made ones,
+For that just import the component and use it in the content like this. Here we&rsquo;re using components from Rebass, you can use any one you prefer.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-md" data-lang="md">import { Box } from &#39;rebass&#39;
+&lt;<span style="color:#ff79c6">Box</span>
+  <span style="color:#50fa7b">color</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;white&#39;</span>
+  <span style="color:#50fa7b">bg</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#39;blue&#39;</span>
+  <span style="color:#50fa7b">p</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{3}</span>
+  <span style="color:#50fa7b">my</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">{5}</span>
+<span style="color:#ff79c6">&gt;
+</span><span style="color:#ff79c6"></span><span style="text-decoration:underline">&gt; ”This is an important quote.”
+</span><span style="text-decoration:underline"></span>&lt;/<span style="color:#50fa7b">Box</span>&gt;
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>So we have just made a custom component for MDX and now we know how to use other components to be used in our content. So that&rsquo;s all ⚡️.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

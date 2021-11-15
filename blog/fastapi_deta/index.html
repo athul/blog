@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>FastAPI &#43; Deta = ⚡️ - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Getting Started with FastAPI with Deta by creating a mailing list API" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/fastapi_deta/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/fastapi_deta/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="FastAPI &#43; Deta = ⚡️" />
+<meta property="og:description" content="Getting Started with FastAPI with Deta by creating a mailing list API" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/fastapi_deta/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-07-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-07T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FastAPI &#43; Deta = ⚡️"/>
+<meta name="twitter:description" content="Getting Started with FastAPI with Deta by creating a mailing list API"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">FastAPI &#43; Deta = ⚡️</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jul 7, 2020 | 10 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p><a href="https://fastapi.tiangolo.com/">FastAPI</a> is a a Python Framework for building RESTful APIs. It has all the simplicity of Python with a added advantages of Async⚡️, automatic Schema Generation and OpenAPI and Python Types✨(with Pydantic). FastAPI is relatively a new Project and is gaining quite a good traction in the Dev world. It has got nearly <a href="https://github.com/tiangolo/fastapi">16k stars on GitHub</a> and about 160 contributors. The main plus side of FastAPI is the documentation which is <strong>Top Notch</strong>.</p>
+<p><a href="https://deta.sh">Deta</a> is a company that is building a cloud platform which is developer friendly and to reduce the hassle from idea to app.</p>
+<blockquote>
+<p><em>&ldquo;Deta is building a cloud for the developers with less build &ldquo;bells and whistles&rdquo;, only what&rsquo;s needed to get the job done – a Micro Cloud.&quot;</em></p>
+</blockquote>
+<p>Personally what attracted me to deta was the ease to implement. I was having a hard time to connect FastAPI with SQLalchemy since I am a noob. Then Deta entered or at least then I came to know about it.</p>
+<p>I was skeptical at first, but the simplicity of working with Deta amazed me and their Slack community is ✨. The creators are almost active everytime and they will help you in anyway possible to overcome an issue.</p>
+<h2 id="what-well-build">What we&rsquo;ll build</h2>
+<p>We&rsquo;re going to build a Personal <strong>Mailing List</strong> API with</p>
+<ul>
+<li>FastAPI for the API and Logic</li>
+<li>Deta.sh as our DB</li>
+<li>Deploy it on Deta Micros</li>
+</ul>
+<p>We&rsquo;re only going to build the API, you can use <a href="https://www.mailgun.com/">Mailgun</a> or <a href="https://sendgrid.com/">SendGrid</a> to send the emails. Our API will consist of 4 Operations.</p>
+<ul>
+<li>Add a new Person to our List</li>
+<li>Get all the emails from our list</li>
+<li>Update the email of a specific user in our List</li>
+<li>Delete a Subscriber/User from our List</li>
+</ul>
+<h2 id="setting-up-fastapi-and-deta">Setting up FastAPI and Deta</h2>
+<p>Hope you have Python 3.6+ interpreter on your machine. If you don&rsquo;t make sure to download it and install and verify by running python in your terminal</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python3
+Python 3.7.6 <span style="color:#ff79c6">(</span>default, Dec <span style="color:#bd93f9">30</span> 2019, 19:38:26<span style="color:#ff79c6">)</span>
+<span style="color:#ff79c6">[</span>Clang 11.0.0 <span style="color:#ff79c6">(</span>clang-1100.0.33.16<span style="color:#ff79c6">)]</span> on darwin
+Type <span style="color:#f1fa8c">&#34;help&#34;</span>, <span style="color:#f1fa8c">&#34;copyright&#34;</span>, <span style="color:#f1fa8c">&#34;credits&#34;</span> or <span style="color:#f1fa8c">&#34;license&#34;</span> <span style="color:#ff79c6">for</span> more information.
+&gt;&gt;&gt;
+</code></pre></div><p>The above output is on my machine and it will change from machine to machine.</p>
+<p>Next thing is to have a folder and a virtual environment, for that we could use either Pipenv or venv. <a href="https://pipenv-fork.readthedocs.io/en/latest/">Pipenv</a> is a package for handling and managing Python envs automatically, you can install pipenv with,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip install --user pipenv
+</code></pre></div><p>Once we installed Pipenv to set up our environment follow the commands to install</p>
+<ul>
+<li>FastAPI</li>
+<li>Uvicorn - The ASGI Server</li>
+<li>Deta - Python Wrapper for the Deta Bases</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir mailing-list
+$ <span style="color:#8be9fd;font-style:italic">cd</span> mailing-list
+$ pipenv shell <span style="color:#6272a4">#it will make the virtual environment</span>
+$ pipenv install fastapi uvicorn deta
+</code></pre></div><p>If we&rsquo;re using venv, then for creating a venv and installing the packages, follow</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir mailing-list
+$ <span style="color:#8be9fd;font-style:italic">cd</span> mailing-list
+$ python3 -m venv venv
+$ <span style="color:#8be9fd;font-style:italic">source</span> venv/bin/activate
+$ pip install fastapi uvicorn deta
+</code></pre></div><p>These are for Unix like systems and on Windows to activate a Virtualenv follow,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">venv<span style="color:#f1fa8c">\S</span>cripts<span style="color:#f1fa8c">\a</span>ctivate
+
+</code></pre></div><p>Once we have set up our Dev Environment. Let&rsquo;s move on to building the Mailing List.</p>
+<p>For Deta, create an Account in Deta and create a new Project and get the Project Key. Save the Project key since it will be shown once. You can save it as an environment variable by executing the below code in Unix like(Linux/Mac).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">DETA_PROJECT_KEY</span> <span style="color:#ff79c6">=</span> &lt;project key&gt;
+</code></pre></div><p>and on Windows, use</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">set DETA_PROJECT_KEY = &lt;project key&gt;
+</code></pre></div><p>We&rsquo;ll also save the key in a <code>.env</code> file. This env file s important for the deployment process. For that we need to create a file called <code>.env</code> and save the Project Key like</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">DETA_PROJECT_KEY = &lt;project key&gt;
+</code></pre></div><p>That&rsquo;s it. Lets move on to the code</p>
+<hr>
+<h2 id="the-code">The Code</h2>
+<p>Let&rsquo;s start by making a simple REST API endpoint with FastAPI on a file called <code>main.py</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI
+
+app <span style="color:#ff79c6">=</span> FastAPI()
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">helloworld</span>():
+    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Hello World&#34;</span>
+</code></pre></div><p>This is just a hello world app with FastAPI and for running this, we&rsquo;ll need uvicorn. Execute the following in the terminal/cmd,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ uvicorn main:app --reload
+INFO:     Uvicorn running on http://127.0.0.1:8000 <span style="color:#ff79c6">(</span>Press CTRL+C to quit<span style="color:#ff79c6">)</span>
+INFO:     Started reloader process <span style="color:#ff79c6">[</span>13050<span style="color:#ff79c6">]</span> using statreload
+INFO:     Started server process <span style="color:#ff79c6">[</span>13052<span style="color:#ff79c6">]</span>
+INFO:     Waiting <span style="color:#ff79c6">for</span> application startup.
+INFO:     Application startup complete.
+</code></pre></div><p>Our API will be actve the port <code>8000</code>. FastAPI has inbuilt support for OpenAPI, Swagger and Redoc. To view the docs for our App, just go to <a href="localhost:8000/docs">localhost:8000/docs</a>. To check if our endpoint works, just execute</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl http://127.0.0.1:8000/
+<span style="color:#f1fa8c">&#34;Hello World&#34;</span>
+</code></pre></div><p>So now, let&rsquo;s move on to our main parts</p>
+<h2 id="new-subscriber">New Subscriber</h2>
+<p>We&rsquo;ll be using the <a href="https://docs.deta.sh/docs/base/lib/">docs</a> by Deta for all references.</p>
+<p>We need to create a new endpoint for a someone to subscribe to our Mailing List. So we&rsquo;ll just need the Person&rsquo;s Name and Email to be in our DB.</p>
+<blockquote>
+<p>Take care that in some countries its illegal to send emails to people without consent. We&rsquo;ll make a delete endpoint for them to delete themselves from the list</p>
+</blockquote>
+<p>Let&rsquo;s get on to the code for adding a new subscriber to our list. The Python code without the use of a DB or simply the code with FastAPI.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI
+<span style="color:#ff79c6">from</span> pydantic <span style="color:#ff79c6">import</span> BaseModel, NameEmail
+
+app <span style="color:#ff79c6">=</span> FastAPI()
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Subscriber</span>(BaseModel):
+    full_name: <span style="color:#8be9fd;font-style:italic">str</span>
+    email: NameEmail
+
+@app<span style="color:#ff79c6">.</span>post(<span style="color:#f1fa8c">&#34;/subscribe&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">newUser</span>(sub: Subscriber):
+    name <span style="color:#ff79c6">=</span> sub<span style="color:#ff79c6">.</span>full_name
+    email <span style="color:#ff79c6">=</span> sub<span style="color:#ff79c6">.</span>email
+
+    <span style="color:#6272a4"># you could also return sub.json() or sub.dict()</span>
+    <span style="color:#ff79c6">return</span> {
+        <span style="color:#f1fa8c">&#34;full_name&#34;</span>: name,
+        <span style="color:#f1fa8c">&#34;email&#34;</span>: email
+    }
+</code></pre></div><p>We&rsquo;re using Pydantic <code>BaseModel</code> class to <em>inherit</em> our <code>Subscriber</code> class. Then we make the subscriber class a dict to fetch data from the request&rsquo;s body. <code>NameEmail</code> will help us get the name part of the email.</p>
+<blockquote>
+<p>The output is a NameEmail object which has two properties: name and email. For <a href="mailto:fred.bloggs@example.com">fred.bloggs@example.com</a>, name property would be &ldquo;fred.bloggs&rdquo;.</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>This snippet will return the things that we have provided to it. I have entered the data by going to  <a href="http://127.0.0.1:8000/docs">localhost:8000/docs</a> if you have your server running. Our Output if we provide <code>athul</code> for name and <code>athul@example.com</code> for email will be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;athul&#34;</span>,
+  <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;athul@example.com&#34;</span>,
+}
+</code></pre></div><p>Now let&rsquo;s connect it with the database, Deta Base in this case. We&rsquo;ll be using Python&rsquo;s <code>os</code> package to get the Project Key. We have save the project key to the env vars and restart the server for it to work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+
+<span style="color:#ff79c6">import</span> os
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI
+<span style="color:#ff79c6">from</span> pydantic <span style="color:#ff79c6">import</span> BaseModel, NameEmail
+<span style="color:#ff79c6">from</span> deta <span style="color:#ff79c6">import</span> Deta
+
+deta <span style="color:#ff79c6">=</span> Deta(os<span style="color:#ff79c6">.</span>getenv(<span style="color:#f1fa8c">&#34;DETA_PROJECT_KEY&#34;</span>))
+db <span style="color:#ff79c6">=</span> deta<span style="color:#ff79c6">.</span>Base(<span style="color:#f1fa8c">&#34;mydb&#34;</span>)  <span style="color:#6272a4"># this can be anything related to your use case</span>
+
+app <span style="color:#ff79c6">=</span> FastAPI()
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Subscriber</span>(BaseModel):
+    full_name: <span style="color:#8be9fd;font-style:italic">str</span>
+    email: NameEmail
+
+@app<span style="color:#ff79c6">.</span>post(<span style="color:#f1fa8c">&#34;/subscribe&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">newUser</span>(sub:Subscriber):
+    subscriber <span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>put({
+        <span style="color:#f1fa8c">&#34;full_name&#34;</span>: sub<span style="color:#ff79c6">.</span>full_name,
+        <span style="color:#f1fa8c">&#34;email&#34;</span>: sub<span style="color:#ff79c6">.</span>email<span style="color:#ff79c6">.</span>email,
+        <span style="color:#f1fa8c">&#34;key&#34;</span>: sub<span style="color:#ff79c6">.</span>email<span style="color:#ff79c6">.</span>name
+    })
+
+    <span style="color:#ff79c6">return</span> subscriber
+</code></pre></div><p>Here we have imported the deta library and initialized it with a db name. We&rsquo;re specifying a key for the data. This key will be the name part of the email since most times it will be unique. If we don&rsquo;t specify a key, deta will generate a unique key for the record.</p>
+<!-- raw HTML omitted -->
+<p>We&rsquo;re using Deta&rsquo;s <code>PUT</code> method(/function) to insert our data into our DetaBase. The PUT method will generate a <strong>unique key</strong> for our data and will be stored if we don&rsquo;t specify a key. The output if we add ourselves a new subscriber with provide <code>John Doe</code> for name and <code>john@example.com</code> for email will be,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;john@example.com&#34;</span>,
+  <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;john&#34;</span>,
+  <span style="color:#ff79c6">&#34;full_name&#34;</span>: <span style="color:#f1fa8c">&#34;John Doe&#34;</span>
+}
+</code></pre></div><p>So we have made an endpoint for people to subscribe to our Mailing List 🎉.<br>
+Next we&rsquo;ll make an endpoint for people to update a theirs info like their Name or Email.</p>
+<h2 id="update-a-subscriber">Update a Subscriber</h2>
+<p>We&rsquo;ll create a new <code>UpdateSubscriber</code> class for updating a Subscriber&rsquo;s Name or Email. We&rsquo;ll use the <code>get</code> and <code>update</code> methods of deta to fetch and update the data. We&rsquo;ll also raise an error if the record is not found in the base</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+
+<span style="color:#ff79c6">from</span> typing <span style="color:#ff79c6">import</span> Optional
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> NameEmail,HTTPException
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">UpdateSub</span>(BaseModel):
+    full_name: Optional[<span style="color:#8be9fd;font-style:italic">str</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+    email: Optional[NameEmail] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+
+@app<span style="color:#ff79c6">.</span>patch(<span style="color:#f1fa8c">&#34;/subscriber/</span><span style="color:#f1fa8c">{email}</span><span style="color:#f1fa8c">&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">update_sub</span>(upsub: UpdateSub, email: NameEmail):
+    sub <span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>get(email<span style="color:#ff79c6">.</span>name)
+    <span style="color:#ff79c6">if</span> sub <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+        <span style="color:#ff79c6">raise</span> HTTPException(<span style="color:#bd93f9">404</span>,<span style="color:#f1fa8c">&#34;User Not Subscribed&#34;</span>)
+
+    updates <span style="color:#ff79c6">=</span> {}
+    <span style="color:#ff79c6">if</span> upsub<span style="color:#ff79c6">.</span>full_name:
+        updates[<span style="color:#f1fa8c">&#34;full_name&#34;</span>] <span style="color:#ff79c6">=</span> upsub<span style="color:#ff79c6">.</span>full_name
+
+    <span style="color:#ff79c6">if</span> upsub<span style="color:#ff79c6">.</span>email:
+        updates[<span style="color:#f1fa8c">&#34;email&#34;</span>] <span style="color:#ff79c6">=</span> upsub<span style="color:#ff79c6">.</span>email<span style="color:#ff79c6">.</span>email
+
+    db<span style="color:#ff79c6">.</span>update(updates, key<span style="color:#ff79c6">=</span>sub[<span style="color:#f1fa8c">&#34;key&#34;</span>])
+
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;msg&#34;</span>: <span style="color:#f1fa8c">&#34;User Updated&#34;</span>}
+</code></pre></div><p>This endpoint will update the email or full_name of a subscriber but the caveat here is that the key cannot be changed even if the email is changed. Let&rsquo;s make a new user with the name John Reese(Person of Interest) with an initial email <code>reese@gmail.com</code>. Now let&rsquo;s update his email using this endpoint, for that our request URL will be as follows,</p>
+<p><code>http://localhost:8080/subscriber/reese%40example.com</code> You can see that after the <code>/subscriber</code> in the url, we are passing the original email and this is called a <strong>Path Parameter</strong>. We use the path paramter and get the name part of it and use it as the Key. For updating the email, we take the new email and update it in our Deta base with the update command. The updates should be in the form of a Python <code>dict</code>. If the operation done is correct, then we&rsquo;ll get a <code>None</code> type in return</p>
+<h2 id="get-all-subscribers">Get all Subscribers</h2>
+<p>This endpoint will send a <code>GET</code> HTTP method for fetching all the data from our Deta-Base. We&rsquo;ll use the <code>fetch</code> function/method of deta to retreive all the data from our base. The <code>fetch</code> function will return a <a href="https://www.programiz.com/python-programming/generator">generator</a> type, so we&rsquo;ll be using the <code>next()</code> function to get all the data as a <code>List</code>. The endpoint will be like</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/subscribers&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">get_all_subs</span>():
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;subscribers&#34;</span>: <span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch())}
+</code></pre></div><p>The output of the above request will be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;subscribers&#34;</span>: [
+    {
+      <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;athul@example.com&#34;</span>,
+      <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;athul&#34;</span>,
+      <span style="color:#ff79c6">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;Athuk&#34;</span>
+    },
+    {
+      <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;john@example.com&#34;</span>,
+      <span style="color:#ff79c6">&#34;full_name&#34;</span>: <span style="color:#f1fa8c">&#34;John Doe&#34;</span>,
+      <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;john&#34;</span>
+    },
+    {
+      <span style="color:#ff79c6">&#34;email&#34;</span>: <span style="color:#f1fa8c">&#34;jhreese@gmail.com&#34;</span>,
+      <span style="color:#ff79c6">&#34;full_name&#34;</span>: <span style="color:#f1fa8c">&#34;John Reese&#34;</span>,
+      <span style="color:#ff79c6">&#34;key&#34;</span>: <span style="color:#f1fa8c">&#34;reese&#34;</span>
+    }
+  ]
+}
+</code></pre></div><p>Now we have setup a Create, Update and Read endpoints. Next we&rsquo;ll look into the Delete operation.</p>
+<h2 id="delete-subscribers">Delete Subscribers</h2>
+<p>To delete a subscriber, we&rsquo;ll take in the <code>full_name</code> as the input to find the subscriber and if we there is more than one record with the same full_name, we&rsquo;ll fetch the data with email. Then we&rsquo;ll use the <code>delete</code> method to delete the record by getting the key from our records.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#6272a4"># main.py</span>
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">DelSub</span>(BaseModel):
+    email: Optional[NameEmail]
+    full_name: <span style="color:#8be9fd;font-style:italic">str</span>
+
+@app<span style="color:#ff79c6">.</span>delete(<span style="color:#f1fa8c">&#34;/subscribers.del&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">unsubscribe</span>(unsub: DelSub):
+    data <span style="color:#ff79c6">=</span> delsub<span style="color:#ff79c6">.</span>dict()
+    name <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#39;full_name&#39;</span>)
+    email <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#39;email&#39;</span>)
+    sub <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch({<span style="color:#f1fa8c">&#39;full_name&#39;</span>:name}))
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub) <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">or</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+        sub <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch({<span style="color:#f1fa8c">&#39;email&#39;</span>:email<span style="color:#ff79c6">.</span>email}))
+        <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub)<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span>:
+            <span style="color:#ff79c6">raise</span> HTTPException(<span style="color:#bd93f9">400</span>,<span style="color:#f1fa8c">&#34;email not found&#34;</span>)
+    db<span style="color:#ff79c6">.</span>delete(sub[<span style="color:#bd93f9">0</span>][<span style="color:#f1fa8c">&#39;key&#39;</span>])
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;msg&#34;</span>:<span style="color:#f1fa8c">&#34;Record Deleted&#34;</span>}
+</code></pre></div><p>The response if a record is deleted will be a Python <code>None</code> type so we respond with a message,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#ff79c6">&#34;msg&#34;</span>:<span style="color:#f1fa8c">&#34;Record Deleted&#34;</span>}
+</code></pre></div><p>So we have made a CRUD API for a personal mailing list. Now let&rsquo;s deploy it.</p>
+<h2 id="deploy-our-api">Deploy our API</h2>
+<p>For Deploying our API, we&rsquo;ll need Deta Micros.</p>
+<blockquote>
+<p>Deta Micros(ervers) are a leightweight but scalable cloud runtime tied to an HTTP endpoint. They are meant to get your apps up and running blazingly fast. Focus on writing your code and Deta will take care of everything else.</p>
+</blockquote>
+<p>You need to have Deta Micros' CLI installed in your system. You can install by following the instructions in this <a href="https://docs.deta.sh/docs/micros/getting_started">link</a>. Once you&rsquo;ve installed, we need to login to Deta via the CLI, for that execute the following command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">deta login
+</code></pre></div><p>It&rsquo;ll open a new browser window and will authenticate the CLI. Next we need to start a new micro. We&rsquo;ll also need a <code>requirements.txt</code> for managing our dependencies, for that either you can copy the response for the command <code>pip freeze</code> and paste it in a file called <code>requirements.txt</code> or on <em>*nix</em> systems, you can just execute</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip freeze &gt; requirements.txt
+</code></pre></div><p>This will paste the output of <code>pip freeze</code> to <code>requirements.txt</code>. Once we have done we need to deploy it to deta using the command. Once we&rsquo;ve done this let&rsquo;s create a new micro, for that we can use the <code>deta new</code> command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ deta new
+<span style="color:#ff79c6">{</span>
+        <span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;mailing-list&#34;</span>,
+        <span style="color:#f1fa8c">&#34;runtime&#34;</span>: <span style="color:#f1fa8c">&#34;python3.7&#34;</span>,
+        <span style="color:#f1fa8c">&#34;endpoint&#34;</span>: <span style="color:#f1fa8c">&#34;&lt;url&gt;&#34;</span>,
+        <span style="color:#f1fa8c">&#34;visor&#34;</span>: <span style="color:#f1fa8c">&#34;enabled&#34;</span>,
+        <span style="color:#f1fa8c">&#34;http_auth&#34;</span>: <span style="color:#f1fa8c">&#34;enabled&#34;</span>
+<span style="color:#ff79c6">}</span>
+</code></pre></div><p>It will automatically detect that we&rsquo;ll need a Python runtime and will deploy our code and give us a unique link for our Micro.</p>
+<p>Yay we have deployed the API, for the details of the micro, just execute the following for details of the micro.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ deta details
+<span style="color:#ff79c6">{</span>
+        <span style="color:#f1fa8c">&#34;name&#34;</span>: <span style="color:#f1fa8c">&#34;mailing-list&#34;</span>,
+        <span style="color:#f1fa8c">&#34;runtime&#34;</span>: <span style="color:#f1fa8c">&#34;python3.7&#34;</span>,
+        <span style="color:#f1fa8c">&#34;endpoint&#34;</span>: <span style="color:#f1fa8c">&#34;&lt;url&gt;&#34;</span>,
+        <span style="color:#f1fa8c">&#34;visor&#34;</span>: <span style="color:#f1fa8c">&#34;enabled&#34;</span>,
+        <span style="color:#f1fa8c">&#34;http_auth&#34;</span>: <span style="color:#f1fa8c">&#34;enabled&#34;</span>
+<span style="color:#ff79c6">}</span>
+</code></pre></div><p>We need to update the environment variable to set our project_key, execute the <code>deta update</code> command like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ deta update -e .env
+Updating environment variables...
+Successfully updated micro&#39;s environment variables
+
+</code></pre></div><p>You can disable authentication for the API to be publically available, just execute <code>deta auth disable</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ deta auth disable
+Successfully disabled http auth
+</code></pre></div><p>If we go to our Micro&rsquo;s url we&rsquo;ll see a <code>Hello World</code> response which we wrote as the <code>/</code> endpoint. We can see the OpenAPI spec and the Swagger Documentation, if we go to the <code>/docs</code> url, we&rsquo;ll see a page like this</p>
+<p><img src="/img/fastapi.png" alt="FastAPI Docs"></p>
+<hr>
+<p>Yay we have created an API with FastAPI and Deta and Deployed it to the Web.</p>
+<p><img src="/img/yay.gif" alt="Yay Gif"></p>
+<p>That leads to the end of this post, here is the whole source code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">import</span> os
+<span style="color:#ff79c6">from</span> typing <span style="color:#ff79c6">import</span> Optional
+<span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI, HTTPException
+<span style="color:#ff79c6">from</span> pydantic <span style="color:#ff79c6">import</span> BaseModel, NameEmail
+<span style="color:#ff79c6">from</span> deta <span style="color:#ff79c6">import</span> Deta
+
+deta <span style="color:#ff79c6">=</span> Deta(os<span style="color:#ff79c6">.</span>getenv(<span style="color:#f1fa8c">&#34;DETA_PROJECT_KEY&#34;</span>))
+db <span style="color:#ff79c6">=</span> deta<span style="color:#ff79c6">.</span>Base(<span style="color:#f1fa8c">&#39;mailing-list&#39;</span>)
+
+app <span style="color:#ff79c6">=</span> FastAPI()
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">Subscriber</span>(BaseModel):
+    full_name: <span style="color:#8be9fd;font-style:italic">str</span>
+    email: NameEmail
+
+@app<span style="color:#ff79c6">.</span>post(<span style="color:#f1fa8c">&#34;/subscribe&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">newUser</span>(sub:Subscriber):
+    data <span style="color:#ff79c6">=</span> sub<span style="color:#ff79c6">.</span>dict()
+    name <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;full_name&#34;</span>)
+    email <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;email&#34;</span>)
+    subscriber<span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>put({
+        <span style="color:#f1fa8c">&#34;full_name&#34;</span>:name,
+        <span style="color:#f1fa8c">&#34;email&#34;</span>:email<span style="color:#ff79c6">.</span>email
+    },key<span style="color:#ff79c6">=</span>email<span style="color:#ff79c6">.</span>name)
+    <span style="color:#ff79c6">return</span> subscriber
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/subscribers&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getAllSubs</span>():
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;subscribers&#34;</span>:<span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch())}
+
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">UpdateSub</span>(BaseModel):
+    full_name: Optional[<span style="color:#8be9fd;font-style:italic">str</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+    email: Optional[NameEmail] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>
+
+@app<span style="color:#ff79c6">.</span>patch(<span style="color:#f1fa8c">&#34;/subscriber/</span><span style="color:#f1fa8c">{email}</span><span style="color:#f1fa8c">&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">updateSub</span>(subscriber:UpdateSub,email:NameEmail):
+    data <span style="color:#ff79c6">=</span> subscriber<span style="color:#ff79c6">.</span>dict()
+    new_name <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;full_name&#34;</span>)
+    new_email <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;email&#34;</span>)
+    sub <span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>get(email<span style="color:#ff79c6">.</span>name)
+    <span style="color:#ff79c6">if</span> sub <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+        <span style="color:#ff79c6">raise</span> HTTPException(<span style="color:#bd93f9">400</span>,<span style="color:#f1fa8c">&#34;User Not Subscribed&#34;</span>)
+    <span style="color:#ff79c6">if</span> new_email <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+        update <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;full_name&#34;</span>:new_name}
+    <span style="color:#ff79c6">if</span> new_name <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">None</span>:
+        update <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;email&#34;</span>:new_email<span style="color:#ff79c6">.</span>email}
+    db<span style="color:#ff79c6">.</span>update(updates<span style="color:#ff79c6">=</span>update,key<span style="color:#ff79c6">=</span>sub[<span style="color:#f1fa8c">&#39;key&#39;</span>])
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;msg&#34;</span>:<span style="color:#f1fa8c">&#34;User Updated&#34;</span>}
+<span style="color:#ff79c6">class</span> <span style="color:#50fa7b">DelSub</span>(BaseModel):
+    email:Optional[NameEmail]
+    full_name:<span style="color:#8be9fd;font-style:italic">str</span>
+
+@app<span style="color:#ff79c6">.</span>delete(<span style="color:#f1fa8c">&#34;/subscribers.del&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">deleteSub</span>(delsub:DelSub):
+    data<span style="color:#ff79c6">=</span>delsub<span style="color:#ff79c6">.</span>dict()
+    name <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#39;full_name&#39;</span>)
+    email <span style="color:#ff79c6">=</span> data<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#39;email&#39;</span>)
+    sub <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch({<span style="color:#f1fa8c">&#39;full_name&#39;</span>:name}))
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub) <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">1</span> <span style="color:#ff79c6">or</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub) <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">0</span>:
+        sub <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">next</span>(db<span style="color:#ff79c6">.</span>fetch({<span style="color:#f1fa8c">&#39;email&#39;</span>:email<span style="color:#ff79c6">.</span>email}))
+        <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(sub)<span style="color:#ff79c6">==</span><span style="color:#bd93f9">0</span>:
+            <span style="color:#ff79c6">raise</span> HTTPException(<span style="color:#bd93f9">400</span>,<span style="color:#f1fa8c">&#34;email not found&#34;</span>)
+    db<span style="color:#ff79c6">.</span>delete(sub[<span style="color:#bd93f9">0</span>][<span style="color:#f1fa8c">&#39;key&#39;</span>])
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;msg&#34;</span>:<span style="color:#f1fa8c">&#34;Record Deleted&#34;</span>} 
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">helloworld</span>():
+    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Hello World&#34;</span>
+</code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>This is just a demo for getting started with FastAPI with Deta.sh. You can change the key for your preference or use the key generated automatically by Deta. You can also use the email address as your key but you may need to switch the <code>@</code> character with something else like a <code>-</code> or <code>_</code> for its place. If you have any queries or doubts or feedback, you can use the comments section for the same and do let me if this has helped you. Go forth and build awesome stuff ⚡️. Thank You ❤️</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

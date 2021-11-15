@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Programming on your Phone - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="How to start using termux,using it as your local development system with Git,Neovim and your required language packages" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/mob-dev/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/mob-dev/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Programming on your Phone" />
+<meta property="og:description" content="How to start using termux,using it as your local development system with Git,Neovim and your required language packages" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/mob-dev/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-06-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-06-23T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Programming on your Phone"/>
+<meta name="twitter:description" content="How to start using termux,using it as your local development system with Git,Neovim and your required language packages"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Programming on your Phone</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jun 23, 2019 | 1 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<h3 id="what-is-termux">What is Termux?</h3>
+<p>Termux is a <strong>Terminal Emulator</strong> which can be used on Android.</p>
+<h3 id="why-termux">Why Termux?</h3>
+<blockquote>
+<p>&ldquo;Start by answering the Whys&rdquo;- Simon Sinek</p>
+</blockquote>
+<p>Termux is quite useful if you are a aspiring dev and doesn&rsquo;t have a budget to buy a laptop or If your machine goes on frequent strikes(as for me). You can do mostly anything that you do in a Linux terminal, like exploring files,editing them,moving them and using tools for Python,C,JavaScript(Node) etc&hellip;<br>
+Termux is</p>
+<ul>
+<li>Light Weight(few kilobytes)</li>
+<li>Works same as the Bash in Linux</li>
+<li>Managable</li>
+<li>Open Source</li>
+<li>Has a package manager/repository</li>
+<li>Supports many Packages and Compilers</li>
+<li>Can use the full potential of phone&rsquo;s computing power</li>
+<li>Super handy(for devs) while travelling or related tasks</li>
+</ul>
+<h4 id="installing-termux">Installing Termux</h4>
+<p>Termux can be installed from <em><em>Google Play or F-Droid</em></em>.
+We can <em>simply</em> install it from either of these sources and it&rsquo;ll work on-the-go.</p>
+<h4 id="setting-up-termux">Setting Up Termux</h4>
+<p>Accessing the Termux file system is a tedious one and is hard to find(for me) but we can provide acces to termux to our internal storage by going to <code>setting&lt;apps&lt;termux&lt;permissions</code> Toggle the permission for storage to ON state. Or, you can provide access by running <code>termux-setup-storage</code> and you can access the file system.</p>
+<h4 id="installing-packages">Installing Packages</h4>
+<p>Termux has a sleek package manager which is constantly improved by the community. It has almost all packages we can find on Linux distributions and repositories. We can install packages by calling <code>pkg install &lt;package_name&gt;</code> . We can see a list of all the arguments to be used with <code>pkg</code> by running <code>pkg help</code>.
+Here,I&rsquo;ll show an example on how to install git and neovim with Termux</p>
+<ul>
+<li><code>pkg install git</code></li>
+<li><code>pkg install neovim</code><br>
+Its that simple. <br>
+There might be a problem with the <code>curl</code> command and we can resolve it by running <code>pkg upgrade</code>.   <br>
+We can install <strong>Node,Python and C</strong> packages too,using <code>pkg install</code> command.</li>
+</ul>
+<h4 id="what-can-we-do">What can we do</h4>
+<ul>
+<li>We can use version control using Git</li>
+<li>We can edit files using Neovim or Nano</li>
+<li>We can run servers with python or npm</li>
+<li>We can get a new session by sliding from the left</li>
+</ul>
+<hr>
+<p>PS. I made this blog and related setup on Phone using Termux</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

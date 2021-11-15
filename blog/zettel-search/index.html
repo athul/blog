@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Indexed 🧠 and Fuzzy 🔍 - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="How I implemented a search feature on statically generated site in Go" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/zettel-search/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/zettel-search/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Indexed 🧠 and Fuzzy 🔍" />
+<meta property="og:description" content="How I implemented a search feature on statically generated site in Go" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/zettel-search/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-08T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Indexed 🧠 and Fuzzy 🔍"/>
+<meta name="twitter:description" content="How I implemented a search feature on statically generated site in Go"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Indexed 🧠 and Fuzzy 🔍</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Nov 8, 2020 | 5 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>In these past few months, I had a plan to set up a wiki for myself. I was exploring my options on what tool I should use. This thought came up in September and this was the same time for FOSS United&rsquo;s Hackathon. Post Hackathon discussions on the group was quite interesting and this was where the whole idea of a <a href="https://joelhooks.com/digital-garden">Digital Garden</a>  came up. On further research this seemed a good option for me to organize my notes and ideas. I looked at my Options, There were <a href="https://roamresearch.com/">Roam Research</a> and <a href="https://obsidian.md/">Obsidian</a> which were quite cool but Roam was paid  and Obsidian was an electron app😬. I also wanted to make these Publically available when it was good, so <strong>hosting</strong> it was also necessary for me so I went on with my searching. Then there was <a href="https://foambubble.github.io/foam/">Foam</a> and <a href="https://tiddlywiki.com/">TiddlyWiki</a> but sadly for me these were less <em>hackable</em> except for tiddlywiki. Then comes <a href="https://github.com/hackstream/zettel">zettel</a> which was a project for the said hackathon. In simple terms zettel is a SSG/CLI for markdown files. It supported wikilinks(<code>[[]]</code>) and was made with Go 😻. I had been contributing to it&rsquo;s codebase. I had implemented the syntax highlighting and Math Features to it.</p>
+<p>Search was a most wanted feature for me since it would reduce my time to look into my articles when I&rsquo;m would not be in my home(post pandemic). So I tried to implement it</p>
+<h2 id="searching-to-set-up-search">Searching to set up search</h2>
+<p>Since Zettel was made with Go, I first searched on how to implement a search feature in a Hugo<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> website. The results I got from google was from the official Hugo <a href="https://gohugo.io/tools/search/">docs</a>. There were a few commercial services and a few hacked up ones. The <a href="https://gist.github.com/cmod/5410eae147e4318164258742dd053993">fastSearch</a> gist was quite interesting and matched to my usecase. The next step was how I could port that from Hugo to zettel.</p>
+<h2 id="indexing">Indexing</h2>
+<p>Further searching got me the idea of how search works. For starters, it requires an Index file with the data on details about what we would be searching. Here is a rough representation for need of search indexes</p>
+<p><img src="./img/search.png" alt=""></p>
+<p>It&rsquo;s just like the index of a book where you can find what&rsquo;s inside the book by looking at index. The Index file is important because it makes the search faster. It&rsquo;s quite time consuming to scrape the whole website to create the index for use in search and since we don&rsquo;t have a server side to scrape the data, this method becomes a no-go for our case. We want to create an index at build time which is quite a lot easier.</p>
+<p>Zettel have this feature of showing a graph about the connected markdown pages. It uses a graph data type to create this and shows in the frontend using <a href="https://github.com/jacomyal/sigma.js/">sigma.js</a> . The Markdown files are the nodes and the connections are the edges. Sigma JS uses a JSON file to generate in the frontend. This JSON file or <code>graph.json</code> is generated at build time.</p>
+<p>So I used the same trick to generate the Index file for search. I created a new structure for the Search Index, it looks like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">type</span> PostData <span style="color:#8be9fd;font-style:italic">struct</span> {
+  Title     <span style="color:#8be9fd">string</span>   <span style="color:#f1fa8c">`json:&#34;title&#34;`</span> <span style="color:#6272a4">// the Title of the page
+</span><span style="color:#6272a4"></span>  Permalink <span style="color:#8be9fd">string</span>   <span style="color:#f1fa8c">`json:&#34;permalink&#34;`</span> <span style="color:#6272a4">// the Permalink/Link of the Page
+</span><span style="color:#6272a4"></span>  Tags      []<span style="color:#8be9fd">string</span> <span style="color:#f1fa8c">`json:&#34;tags&#34;`</span> <span style="color:#6272a4">// the Tags of the page if available
+</span><span style="color:#6272a4"></span>}
+</code></pre></div><p>At build-time this will generate a json file like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">[
+    {
+        <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Adguard Telegram Bot&#34;</span>,
+        <span style="color:#ff79c6">&#34;permalink&#34;</span>: <span style="color:#f1fa8c">&#34;posts/adbot.html&#34;</span>,
+        <span style="color:#ff79c6">&#34;tags&#34;</span>: [
+            <span style="color:#f1fa8c">&#34;go&#34;</span>,
+            <span style="color:#f1fa8c">&#34;code&#34;</span>,
+            <span style="color:#f1fa8c">&#34;other&#34;</span>
+        ]
+    },
+    {
+        <span style="color:#ff79c6">&#34;title&#34;</span>: <span style="color:#f1fa8c">&#34;Config for Zettel local dev with Air&#34;</span>,
+        <span style="color:#ff79c6">&#34;permalink&#34;</span>: <span style="color:#f1fa8c">&#34;posts/air-zettel.html&#34;</span>,
+        <span style="color:#ff79c6">&#34;tags&#34;</span>: [
+            <span style="color:#f1fa8c">&#34;code&#34;</span>,
+            <span style="color:#f1fa8c">&#34;other&#34;</span>
+        ]
+    }
+]
+</code></pre></div><p>And this will act as the search index for the pages. Next was to work on the frontend with some Js and CSS</p>
+<h2 id="fuzing">Fu&rsquo;z&rsquo;ing</h2>
+<p>After the Index we need to use a Js library to parse the json index and return us the result. fastSearch gist uses <a href="https://fusejs.io/">Fuze.js</a> so I too used the same. Fuze.js is a fuzzy search library which takes in a JSON index and returns from the JSON index if the item is found as Js Arrays. The code for making the search work was available on the gist but needed some modifications for the current use case. I&rsquo;m not that familiar with Js but I could read and understand the code. I was able to ahck the code up and made it working.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6272a4">// Code by Craig Mod under MIT License
+</span><span style="color:#6272a4">// https://gist.github.com/cmod/5410eae147e4318164258742dd053993
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">var</span> fuse; 
+<span style="color:#8be9fd;font-style:italic">var</span> list <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#39;searchResults&#39;</span>);
+<span style="color:#8be9fd;font-style:italic">var</span> first <span style="color:#ff79c6">=</span> list.firstChild;
+<span style="color:#8be9fd;font-style:italic">var</span> last <span style="color:#ff79c6">=</span> list.lastChild;
+<span style="color:#8be9fd;font-style:italic">var</span> maininput <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#39;searchInput&#39;</span>);
+<span style="color:#8be9fd;font-style:italic">var</span> resultsAvailable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+<span style="color:#8be9fd;font-style:italic">var</span> baseURL <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.location.pathname.split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#bd93f9">1</span>]
+<span style="color:#ff79c6">if</span> (baseURL.length <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span> <span style="color:#ff79c6">||</span> baseURL.includes(<span style="color:#f1fa8c">&#34;html&#34;</span>) <span style="color:#ff79c6">||</span> baseURL.includes(<span style="color:#f1fa8c">&#34;posts&#34;</span>)) {
+    baseURL <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">window</span>.location.origin
+} <span style="color:#ff79c6">else</span> {
+    baseURL <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;/&#34;</span> <span style="color:#ff79c6">+</span> baseURL
+}
+console.log(baseURL)
+loadSearch()
+<span style="color:#8be9fd;font-style:italic">document</span>.addEventListener(<span style="color:#f1fa8c">&#39;keydown&#39;</span>, <span style="color:#8be9fd;font-style:italic">function</span>(event) {
+  <span style="color:#ff79c6">if</span> (event.keyCode <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">27</span>) {
+      <span style="color:#8be9fd;font-style:italic">document</span>.activeElement.blur();
+      resultsAvailable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+      list.style.display<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;none&#34;</span>
+  }
+  <span style="color:#ff79c6">if</span> (event.keyCode <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">40</span>) {
+    <span style="color:#ff79c6">if</span> (resultsAvailable) {
+      event.preventDefault();
+      <span style="color:#ff79c6">if</span> ( <span style="color:#8be9fd;font-style:italic">document</span>.activeElement <span style="color:#ff79c6">==</span> maininput) { first.focus(); } 
+      <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> ( <span style="color:#8be9fd;font-style:italic">document</span>.activeElement <span style="color:#ff79c6">==</span> last ) { last.focus(); } 
+      <span style="color:#ff79c6">else</span> { <span style="color:#8be9fd;font-style:italic">document</span>.activeElement.parentElement.nextSibling.firstElementChild.focus(); } 
+    }
+  }
+  <span style="color:#ff79c6">if</span> (event.keyCode <span style="color:#ff79c6">==</span> <span style="color:#bd93f9">38</span>) {
+    <span style="color:#ff79c6">if</span> (resultsAvailable) {
+      event.preventDefault();
+      <span style="color:#ff79c6">if</span> ( <span style="color:#8be9fd;font-style:italic">document</span>.activeElement <span style="color:#ff79c6">==</span> maininput) { maininput.focus(); } 
+      <span style="color:#ff79c6">else</span> <span style="color:#ff79c6">if</span> ( <span style="color:#8be9fd;font-style:italic">document</span>.activeElement <span style="color:#ff79c6">==</span> first) { maininput.focus(); } 
+      <span style="color:#ff79c6">else</span> { <span style="color:#8be9fd;font-style:italic">document</span>.activeElement.parentElement.previousSibling.firstElementChild.focus(); } 
+    }
+  }
+});
+<span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;searchInput&#34;</span>).onkeyup <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span>(e) {
+    list.style.display<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;&#34;</span>
+  executeSearch(<span style="color:#ff79c6">this</span>.value);
+}
+<span style="color:#8be9fd;font-style:italic">function</span> fetchJSONFile(path, callback) {
+  <span style="color:#8be9fd;font-style:italic">var</span> httpRequest <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> XMLHttpRequest();
+  httpRequest.onreadystatechange <span style="color:#ff79c6">=</span> <span style="color:#8be9fd;font-style:italic">function</span>() {
+    <span style="color:#ff79c6">if</span> (httpRequest.readyState <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">4</span>) {
+      <span style="color:#ff79c6">if</span> (httpRequest.status <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">200</span>) {
+        <span style="color:#8be9fd;font-style:italic">var</span> data <span style="color:#ff79c6">=</span> JSON.parse(httpRequest.responseText);
+          <span style="color:#ff79c6">if</span> (callback) callback(data);
+      }
+    }
+  };
+  httpRequest.open(<span style="color:#f1fa8c">&#39;GET&#39;</span>, path);
+  httpRequest.send(); 
+}
+<span style="color:#8be9fd;font-style:italic">function</span> loadSearch() { 
+  fetchJSONFile(baseURL <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;/data/search.json&#34;</span>, <span style="color:#8be9fd;font-style:italic">function</span>(data){
+    <span style="color:#8be9fd;font-style:italic">var</span> options <span style="color:#ff79c6">=</span> { 
+      shouldSort<span style="color:#ff79c6">:</span> <span style="color:#ff79c6">true</span>,
+      location<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0</span>,
+      distance<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">100</span>,
+      threshold<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">0.4</span>,
+      minMatchCharLength<span style="color:#ff79c6">:</span> <span style="color:#bd93f9">2</span>,
+      keys<span style="color:#ff79c6">:</span> [<span style="color:#f1fa8c">&#39;title&#39;</span>,<span style="color:#f1fa8c">&#39;tags&#39;</span>]
+    };
+    fuse <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">new</span> Fuse(data, options); 
+  });
+}
+<span style="color:#8be9fd;font-style:italic">function</span> executeSearch(term) {
+  <span style="color:#8be9fd;font-style:italic">let</span> results <span style="color:#ff79c6">=</span> fuse.search(term); 
+  <span style="color:#8be9fd;font-style:italic">let</span> searchitems <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;&#39;</span>; 
+  <span style="color:#ff79c6">if</span> (results.length <span style="color:#ff79c6">===</span> <span style="color:#bd93f9">0</span>) { 
+    resultsAvailable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">false</span>;
+    searchitems <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#39;&#39;</span>;
+  } <span style="color:#ff79c6">else</span> { 
+    <span style="color:#ff79c6">for</span> (<span style="color:#8be9fd;font-style:italic">let</span> item <span style="color:#ff79c6">in</span> results.slice(<span style="color:#bd93f9">0</span>,<span style="color:#bd93f9">5</span>)) { 
+    <span style="color:#ff79c6">const</span> title <span style="color:#ff79c6">=</span> results[item].title.replace(<span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">RegExp</span>(term, <span style="color:#f1fa8c">&#34;gi&#34;</span>), (match) =&gt; <span style="color:#f1fa8c">`&lt;mark class=&#34;searchHgl&#34;&gt;</span><span style="color:#f1fa8c">${</span>match<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;/mark&gt;`</span>);
+    tags <span style="color:#ff79c6">=</span> results[item].tags.map((value)=&gt;{
+      <span style="color:#ff79c6">return</span> value.replace(<span style="color:#ff79c6">new</span> <span style="color:#8be9fd;font-style:italic">RegExp</span>(term, <span style="color:#f1fa8c">&#34;gi&#34;</span>), (match) =&gt; <span style="color:#f1fa8c">`&lt;mark class=&#34;searchHgl&#34;&gt;</span><span style="color:#f1fa8c">${</span>match<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&lt;/mark&gt;`</span>);
+    })
+    searchitems <span style="color:#ff79c6">=</span> searchitems <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#39;&lt;li&gt;&lt;a href=&#34;&#39;</span> <span style="color:#ff79c6">+</span> baseURL <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#39;/&#39;</span> <span style="color:#ff79c6">+</span> results[item].permalink <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#39;&#34; tabindex=&#34;0&#34;&gt;&lt;span class=&#34;title&#34;&gt;&#39;</span> <span style="color:#ff79c6">+</span> title <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&lt;/span&gt; — &#34;</span> <span style="color:#ff79c6">+</span> tags <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;&lt;/a&gt;&lt;/li&gt;&#34;</span>;
+    }
+    resultsAvailable <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">true</span>;
+  }
+  <span style="color:#8be9fd;font-style:italic">document</span>.getElementById(<span style="color:#f1fa8c">&#34;searchResults&#34;</span>).innerHTML <span style="color:#ff79c6">=</span> searchitems;
+  <span style="color:#ff79c6">if</span> (results.length <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">0</span>) {
+    first <span style="color:#ff79c6">=</span> list.firstChild.firstElementChild; 
+    last <span style="color:#ff79c6">=</span> list.lastChild.firstElementChild; 
+  }
+}
+</code></pre></div><p>I also added some fun highlighting for the resulted search terms using the <code>&lt;mark&gt;</code> tag of HTML(semantic HTML FTW🙌). I modified the Js code from the original one and removed the <code>CMD + /</code> option to start the search. The keys to search from the index are the title and tags. Indexing the contents will add a lot of page load time and the JSON will be of much bigger size when scaled.</p>
+<p>The CSS part was a tad tricky since I don&rsquo;t know CSS. I had some help from my friend who over a call made it look better and more compact.</p>
+<p>Here is the End Result 👇</p>
+<p><img src="https://i.imgur.com/antb6h4.gif" alt=""></p>
+<p>I have added the whole code for the JS part and the CSS part as a GitHub Gist<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> 😁 with instructions too. If you&rsquo;reinstrested in Digital Garden&rsquo;s and Zettel, make sure you checkout</p>
+<ul>
+<li><a href="https://github.com/MaggieAppleton/digital-gardeners">Maggie Appleton&rsquo;s Repo for Digital Gardens</a></li>
+<li>A <a href="https://www.reddit.com/r/DigitalGardens/">subreddit</a> for Digital Gardeners</li>
+<li><a href="https://github.com/athul/zet">Personal fork of Zettel</a></li>
+</ul>
+<hr>
+<p>If you found it useful, you can donate me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a> and can reach out to me on <a href="https://twitter.com/athulcajay">Twitter</a></p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Hugo is a static site generator in Go, <a href="https://gohugo.io">https://gohugo.io</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://gist.github.com/athul/0d47f7e1b677de3f3ed2b756ae1fffac">https://gist.github.com/athul/0d47f7e1b677de3f3ed2b756ae1fffac</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Jiofi-CLI - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Introducing Jiofi-CLI. A CLI interface for getting your Jiofi Device Info." />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/jiofi/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/jiofi/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Jiofi-CLI" />
+<meta property="og:description" content="Introducing Jiofi-CLI. A CLI interface for getting your Jiofi Device Info." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/jiofi/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-08-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jiofi-CLI"/>
+<meta name="twitter:description" content="Introducing Jiofi-CLI. A CLI interface for getting your Jiofi Device Info."/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Jiofi-CLI</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Aug 1, 2020 | 4 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>JioFi ia a portable wifi hotspot for personal use by Jio. They have somewhat generous plans and are a major telecom provider in India. Jiofi has a web dashboard to display the current details regarding the data usage, battery status and number of devices connected to the network. But I am too lazy to go to the dashboard to check the data out. So I built a small Python CLI to monitor the jiofi device from the network. I call it Jiofi-CLI. You can find the source code on GitHub at <a href="https://github.com/athul/jiofi-cli">Jiofi-CLI</a>. It&rsquo;s easy to install and you can install it with <code>pip</code>. The Python Package Manager.</p>
+<h2 id="the-build-breakdown">The Build Breakdown</h2>
+<p>Before digging in deep, I saw a <a href="https://github.com/anandubajith/jiofi-status">repo on GitHub</a> regarding jiofi that scrapes data from the dashboard of a Jiofi and this seemed a legit solution for getting the info. So Initial solution which came into mind for getting the data was <strong>Web Scraping</strong>!! 😈. So went on to scrape the dashboard without any prior knowledge in web scraping. I read a few articles on using Beautiful Soup with Requests for fetching the data and parsing the HTML. I went forward with it for a bit and I found out that the data part won&rsquo;t be shown in the scraped output. I was <em>sad</em>😓. I don&rsquo;t have any idea on moving forward without the data. Then the geek inside me woke up. &ldquo;If the data can&rsquo;t be scraped, then the data has to come from somewhere&rdquo;. A sudden <code>Ctrl+Shift+i</code> took me to the chrome developer console.</p>
+<p>I spend half an hour tryin to figure out where the data is coming from. Trying the Networks tab finally yeilded some luck. I saw a pattern in the <em>waterfall</em> tab in the Network section. About 300+ requests are send in the span of 10 mins. Okay that seems interesting. I checked all the XHR requests and found the motherlode. A series of POST requests were being sent to the JioFi&rsquo;s internal API server. That was a <code>xxx-form-url-encoded</code> requests to the endpoint. <em><em>An internal API⚡️⚡️</em></em>. I checked the request headers and saw that a specific keyword was used to fetch the data. These were for LTEStatus, DeviceStatus, WANStatus and so on. I tried to get the data from Insomnia which is a REST Client since Postwoman had shown me a few errors and I was too lazy to fix the errors with Postwoman for that time. Those errors were due to local endpointsand not anything serious.</p>
+<p>It worked on Insomnia, I received the data that was to be used for the web dashboard or in simple terms, I mocked the web dashboard of JioFi with Insomnia. Win 🙌 Win. The response was like any other API response, in JSON. Here is the sample response.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;Page&#34;</span>: <span style="color:#f1fa8c">&#34;GetLTEStatus&#34;</span>,
+  <span style="color:#ff79c6">&#34;Mask&#34;</span>: <span style="color:#f1fa8c">&#34;&#34;</span>,
+  <span style="color:#ff79c6">&#34;connected_status&#34;</span>: <span style="color:#f1fa8c">&#34;Attached&#34;</span>,
+  <span style="color:#ff79c6">&#34;connection_time&#34;</span>: <span style="color:#f1fa8c">&#34;00:00:57:19&#34;</span>,
+  <span style="color:#ff79c6">&#34;signal_strength&#34;</span>: <span style="color:#f1fa8c">&#34;Normal&#34;</span>,
+  <span style="color:#ff79c6">&#34;operating_mode&#34;</span>: <span style="color:#f1fa8c">&#34;TDD&#34;</span>,
+  <span style="color:#ff79c6">&#34;operating_band&#34;</span>: <span style="color:#f1fa8c">&#34;Band 40&#34;</span>,
+  <span style="color:#ff79c6">&#34;bandwidth&#34;</span>: <span style="color:#f1fa8c">&#34;20 MHz&#34;</span>,
+  <span style="color:#ff79c6">&#34;earfcn&#34;</span>: <span style="color:#f1fa8c">&#34;38750&#34;</span>,
+  <span style="color:#ff79c6">&#34;active_cell_id&#34;</span>: <span style="color:#f1fa8c">&#34;123&#34;</span>,
+  <span style="color:#ff79c6">&#34;plmn&#34;</span>: <span style="color:#f1fa8c">&#34;405 862&#34;</span>,
+  <span style="color:#ff79c6">&#34;apn_in_use&#34;</span>: <span style="color:#f1fa8c">&#34;jionet&#34;</span>,
+  <span style="color:#ff79c6">&#34;gcellid_pcellid&#34;</span>: <span style="color:#f1fa8c">&#34;12345&#34;</span>,
+  <span style="color:#ff79c6">&#34;eCellid&#34;</span>: <span style="color:#f1fa8c">&#34;12345&#34;</span>,
+  <span style="color:#ff79c6">&#34;ecgi&#34;</span>: <span style="color:#f1fa8c">&#34;1234567&#34;</span>,
+  <span style="color:#ff79c6">&#34;rsrp&#34;</span>: <span style="color:#f1fa8c">&#34;-106&#34;</span>,
+  <span style="color:#ff79c6">&#34;rsrq&#34;</span>: <span style="color:#f1fa8c">&#34;-13&#34;</span>,
+  <span style="color:#ff79c6">&#34;rssi&#34;</span>: <span style="color:#f1fa8c">&#34;74&#34;</span>,
+  <span style="color:#ff79c6">&#34;sinr&#34;</span>: <span style="color:#f1fa8c">&#34;9.8&#34;</span>,
+  <span style="color:#ff79c6">&#34;cinr&#34;</span>: <span style="color:#f1fa8c">&#34;not support&#34;</span>,
+  <span style="color:#ff79c6">&#34;tx_rate_total_data_transferred&#34;</span>: <span style="color:#f1fa8c">&#34;11.91 Kbps / 918.67 Kbyte&#34;</span>,
+  <span style="color:#ff79c6">&#34;rx_rate_total_data_received&#34;</span>: <span style="color:#f1fa8c">&#34;359.30 Kbps / 18.31 Mbyte&#34;</span>,
+  <span style="color:#ff79c6">&#34;ul_operator_limit&#34;</span>: <span style="color:#f1fa8c">&#34;50000000&#34;</span>,
+  <span style="color:#ff79c6">&#34;dl_operator_limit&#34;</span>: <span style="color:#f1fa8c">&#34;100000000&#34;</span>
+}
+</code></pre></div><p>This JSON response once hooked up with Python will give the precise data. I used Python&rsquo;s requests library to fetch the json from the URL. I divided all the Pages(Page of the specific Keyword, like <code>&quot;Page&quot;: &quot;GetLTEStatus&quot;</code>) to their respective functions to print the specific data to Stdout. Nothing fancy, just the <code>print</code> function of Python.</p>
+<p>Once I made out these functions, I need to implement a CLI interface to be the icing on the cake. Initially went on with Argparse since it&rsquo;s builtin and has a lot of cool features. Argparse then felt a bit daunting, so I tried it with Click. Click also showed some errors due to some function&rsquo;s optional arguments, I dropped it. So a=searching for another one, I found out about <a href="https://github.com/google/python-fire">fire</a>. It had a really easy API and it just helped me finish the job quite quickly. I was completed with a CLI and ready for packaging. My friend GKR helped me on packaging the CLI and it was on pypi after a few hours(<em>I was lazy to finish it duh&hellip;</em>) and that was my first python package on Pypi. You can find it <a href="https://pypi.org/project/jiofi/">here</a>.</p>
+<p>This is the output of Jiofi command when installed on your system</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ jiofi
+NAME
+    jiofi
+
+SYNOPSIS
+    jiofi COMMAND
+
+COMMANDS
+    COMMAND is one of the following:
+
+     devices
+       Prints a tabular view of all the connected devices in the network
+
+     speed
+       Prints the Current upload and download speed
+
+     basic
+       Get basic Details like Battery charge and state, no of connected devices and data used in &lt;time&gt;
+
+     usage
+       Get Data usage in Upload and Download data in &lt;time&gt;
+
+     device
+       Get Details of the device, Battery Charge, Battery State, Phone number or MSISDN
+</code></pre></div><p>This was the only place I used fire to hook it up with the functions</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fire<span style="color:#ff79c6">.</span>Fire({
+      <span style="color:#f1fa8c">&#39;devices&#39;</span>: getDevices,
+      <span style="color:#f1fa8c">&#39;speed&#39;</span>: getBandwidth,
+      <span style="color:#f1fa8c">&#39;basic&#39;</span>:getBasicDetails,
+      <span style="color:#f1fa8c">&#39;usage&#39;</span>:getWanInfo,
+      <span style="color:#f1fa8c">&#39;device&#39;</span>:deviceDetails
+  })
+</code></pre></div><p>Finding out about the Internal API was a 🤯 for me and it feels great to hacked on this. You can install the cli by</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pip3 install jiofi --user
+</code></pre></div><p>And this will install system wide. You can use it from anywhere with the terminal. I have tested it on Jiofi4 and heard that Jiofi6 has a different API, maybe rewriting this to Go is in my mind and would be fast too 🤪. There are a few bugs here and there and I try to fix it on my spare time. If you feel like contributing, feel free to open an Issue or a PR on the <a href="https://github.com/athul/jiofi-cli">GitHub Repository</a>, and can contact me via <a href="mailto:athul8720@gmail.com">email</a>.</p>
+<p>Happy Hacking ⚡️</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

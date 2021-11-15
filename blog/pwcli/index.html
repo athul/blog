@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>From 0 to Go, Building a CLI for Postwoman - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Building a CLI for Postwoman without any Prior knowledge in Golang and learning golang better by building the cli." />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/pwcli/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/pwcli/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="From 0 to Go, Building a CLI for Postwoman" />
+<meta property="og:description" content="Building a CLI for Postwoman without any Prior knowledge in Golang and learning golang better by building the cli." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/pwcli/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="From 0 to Go, Building a CLI for Postwoman"/>
+<meta name="twitter:description" content="Building a CLI for Postwoman without any Prior knowledge in Golang and learning golang better by building the cli."/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">From 0 to Go, Building a CLI for Postwoman</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Feb 1, 2020 | 3 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p><img src="/scrot.png" alt=""></p>
+<blockquote>
+<p>&ldquo;All power is within you. You can do anything and everything. Believe in that&rdquo; - Swami Vivekananda</p>
+</blockquote>
+<p>You might be thinking why I started with a quote by Swami Vivekananda. This quote has been a driving factor in my pursuits to learn new things and building stuff and moving forward.</p>
+<p>I have been into Go for about 2 months now. I just wrote up two hacks in Go too. One was <a href="https://github.com/athul/shelby">Shelby</a> and now lemme introduce you to <a href="https://github.com/athul/pwcli">Postwoman CLI</a>. As the name says It&rsquo;s a CLI client for <a href="https://postwoman.io">Postwoman 👽</a>  in Go.</p>
+<h2 id="the-0-">The &lsquo;0&rsquo; 👦</h2>
+<p>Learning either Go or Rust was in my TODO list of 2019. It was only in late 2019, I had reached the mindset to learn Go. I started out on tutorials in building servers in Go. I used to code servers in Python and falled for Backend Programming. I made a bunch of servers in Go with Gin. Go was intimidating at first since it felt more like C to me, but in a few days I got the clutch of it. I still don&rsquo;t actually know most of Go like using slices and goroutines that much. I learn mostly by building so, I learn when I build.</p>
+<h2 id="the--1-">The &lsquo;-1&rsquo; 👶</h2>
+<p>I met Liyas Thomas, the author of Postwoman in the official Telegram Group of Postwoman. Since he too was from the state of Kerala, we had a few convos. I had opened a PR to Postwoman when it launched in August-September but it didn&rsquo;t get merged due to my lack of Vue/Js. But later on I had a chat with him if I did a refactor PR. He really gave me the confidence to do that and I did. The PR was reviewed and made changes by the Maintainers of PW and where it started in 1 commit it changed to 8 and the diff was <strong>+8k and -8k</strong>. The PR got merged and I was the <strong>#11 Contributor of PW 🎉.</strong> The PR didn&rsquo;t give me any satisfaction but later after 2 days, Liyas send me a bug and told me to try to fix that. I traversed over 2k lines of Vue code and found the bug. He made a commit and fixed it. This bug squashing gave me much satisfaction than all the contributions I&rsquo;ve done. Later that week, a maintainer and My Friend James made a repo for a CLI in Js. So the idea for making another CLI was basically for learning for me.</p>
+<h2 id="the-1-">The &lsquo;1&rsquo; 👨</h2>
+<p>So, Liyas gave a Green Flag to work on the CLI. I considered Go as first option since I didnt know how to make one in any lang and Go was fresh in my mind. I built it in almost 2 weeks. <code>pwcli</code> is like <em>httpie</em> with displaying the Request Headers and Status Code and Output Highlighting. The Output is now limited to Json but will add support to HTML and XML in the coming days. <strong>It also has a <code>send</code> feature in which you can give it the Postwoman-Collection.json file and it will test all the endpoints in their respective methods and output the status code</strong>. This was actually a feature request in the Js counterpart of the CLI.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">NAME:
+   Postwoman CLI - Test API endpoints without the hassle
+
+USAGE:
+   cli <span style="color:#ff79c6">[</span>global options<span style="color:#ff79c6">]</span> <span style="color:#8be9fd;font-style:italic">command</span> <span style="color:#ff79c6">[</span><span style="color:#8be9fd;font-style:italic">command</span> options<span style="color:#ff79c6">]</span> <span style="color:#ff79c6">[</span>arguments...<span style="color:#ff79c6">]</span>
+
+VERSION:
+   0.0.2
+
+DESCRIPTION:
+   Made with &lt;<span style="color:#bd93f9">3</span> by Postwoman Team
+
+COMMANDS:
+   get      Send a GET request
+   post     Send a POST Request
+   put      Send a PUT Request
+   patch    Send a PATCH Request
+   delete   Send a DELETE Request
+   send     Test all the Endpoints in the Postwoman Collection.json
+   help, h  Shows a list of commands or <span style="color:#8be9fd;font-style:italic">help</span> <span style="color:#ff79c6">for</span> one <span style="color:#8be9fd;font-style:italic">command</span>
+
+GLOBAL OPTIONS:
+   --help, -h     show <span style="color:#8be9fd;font-style:italic">help</span>
+   --version, -v  print the version
+</code></pre></div><p>You can find <strong>PwCLI</strong> in GitHub at <a href="https://github.com/athul/pwcli">https://github.com/athul/pwcli</a>. Consider trying it out and Giving a star.
+<strong>PwCLI is open sourced under MIT and is waiting for Feature requests and Contributions</strong></p>
+<h2 id="the-1--1">The &lsquo;+1&rsquo; 👨‍💻</h2>
+<p>In these two weeks, I&rsquo;ve learned a lot of Go, HTTP Requests and REST APIs. The main highlights were</p>
+<ul>
+<li>Learned Go Structs</li>
+<li>How to parse Json in Go</li>
+<li>Learned Go Slices</li>
+<li>Learned how to use <code>net/http</code> package of
+Go</li>
+<li>HTTP Requests</li>
+<li>Meeting the Postwoman team, especially from Kerala</li>
+<li>Homebrew Packaging and bits of Ruby</li>
+<li>Building CLIs</li>
+<li>My insecurity with starting a convo with new people</li>
+<li>Taking a workshop <em>(by actually taking one)</em></li>
+</ul>
+<blockquote>
+<p>&ldquo;Learn like your life depended on it, coz it will&rdquo; - Unknown</p>
+</blockquote>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Making GitHub apps with Probot - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Making GitHub apps easier with Probot and Node.js" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/probot/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/probot/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Making GitHub apps with Probot" />
+<meta property="og:description" content="Making GitHub apps easier with Probot and Node.js" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/probot/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-07-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-07-04T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Making GitHub apps with Probot"/>
+<meta name="twitter:description" content="Making GitHub apps easier with Probot and Node.js"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Making GitHub apps with Probot</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jul 4, 2019 | 3 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<h3 id="github-apps-with-probot">GitHub Apps with Probot</h3>
+<p>Ever see in any issues or Pull Request in GitHub where a bot comments on the PR/Issue or adds labels to the PR/Issue? If you have, they are generally termed as GitHub apps and can be made relatively easily.<br>
+Most of these apps are written in JavaScript (Node.js) using <strong>Probot</strong>, a framework for building apps for GitHub. Probot is written in Typescript, a superset of JavaScript. You can find more about on their <a href="https://probot.github.io">website</a>.</p>
+<hr>
+<p>Here we&rsquo;ll make a <strong>Simple Issue and Pull Request commenter</strong> bot which is made and deployed on Glitch.</p>
+<h6 id="prerequisites">Prerequisites</h6>
+<ul>
+<li>GitHub account</li>
+<li>An account on Glitch using GitHub</li>
+<li>Basic JavaScript knowledge like variables and strings and functions</li>
+</ul>
+<h4 id="making-our-app-on-glitch">Making our App on Glitch</h4>
+<p>Glitch is a free online code-editing platform. It sets up our environment with all the necessary packages and stuff. All you need to do is click this button👇 and you&rsquo;ll get a full working environment for your &ldquo;Remixing&rdquo;.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+<!-- raw HTML omitted -->
+<p>What Probot does is that it abstracts the authentication system that all GitHub Apps have to follow - letting you focus on writing API requests without worrying about API tokens or permissions.   <br>
+Probot ships with an example of setting up an issue commentor bot in <code>index.js</code>.
+We&rsquo;ll edit the <code>index.js</code> to the following</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6272a4">//index.js
+</span><span style="color:#6272a4"></span>module.exports <span style="color:#ff79c6">=</span> app =&gt; {
+ <span style="color:#6272a4">// Your code here
+</span><span style="color:#6272a4"></span> app.log(<span style="color:#f1fa8c">&#39;Yay, the app was loaded!&#39;</span>)
+ app.on(<span style="color:#f1fa8c">&#39;issues.opened&#39;</span>, <span style="color:#ff79c6">async</span> context =&gt;({
+   <span style="color:#ff79c6">const</span> issue<span style="color:#ff79c6">=</span>context.payload.issue <span style="color:#6272a4">//getting issue details
+</span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">const</span> user<span style="color:#ff79c6">=</span>issue.login.user <span style="color:#6272a4">//Getting the username
+</span><span style="color:#6272a4"></span>   <span style="color:#ff79c6">const</span> message<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">`Thanks @</span><span style="color:#f1fa8c">${</span>user<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> for opening this issue!🎉
+</span><span style="color:#f1fa8c">   You are awesome..`</span>
+   <span style="color:#ff79c6">const</span> params <span style="color:#ff79c6">=</span> context.issue({ message })
+   <span style="color:#ff79c6">return</span> context.github.issues.createComment(params)
+)
+ })
+}
+</code></pre></div><p>The above code is for a bot which comments on new issues. It mentions the user too. The <em>&ldquo;Robotic&rdquo;</em> characteristics start from the 4th line starting with <code>app.on</code> function the first argument passed is the action which the bot listens to. These are <strong>webhook</strong> events of GitHub - you can learn more about them from the <a href="https://developer.github.com/webhooks/">Webhook Documentation</a>. <br>
+Probot uses Node&rsquo;s <code>async/await</code> API for returning the data. We used the <em>`</em> character to enclose the string/comment body because we won&rsquo;t need to use escape characters and we can also interpolate <a href="https://flaviocopes.com/javascript-template-literals/">Template Literals</a>.</p>
+<p>Now we need to check if our app is working or not, we can do this <strong>clicking</strong> on a &ldquo;sunglasses&rdquo; button on Glitch which should look like this <!-- raw HTML omitted --><img src="glitch_show.png" alt="Glitch Show"></p>
+<p>Then You&rsquo;ll see a Page like this <img src="wp.jpg" alt="Page">
+Click the <strong>Register GitHub App</strong> button and provide a name and install it in a repository.</p>
+<blockquote>
+<p>Tip: Create a new private repository because we&rsquo;ll be making a lot of noise for the testing</p>
+</blockquote>
+<p>Now, if you check the <code>.env</code>  file you&rsquo;ll see the variable values auto-filled with the necessary data. Glitch automatically deploys our app and our app will be listening to the webhooks to be received.</p>
+<blockquote>
+<p>Test the app by making a new issue in a test repo on GitHub.</p>
+</blockquote>
+<p>It works right?<br>
+Congratulations 🎉🎉 You just made yourself a GitHub App👌👌</p>
+<h5 id="redelivering-webhook">Redelivering Webhook⤴️</h5>
+<p>We can view all the webhooks of any event triggered by the Repository and we can redeliver them by going to <strong>Settings-&gt;Developer Settings-&gt;GitHub Apps-&gt;&ldquo;Your app name&rdquo;-&gt;Advanced Tab</strong> in your profile.</p>
+<h4 id="commenting-on-prs">Commenting on PRs</h4>
+<p>We need to add an extra permission for our App to comment on PRs, we can provide that by going to <code>Settings-&gt;Develope Settings-&gt;&lt;Your_app_name&gt; -&gt; Permissions and Events -&gt; Pull Requests</code> Provide the read and Write Access.<br>
+Now we need to edit the <code>index.js</code> to add Support for Pull Request before the last <code>}</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6272a4">//index.js
+</span><span style="color:#6272a4"></span>app.on(<span style="color:#f1fa8c">&#39;pull_request.opened&#39;</span>, <span style="color:#ff79c6">async</span> context =&gt;{
+    <span style="color:#ff79c6">const</span> pr <span style="color:#ff79c6">=</span> context.payload.pull_request
+    <span style="color:#ff79c6">const</span> user <span style="color:#ff79c6">=</span> pr.user.login <span style="color:#6272a4">//Collecting Details of the person who created the PR
+</span><span style="color:#6272a4"></span>     <span style="color:#ff79c6">const</span> msg<span style="color:#ff79c6">=</span>context.issue({body<span style="color:#ff79c6">:</span><span style="color:#f1fa8c">`Hey @</span><span style="color:#f1fa8c">${</span>user<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c"> 👋 Thanks for the PR !!! You are Awesome.`</span>})
+     <span style="color:#ff79c6">return</span> context.github.issues.createComment(msg)
+  })
+</code></pre></div><p>Here we add a new <em>&ldquo;robotic&rdquo;</em> characteristic by passing a webhook action called <em>pull_request.opened</em>. Now our app listens for PR webhook and once received it emits the <code>context.issue({body})</code> to GitHub. You can see that we are still passing the body to the <em>createComment</em> function. This is because PRs are considered as another type of Issues in GitHub.
+For testing if this works, make a new PR and check if the bot comments on that yes.</p>
+<hr>
+<p>Congratulations on making a GitHub app. Since it is on Glitch we can install this in any repository and it will work any time too.</p>
+<blockquote>
+<p>You can customise the comments with Images and Gifs but keep in mind that the comments render markdown.
+You can always import these files to a GitHub repository through Glitch.<br>
+Now go forth, explore and make some exciting GitHub apps,❤️❤️</p>
+</blockquote>
+<h5 id="thanks-to">Thanks to</h5>
+<ul>
+<li><a href="https://github.com/JasonEtco">Jason Etcovich</a>, for Proofreading this ❤️</li>
+<li><a href="https://github.com/haxzie">Musthaq Ahamad</a>, for teaching me how to make GitHub Apps</li>
+</ul>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

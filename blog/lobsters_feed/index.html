@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Getting new Lobste.rs feed with Python and Telegram - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Writing a small script to get New Lobsters feed in Telegram with Python and Cron Jobs" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/lobsters_feed/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/lobsters_feed/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Getting new Lobste.rs feed with Python and Telegram" />
+<meta property="og:description" content="Writing a small script to get New Lobsters feed in Telegram with Python and Cron Jobs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/lobsters_feed/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-03-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-03-28T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting new Lobste.rs feed with Python and Telegram"/>
+<meta name="twitter:description" content="Writing a small script to get New Lobsters feed in Telegram with Python and Cron Jobs"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Getting new Lobste.rs feed with Python and Telegram</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Mar 28, 2021 | 3 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>It&rsquo;s been some time since I written a new technical post. It was because I took a small break from writing code. I have no idea why but it wasn&rsquo;t worth it anyways.</p>
+<p>Back to the point, I&rsquo;ve recently discovered <a href="https://lobste.rs">https://lobste.rs</a> and found the discussions quite good. But as anyone who writes code, I was lazy to open my browser and navigate to the website. Telegram is one of the major apps I use to get my feed, so I thought why not write a script to get the newest posts from lobste.rs and read and join the discussion. It&rsquo;s easier for me.</p>
+<p>So for a problem like this, my mind went to Python. I instantly set up a environment and installed the main packages like <code>feedparser</code> and the <code>deta</code> library. I&rsquo;ll specify the need of the deta library later.</p>
+<p>Why I chose to parse the Atom feed was because lobsters didn&rsquo;t have a official API , but there are some endpoints like <code>/hottest</code> but it spews a lot of data which I don&rsquo;t have any need for. Also I hadn&rsquo;t used feedparser before so this was a good opportunity to get comfortable with it.</p>
+<h2 id="parsing-the-feed">Parsing the Feed</h2>
+<p>This is quite straight forward. Feedparser was built for it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">import</span> feedparser
+
+LOB_URL:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;https://lobste.rs/rss&#34;</span>
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getfeedData</span>():
+    feeds <span style="color:#ff79c6">=</span> feedparser<span style="color:#ff79c6">.</span>parse(LOB_URL)
+    <span style="color:#ff79c6">for</span> feed <span style="color:#ff79c6">in</span> feeds[<span style="color:#f1fa8c">&#39;entries&#39;</span>]:
+        title <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>title
+        uri <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>link
+        _id <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>id
+        key <span style="color:#ff79c6">=</span> _id<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+        comments <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>comments
+        feedDict <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;title&#34;</span>:title,<span style="color:#f1fa8c">&#34;url&#34;</span>:uri,<span style="color:#f1fa8c">&#34;post&#34;</span>:_id,<span style="color:#f1fa8c">&#34;comments&#34;</span>:comments,<span style="color:#f1fa8c">&#34;key&#34;</span>:key}
+    <span style="color:#ff79c6">return</span> feedDict
+
+</code></pre></div><p>This function was more that enough to get the required data. We&rsquo;ll update the code for adding further features. The said code is just straighforward. This is the XML for the feed</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">      <span style="color:#ff79c6">&lt;item&gt;</span>
+        <span style="color:#ff79c6">&lt;title&gt;</span>How safe is zig?<span style="color:#ff79c6">&lt;/title&gt;</span>
+        <span style="color:#ff79c6">&lt;link&gt;</span>https://scattered-thoughts.net/writing/how-safe-is-zig/<span style="color:#ff79c6">&lt;/link&gt;</span>
+        <span style="color:#ff79c6">&lt;guid</span> <span style="color:#50fa7b">isPermaLink=</span><span style="color:#f1fa8c">&#34;false&#34;</span><span style="color:#ff79c6">&gt;</span>https://lobste.rs/s/v5y4jb<span style="color:#ff79c6">&lt;/guid&gt;</span>
+        <span style="color:#ff79c6">&lt;author&gt;</span>adaszko@users.lobste.rs (adaszko)<span style="color:#ff79c6">&lt;/author&gt;</span>
+        <span style="color:#ff79c6">&lt;pubDate&gt;</span>Sat, 20 Mar 2021 02:52:03 -0500<span style="color:#ff79c6">&lt;/pubDate&gt;</span>
+        <span style="color:#ff79c6">&lt;comments&gt;</span>https://lobste.rs/s/v5y4jb/how_safe_is_zig<span style="color:#ff79c6">&lt;/comments&gt;</span>
+        <span style="color:#ff79c6">&lt;description&gt;</span>
+
+            &amp;#60;p&amp;#62;&amp;#60;a href=&amp;#34;https://lobste.rs/s/v5y4jb/how_safe_is_zig&amp;#34;&amp;#62;Comments&amp;#60;/a&amp;#62;&amp;#60;/p&amp;#62;
+        <span style="color:#ff79c6">&lt;/description&gt;</span>
+          <span style="color:#ff79c6">&lt;category&gt;</span>c<span style="color:#ff79c6">&lt;/category&gt;</span>
+          <span style="color:#ff79c6">&lt;category&gt;</span>rust<span style="color:#ff79c6">&lt;/category&gt;</span>
+          <span style="color:#ff79c6">&lt;category&gt;</span>zig<span style="color:#ff79c6">&lt;/category&gt;</span>
+      <span style="color:#ff79c6">&lt;/item&gt;</span>
+</code></pre></div><h2 id="connecting-it-to-telegram">Connecting it to Telegram</h2>
+<p>Connecting this data to Telegram is also quite straightforward and easy. The only requirements for doing this is to get a Telegram Bot API token and the Chat ID. You can refer <a href="https://blog.athulcyriac.xyz/telegram-bot-gh-actions/">here</a> for getting started. So we use Telegram&rsquo;s BOT HTTP API to send messages to the specified chat id via a bot. Here is the code for sending that message. I have made into a function so it can be reused.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">import</span> requests
+
+bot_token:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Telegram bot token&#34;</span>
+chat_id:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;telegram chat id&#34;</span>
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">sendTGMessage</span>(message:<span style="color:#8be9fd;font-style:italic">str</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#ff79c6">None</span>:
+    url <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#39;https://api.telegram.org/bot</span><span style="color:#f1fa8c">{</span>bot_token<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/sendMessage&#39;</span>
+    msg_data <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#39;chat_id&#39;</span>:chat_id,<span style="color:#f1fa8c">&#39;text&#39;</span>:message,<span style="color:#f1fa8c">&#34;parse_mode&#34;</span>:<span style="color:#f1fa8c">&#34;Markdown&#34;</span>}
+    resp <span style="color:#ff79c6">=</span> requests<span style="color:#ff79c6">.</span>post(url, msg_data)<span style="color:#ff79c6">.</span>json()
+    <span style="color:#ff79c6">if</span> resp[<span style="color:#f1fa8c">&#39;ok&#39;</span>] <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">False</span>:
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Message Not Send&#34;</span>)
+    <span style="color:#ff79c6">else</span>:
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;👉    Message Sent&#34;</span>)
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">createMessages</span>(feed:List)<span style="color:#ff79c6">-&gt;</span><span style="color:#8be9fd;font-style:italic">str</span>:
+    <span style="color:#ff79c6">for</span> post <span style="color:#ff79c6">in</span> feed:
+        message <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;&#34;&#34;
+</span><span style="color:#f1fa8c">**</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;title&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">**
+</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">[Article](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;url&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">) | [Comments](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;post&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">) | [Lobster Post](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#39;comments&#39;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)
+</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">            &#34;&#34;&#34;</span>
+        sendTGMessage(message)
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">None</span>
+</code></pre></div><p>This does the task given quite well, but it doesn&rsquo;t understand the new posts. The workaround I found that when I wrote this script was to save the ID to a small db and if that ID doesn&rsquo;t exist there, then that would be counted as a new story/post. Later after thinking about this, I could&rsquo;ve implemented a time based comparision system. As of now, I&rsquo;ll share the code for the DB system rather than the time based system.</p>
+<h2 id="new-posts">New Posts</h2>
+<p>As I mentioned, the small DB I could think of was Deta Base. It has got a small API and way easy to use. You can read more on setting up a Deta Base <a href="https://blog.athulcyriac.xyz/fastapi_deta/">here</a>.</p>
+<p>Deta bases have a key for each row/entry added. It can be manually set or Autogenerated. If we set it manually, we can use a <code>try</code>-<code>except</code> statement to check if that key already exists there. It throws a HTTP Error if the Key already exists.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">from</span> urllib.error <span style="color:#ff79c6">import</span> HTTPError
+<span style="color:#ff79c6">from</span> deta <span style="color:#ff79c6">import</span> Deta,app
+<span style="color:#ff79c6">from</span> typing <span style="color:#ff79c6">import</span> List
+
+db <span style="color:#ff79c6">=</span> Deta(<span style="color:#f1fa8c">&#34;deta-key&#34;</span>)<span style="color:#ff79c6">.</span>Base(<span style="color:#f1fa8c">&#34;db-name&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getfeedData</span>()<span style="color:#ff79c6">-&gt;</span>List:
+    feeds <span style="color:#ff79c6">=</span> feedparser<span style="color:#ff79c6">.</span>parse(LOB_URL)
+    feedList <span style="color:#ff79c6">=</span> []
+    <span style="color:#ff79c6">for</span> feed <span style="color:#ff79c6">in</span> feeds[<span style="color:#f1fa8c">&#39;entries&#39;</span>]:
+        title <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>title
+        uri <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>link
+        _id <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>id
+        key <span style="color:#ff79c6">=</span> _id<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+        comments <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>comments
+        feedDict <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;title&#34;</span>:title,<span style="color:#f1fa8c">&#34;url&#34;</span>:uri,<span style="color:#f1fa8c">&#34;post&#34;</span>:_id,<span style="color:#f1fa8c">&#34;comments&#34;</span>:comments,<span style="color:#f1fa8c">&#34;key&#34;</span>:key}
+        <span style="color:#ff79c6">try</span>:
+            ls <span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>insert(feedDict)
+            feedList<span style="color:#ff79c6">.</span>append(ls)
+        <span style="color:#ff79c6">except</span> HTTPError:
+            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Key already exists&#34;</span>)
+    <span style="color:#ff79c6">return</span> feedList
+</code></pre></div><p>This is the updated code for the <code>getfeedData()</code> function.</p>
+<h2 id="running-it-on-time">Running it on Time.</h2>
+<p>We installed the Deta library for this purpose only, the DB part came later to my thought train. Deta has a wonderful feature for setting CRON tasks. We can specify a function in our code to run at a specified time or at regular intervals.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">@app<span style="color:#ff79c6">.</span>lib<span style="color:#ff79c6">.</span>cron()
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">MashUppppp</span>(event):
+    feed <span style="color:#ff79c6">=</span> getfeedData()
+    createMessages(feed)
+    <span style="color:#ff79c6">return</span> <span style="color:#f1fa8c">&#34;Cron Run Successfull&#34;</span>
+</code></pre></div><p>I had deployed this on deta too. Refer <a href="https://blog.athulcyriac.xyz/fastapi_deta/">here</a> for more info on deployiong part too.</p>
+<p>Here is the full code to running it</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">import</span> feedparser
+<span style="color:#ff79c6">import</span> requests
+<span style="color:#ff79c6">from</span> urllib.error <span style="color:#ff79c6">import</span> HTTPError
+<span style="color:#ff79c6">from</span> deta <span style="color:#ff79c6">import</span> Deta,app
+<span style="color:#ff79c6">from</span> typing <span style="color:#ff79c6">import</span> List
+
+db <span style="color:#ff79c6">=</span> Deta(<span style="color:#f1fa8c">&#34;deta key&#34;</span>)<span style="color:#ff79c6">.</span>Base(<span style="color:#f1fa8c">&#34;db name&#34;</span>)
+
+LOB_URL:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;https://lobste.rs/rss&#34;</span>
+bot_token:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;Telegram bot token&#34;</span>
+chat_id:<span style="color:#8be9fd;font-style:italic">str</span> <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;telegram chat id&#34;</span>
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getfeedData</span>()<span style="color:#ff79c6">-&gt;</span>List:
+    feeds <span style="color:#ff79c6">=</span> feedparser<span style="color:#ff79c6">.</span>parse(LOB_URL)
+    feedList <span style="color:#ff79c6">=</span> []
+    <span style="color:#ff79c6">for</span> feed <span style="color:#ff79c6">in</span> feeds[<span style="color:#f1fa8c">&#39;entries&#39;</span>]:
+        title <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>title
+        uri <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>link
+        _id <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>id
+        key <span style="color:#ff79c6">=</span> _id<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+        comments <span style="color:#ff79c6">=</span> feed<span style="color:#ff79c6">.</span>comments
+        feedDict <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#34;title&#34;</span>:title,<span style="color:#f1fa8c">&#34;url&#34;</span>:uri,<span style="color:#f1fa8c">&#34;post&#34;</span>:_id,<span style="color:#f1fa8c">&#34;comments&#34;</span>:comments,<span style="color:#f1fa8c">&#34;key&#34;</span>:key}
+        <span style="color:#ff79c6">try</span>:
+            ls <span style="color:#ff79c6">=</span> db<span style="color:#ff79c6">.</span>insert(feedDict)
+            feedList<span style="color:#ff79c6">.</span>append(ls)
+        <span style="color:#ff79c6">except</span> HTTPError:
+            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Key already exists&#34;</span>)
+    <span style="color:#ff79c6">return</span> feedList
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">sendTGMessage</span>(message:<span style="color:#8be9fd;font-style:italic">str</span>)<span style="color:#ff79c6">-&gt;</span><span style="color:#ff79c6">None</span>:
+    url <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#39;https://api.telegram.org/bot</span><span style="color:#f1fa8c">{</span>bot_token<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/sendMessage&#39;</span>
+    msg_data <span style="color:#ff79c6">=</span> {<span style="color:#f1fa8c">&#39;chat_id&#39;</span>:chat_id,<span style="color:#f1fa8c">&#39;text&#39;</span>:message,<span style="color:#f1fa8c">&#34;parse_mode&#34;</span>:<span style="color:#f1fa8c">&#34;Markdown&#34;</span>}
+    resp <span style="color:#ff79c6">=</span> requests<span style="color:#ff79c6">.</span>post(url, msg_data)<span style="color:#ff79c6">.</span>json()
+    <span style="color:#ff79c6">if</span> resp[<span style="color:#f1fa8c">&#39;ok&#39;</span>] <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">False</span>:
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Message Not Send&#34;</span>)
+    <span style="color:#ff79c6">else</span>:
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;👉    Message Sent&#34;</span>)
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">createMessages</span>(feed:List)<span style="color:#ff79c6">-&gt;</span><span style="color:#8be9fd;font-style:italic">str</span>:
+    <span style="color:#ff79c6">for</span> post <span style="color:#ff79c6">in</span> feed:
+        message <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;&#34;&#34;
+</span><span style="color:#f1fa8c">**</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;title&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">**
+</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">[Article](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;url&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">) | [Comments](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#34;post&#34;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">) | [Lobster Post](</span><span style="color:#f1fa8c">{</span>post[<span style="color:#f1fa8c">&#39;comments&#39;</span>]<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">)
+</span><span style="color:#f1fa8c">
+</span><span style="color:#f1fa8c">            &#34;&#34;&#34;</span>
+        sendTGMessage(message)
+    <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">None</span>
+
+@app<span style="color:#ff79c6">.</span>lib<span style="color:#ff79c6">.</span>cron()
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">MashUppppp</span>(event):
+    feed <span style="color:#ff79c6">=</span> getfeedData()
+    createMessages(feed)
+</code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+				<div class="tags">
+				<i>Tags</i>: 
+					
+					<span><a href="/blog/tags/code">#code</a></span>
+					
+					<span><a href="/blog/tags/tech">#tech</a></span>
+														        
+				</div>
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

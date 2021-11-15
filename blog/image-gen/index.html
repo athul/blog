@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Link Preview Generator in Python - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Build a Link Preview | meta image | og-image | twitter-card generator with Python, FastAPI and Pillow" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/image-gen/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/image-gen/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Link Preview Generator in Python" />
+<meta property="og:description" content="Build a Link Preview | meta image | og-image | twitter-card generator with Python, FastAPI and Pillow" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/image-gen/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-10-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-30T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Link Preview Generator in Python"/>
+<meta name="twitter:description" content="Build a Link Preview | meta image | og-image | twitter-card generator with Python, FastAPI and Pillow"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Link Preview Generator in Python</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Oct 30, 2020 | 6 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>One day I was scrolling through Reddit and found a post in r/SideProject about <a href="https://www.mugshotbot.com/">MugshotBot</a> and it&rsquo;s the ease of use intrigued me. So I immediately hacked this blog to use MugShotBot to generate Link Previews. Gatsby was a bit tedious to hack on and I&rsquo;m not a Js peep myself. I just know how most of this stuff works and not to code much Js. Eventually, I made it to work with MugShotBot and this happened at midnight. I got excited and immediately implemented it 🤷‍♂️.</p>
+<p>Fast Forward a few days, the creator of MugshotBot introduced new pricing where the free tier is crippled to just being an Image generator and not to an automatic image generation system. Thus the Hacker in me was awaken&hellip;.again. The million-dollar question came to my mind,</p>
+<blockquote>
+<p>Why not build something like this?</p>
+</blockquote>
+<p>So with this being in my mind, I searched for on how I build something similar. It was relatively easy to get started. I had a few requirements for this.</p>
+<ul>
+<li><strong>Use the lowest code possible</strong>(I have exams and if I spend too much on this, I&rsquo;ll fail them.)</li>
+<li>Make it easy</li>
+<li>Host it so that my blog could use it</li>
+</ul>
+<p>These requirements of mine lead to the conclusions,</p>
+<ul>
+<li>Use Python over Go(😁)</li>
+<li>Implement with FastAPI since it&rsquo;s a simple endpoint</li>
+<li>Host it with <a href="https://deta.sh">Deta</a> (It&rsquo;s free😌)</li>
+</ul>
+<h2 id="a-bowl-of-soup">A Bowl of Soup</h2>
+<p>For the images to be generated for link previews, the data had to be from somewhere. If I give that statically, then the whole idea of automating a blog will become null and void, and it will increase the overhead for most. So I came to &ldquo;<a href="https://en.wikipedia.org/wiki/Web_scraping">Web Scraping</a>&rdquo;. I used BeautifulSoup and the Requests library in Python for the same. The scraped part of the webpage is the meta tags with the <code>og:description</code> and <code>og:title</code>. These are for SEO and are perfect to get the data about the page.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">GetLinkData</span>(url: <span style="color:#8be9fd;font-style:italic">str</span>) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+    soup <span style="color:#ff79c6">=</span> BeautifulSoup(requests<span style="color:#ff79c6">.</span>get(url)<span style="color:#ff79c6">.</span>content, <span style="color:#f1fa8c">&#34;html.parser&#34;</span>)
+    description <span style="color:#ff79c6">=</span> soup<span style="color:#ff79c6">.</span>find(<span style="color:#f1fa8c">&#34;meta&#34;</span>, <span style="color:#8be9fd;font-style:italic">property</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;og:description&#34;</span>)<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;content&#34;</span>)
+    title <span style="color:#ff79c6">=</span> soup<span style="color:#ff79c6">.</span>find(<span style="color:#f1fa8c">&#34;meta&#34;</span>, <span style="color:#8be9fd;font-style:italic">property</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;og:title&#34;</span>)<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;content&#34;</span>)
+    <span style="color:#ff79c6">return</span> title, description
+</code></pre></div><p>All the code will be provided at the end.</p>
+<p>Thus step 1 is over <strong>&ldquo;Get the Data&rdquo;</strong>. Step 2 is to generate images with this data</p>
+<h2 id="pillowverse">Pillowverse</h2>
+<p>Pillow is Python&rsquo;s Image Library. It&rsquo;s easy to use and implement stuff with. I had recently used Pillow to generate certificates for our college event. The event coordinator was surprised to get all the certificates generated within minutes rather than the usual days taken by the designers here. So I used Pillow(PIL) to load the image, write to the Image and save the image. I created a simple image in Figma for purposes. Here is the image I created at first(I&rsquo;m not a design geek either)</p>
+<p><img src="https://raw.githubusercontent.com/athul/img-gen/master/bg-1.png" alt="First Iteration&rsquo;s Image">
+I know this isn&rsquo;t the best but it was enough to get started with the rest. So I created a function to load the image, write on the image and save the image.
+Here is a sample output of the image generated by Python</p>
+<p><img src="./img/pil_img.jpeg" alt=""></p>
+<p>The quality of image is low, I know but this is unnoticeable for link previews. As in for the 1st iteration this was successfull. Here is the code,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">def</span> <span style="color:#50fa7b">drawImage</span>(title, description, sfurl, url):
+    wrapper <span style="color:#ff79c6">=</span> textwrap<span style="color:#ff79c6">.</span>TextWrapper(width<span style="color:#ff79c6">=</span><span style="color:#bd93f9">45</span>)
+    word_list <span style="color:#ff79c6">=</span> wrapper<span style="color:#ff79c6">.</span>wrap(text<span style="color:#ff79c6">=</span>description)
+    caption_new <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;&#34;</span>
+    <span style="color:#ff79c6">for</span> ii <span style="color:#ff79c6">in</span> word_list[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]:
+        caption_new <span style="color:#ff79c6">=</span> caption_new <span style="color:#ff79c6">+</span> ii <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>
+    caption_new <span style="color:#ff79c6">+=</span> word_list[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+    img <span style="color:#ff79c6">=</span> Image<span style="color:#ff79c6">.</span>open(<span style="color:#f1fa8c">&#34;bg-black.png&#34;</span>)
+    draw <span style="color:#ff79c6">=</span> ImageDraw<span style="color:#ff79c6">.</span>Draw(img)
+    draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">107</span>,<span style="color:#bd93f9">222</span>), url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#bd93f9">0</span>], <span style="color:#f1fa8c">&#34;aqua&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;jb.ttf&#34;</span>, <span style="color:#bd93f9">45</span>))
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(title) <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">30</span>:
+        draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">410</span>), title, <span style="color:#f1fa8c">&#34;white&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;ps.ttf&#34;</span>, <span style="color:#bd93f9">70</span>))
+    <span style="color:#ff79c6">else</span>:
+        draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">410</span>), title, <span style="color:#f1fa8c">&#34;white&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;ps.ttf&#34;</span>, <span style="color:#bd93f9">100</span>))
+    draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">590</span>), caption_new, <span style="color:#f1fa8c">&#34;orange&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;fira.ttf&#34;</span>, <span style="color:#bd93f9">60</span>))
+    rgb_im <span style="color:#ff79c6">=</span> img<span style="color:#ff79c6">.</span>convert(<span style="color:#f1fa8c">&#34;RGB&#34;</span>)
+    rgb_im<span style="color:#ff79c6">.</span>save(<span style="color:#f1fa8c">&#34;image.jpeg&#34;</span>, <span style="color:#f1fa8c">&#34;JPEG&#34;</span>, quality<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>, progressive<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+</code></pre></div><p>You can see that I&rsquo;m using a bit of string manipulation to write the description without overflowing on the image. Found that hack from StackOverflow 🙃. The bigger font sizes are for HD images(1920x1080).</p>
+<p>Okay, so that&rsquo;s it for step 2. It was an easy hack, wasn&rsquo;t it? The next step is to bring it all together to use it with FastAPI to build the API part</p>
+<h2 id="fast-af">Fast AF</h2>
+<p>Implementing an API with FastAPI is quite easy if you know any other backend framework in Python like Flask or Django, it becomes a lot easier. Our API will be only having a single endpoint for the images. We&rsquo;ll use URL params to get the URL from which we&rsquo;ll get the data for generating the image. We&rsquo;ll call the <code>drawImage()</code> function to generate the image and give out the response. If you want to know more about using FastAPI, check out my other <a href="https://blog.athulcyriac.co/fastapi_deta/">post</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/img&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getUrlData</span>(url: Optional[<span style="color:#8be9fd;font-style:italic">str</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>):
+    <span style="color:#ff79c6">try</span>:
+        sufUrl <span style="color:#ff79c6">=</span> url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#bd93f9">1</span>]
+    <span style="color:#ff79c6">except</span> IndexError:
+        sufUrl <span style="color:#ff79c6">=</span> url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)
+    siteData <span style="color:#ff79c6">=</span> GetLinkData(url)
+    title <span style="color:#ff79c6">=</span> siteData[<span style="color:#bd93f9">0</span>]
+    description <span style="color:#ff79c6">=</span> siteData[<span style="color:#bd93f9">1</span>]
+    img <span style="color:#ff79c6">=</span> drawImage(title, description, sufUrl, url)
+    <span style="color:#ff79c6">return</span> FileResponse(img)
+
+</code></pre></div><p>And that&rsquo;s it. That&rsquo;s the API for us. I then Deployed this on Deta if it works. Turned out Deta&rsquo;s <strong>File System was read-only</strong>. This meant that I couldn&rsquo;t save the image to Deta instantly so I had to check for other alternatives.</p>
+<h2 id="bytesbytesbytes">Bytes&hellip;Bytes&hellip;Bytes</h2>
+<p>Why not save the image as bytes? That&rsquo;d be easier and less storage dependant. I searched on StackOverflow to send an image as Bytes with FastAPI. Turned out FastAPI did that pretty well. StreamingResponse was built with this in mind 🧠. I refactored the Image generation and Image response code to work with byte data. It became a tad faster than expected. Here is the code for the same. 1st the refactored code of the image generation</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">    img_io <span style="color:#ff79c6">=</span> BytesIO()
+    rgb_im<span style="color:#ff79c6">.</span>save(img_io, <span style="color:#f1fa8c">&#34;JPEG&#34;</span>, quality<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>, progressive<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+    img_io<span style="color:#ff79c6">.</span>seek(<span style="color:#bd93f9">0</span>)
+    <span style="color:#ff79c6">return</span> img_io
+</code></pre></div><p>Next for the API part we only have to change a single line</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#ff79c6">return</span> StreamingResponse(
+            img,
+            media_type<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;image/jpeg&#34;</span>,
+            headers<span style="color:#ff79c6">=</span>{<span style="color:#f1fa8c">&#34;Content-Disposition&#34;</span>: <span style="color:#f1fa8c">&#39;inline; filename=&#34;Image.jpeg&#34;&#39;</span>},
+        )
+</code></pre></div><p>These changes did the trick. It worked. I deployed it on Deta and it worked perfectly. Later I implemented a TempDir trick to send a generated image faster. This worked pretty well for consecutive requests but as soon as the deta micro sleeps, the tempdir will be deleted. Not a persistent way but it works and makes it a lot fast for consecutive requests.</p>
+<hr>
+<p>I deployed this version on Deta and it works fine. Easier Link Previews and a fun hobby hack. I&rsquo;m planning to make it a SaaS offering but I couldn&rsquo;t find the time. This is a basic version which simply works. If I&rsquo;m going to build it to a SaaS idea need to make more performance boosters and introduce caching and multi-image styles. Need more advice on these 🤓</p>
+<p>One drawback I found was that Emoji doesn&rsquo;t seem to render correctly. Might bring up a hack for it in the future. You can find the code <a href="https://github.com/athul/img-gen">here</a> (MIT Licence)</p>
+<hr>
+<p>Here is the Full Code(with the TempDir hack too)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#ff79c6">from</span> fastapi <span style="color:#ff79c6">import</span> FastAPI
+<span style="color:#ff79c6">from</span> typing <span style="color:#ff79c6">import</span> Optional, List
+<span style="color:#ff79c6">import</span> requests
+<span style="color:#ff79c6">import</span> textwrap
+<span style="color:#ff79c6">import</span> os
+<span style="color:#ff79c6">import</span> time
+<span style="color:#ff79c6">from</span> io <span style="color:#ff79c6">import</span> BytesIO
+<span style="color:#ff79c6">from</span> PIL <span style="color:#ff79c6">import</span> Image, ImageDraw, ImageFont
+<span style="color:#ff79c6">from</span> bs4 <span style="color:#ff79c6">import</span> BeautifulSoup
+<span style="color:#ff79c6">from</span> fastapi.responses <span style="color:#ff79c6">import</span> StreamingResponse, FileResponse
+<span style="color:#ff79c6">import</span> tempfile
+
+temp_dir <span style="color:#ff79c6">=</span> tempfile<span style="color:#ff79c6">.</span>TemporaryDirectory()
+app <span style="color:#ff79c6">=</span> FastAPI()
+
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">GetLinkData</span>(url: <span style="color:#8be9fd;font-style:italic">str</span>) <span style="color:#ff79c6">-&gt;</span> <span style="color:#8be9fd;font-style:italic">str</span>:
+    soup <span style="color:#ff79c6">=</span> BeautifulSoup(requests<span style="color:#ff79c6">.</span>get(url)<span style="color:#ff79c6">.</span>content, <span style="color:#f1fa8c">&#34;html.parser&#34;</span>)
+    description <span style="color:#ff79c6">=</span> soup<span style="color:#ff79c6">.</span>find(<span style="color:#f1fa8c">&#34;meta&#34;</span>, <span style="color:#8be9fd;font-style:italic">property</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;og:description&#34;</span>)<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;content&#34;</span>)
+    title <span style="color:#ff79c6">=</span> soup<span style="color:#ff79c6">.</span>find(<span style="color:#f1fa8c">&#34;meta&#34;</span>, <span style="color:#8be9fd;font-style:italic">property</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;og:title&#34;</span>)<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;content&#34;</span>)
+    <span style="color:#ff79c6">return</span> title, description
+
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">drawImage</span>(title, description, sfurl, url):
+    st_time <span style="color:#ff79c6">=</span> time<span style="color:#ff79c6">.</span>time()
+    wrapper <span style="color:#ff79c6">=</span> textwrap<span style="color:#ff79c6">.</span>TextWrapper(width<span style="color:#ff79c6">=</span><span style="color:#bd93f9">45</span>)
+    word_list <span style="color:#ff79c6">=</span> wrapper<span style="color:#ff79c6">.</span>wrap(text<span style="color:#ff79c6">=</span>description)
+    caption_new <span style="color:#ff79c6">=</span> <span style="color:#f1fa8c">&#34;&#34;</span>
+    <span style="color:#ff79c6">for</span> ii <span style="color:#ff79c6">in</span> word_list[:<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]:
+        caption_new <span style="color:#ff79c6">=</span> caption_new <span style="color:#ff79c6">+</span> ii <span style="color:#ff79c6">+</span> <span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">\n</span><span style="color:#f1fa8c">&#34;</span>
+    caption_new <span style="color:#ff79c6">+=</span> word_list[<span style="color:#ff79c6">-</span><span style="color:#bd93f9">1</span>]
+    img <span style="color:#ff79c6">=</span> Image<span style="color:#ff79c6">.</span>open(<span style="color:#f1fa8c">&#34;bg-black.png&#34;</span>)
+    draw <span style="color:#ff79c6">=</span> ImageDraw<span style="color:#ff79c6">.</span>Draw(img)
+    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#8be9fd;font-style:italic">len</span>(title))
+    draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">107</span>,<span style="color:#bd93f9">222</span>), url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#bd93f9">0</span>], <span style="color:#f1fa8c">&#34;aqua&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;jb.ttf&#34;</span>, <span style="color:#bd93f9">45</span>))
+    <span style="color:#ff79c6">if</span> <span style="color:#8be9fd;font-style:italic">len</span>(title) <span style="color:#ff79c6">&gt;</span> <span style="color:#bd93f9">30</span>:
+        draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">410</span>), title, <span style="color:#f1fa8c">&#34;white&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;ps.ttf&#34;</span>, <span style="color:#bd93f9">70</span>))
+    <span style="color:#ff79c6">else</span>:
+        draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">410</span>), title, <span style="color:#f1fa8c">&#34;white&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;ps.ttf&#34;</span>, <span style="color:#bd93f9">100</span>))
+    draw<span style="color:#ff79c6">.</span>text((<span style="color:#bd93f9">92</span>,<span style="color:#bd93f9">590</span>), caption_new, <span style="color:#f1fa8c">&#34;orange&#34;</span>, font<span style="color:#ff79c6">=</span>ImageFont<span style="color:#ff79c6">.</span>truetype(<span style="color:#f1fa8c">&#34;fira.ttf&#34;</span>, <span style="color:#bd93f9">60</span>))
+    rgb_im <span style="color:#ff79c6">=</span> img<span style="color:#ff79c6">.</span>convert(<span style="color:#f1fa8c">&#34;RGB&#34;</span>)
+    rgb_im<span style="color:#ff79c6">.</span>save(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">{</span>temp_dir<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/</span><span style="color:#f1fa8c">{</span>sfurl<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">.jpeg&#34;</span>, <span style="color:#f1fa8c">&#34;JPEG&#34;</span>, quality<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>, progressive<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+    img_io <span style="color:#ff79c6">=</span> BytesIO()
+    rgb_im<span style="color:#ff79c6">.</span>save(img_io, <span style="color:#f1fa8c">&#34;JPEG&#34;</span>, quality<span style="color:#ff79c6">=</span><span style="color:#bd93f9">100</span>, progressive<span style="color:#ff79c6">=</span><span style="color:#ff79c6">True</span>)
+    img_io<span style="color:#ff79c6">.</span>seek(<span style="color:#bd93f9">0</span>)
+    <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Image Gen: </span><span style="color:#f1fa8c">{</span>time<span style="color:#ff79c6">.</span>time()<span style="color:#ff79c6">-</span>st_time<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+    <span style="color:#ff79c6">return</span> img_io
+
+
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">checkImageinDir</span>(url):
+    <span style="color:#ff79c6">for</span> _, _, f <span style="color:#ff79c6">in</span> os<span style="color:#ff79c6">.</span>walk(temp_dir<span style="color:#ff79c6">.</span>name):
+        <span style="color:#ff79c6">for</span> _file <span style="color:#ff79c6">in</span> f:
+            <span style="color:#8be9fd;font-style:italic">print</span>(f)
+            <span style="color:#ff79c6">if</span> url <span style="color:#ff79c6">in</span> _file:
+                <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Kitti&#34;</span>, _file)
+                <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">True</span>
+        <span style="color:#ff79c6">else</span>:
+            <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">&#34;Illa&#34;</span>)
+            <span style="color:#ff79c6">return</span> <span style="color:#ff79c6">False</span>
+
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/&#34;</span>)
+<span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getHey</span>():
+    <span style="color:#ff79c6">return</span> {<span style="color:#f1fa8c">&#34;message&#34;</span>: <span style="color:#f1fa8c">&#34;Hello World&#34;</span>}
+
+
+@app<span style="color:#ff79c6">.</span>get(<span style="color:#f1fa8c">&#34;/img&#34;</span>)
+<span style="color:#ff79c6">async</span> <span style="color:#ff79c6">def</span> <span style="color:#50fa7b">getUrlData</span>(url: Optional[<span style="color:#8be9fd;font-style:italic">str</span>] <span style="color:#ff79c6">=</span> <span style="color:#ff79c6">None</span>):
+    start <span style="color:#ff79c6">=</span> time<span style="color:#ff79c6">.</span>time()
+    <span style="color:#ff79c6">try</span>:
+        sufUrl <span style="color:#ff79c6">=</span> url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)<span style="color:#ff79c6">.</span>split(<span style="color:#f1fa8c">&#34;/&#34;</span>)[<span style="color:#bd93f9">1</span>]
+    <span style="color:#ff79c6">except</span> IndexError:
+        sufUrl <span style="color:#ff79c6">=</span> url<span style="color:#ff79c6">.</span>strip(<span style="color:#f1fa8c">&#34;https://&#34;</span>)
+    <span style="color:#ff79c6">if</span> checkImageinDir(sufUrl) <span style="color:#ff79c6">is</span> <span style="color:#ff79c6">True</span>:
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Temp File Find exec time </span><span style="color:#f1fa8c">{</span>time<span style="color:#ff79c6">.</span>time()<span style="color:#ff79c6">-</span>start<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+        <span style="color:#ff79c6">return</span> FileResponse(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;</span><span style="color:#f1fa8c">{</span>temp_dir<span style="color:#ff79c6">.</span>name<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">/</span><span style="color:#f1fa8c">{</span>sufUrl<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">.jpeg&#34;</span>)
+    <span style="color:#ff79c6">else</span>:
+        siteData <span style="color:#ff79c6">=</span> GetLinkData(url)
+        title <span style="color:#ff79c6">=</span> siteData[<span style="color:#bd93f9">0</span>]
+        description <span style="color:#ff79c6">=</span> siteData[<span style="color:#bd93f9">1</span>]
+        img <span style="color:#ff79c6">=</span> drawImage(title, description, sufUrl, url)
+        <span style="color:#8be9fd;font-style:italic">print</span>(<span style="color:#f1fa8c">f</span><span style="color:#f1fa8c">&#34;Image Gen Response time </span><span style="color:#f1fa8c">{</span>time<span style="color:#ff79c6">.</span>time()<span style="color:#ff79c6">-</span>start<span style="color:#f1fa8c">}</span><span style="color:#f1fa8c">&#34;</span>)
+        <span style="color:#ff79c6">return</span> StreamingResponse(
+            img,
+            media_type<span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;image/jpeg&#34;</span>,
+            headers<span style="color:#ff79c6">=</span>{<span style="color:#f1fa8c">&#34;Content-Disposition&#34;</span>: <span style="color:#f1fa8c">&#39;inline; filename=&#34;Image.jpeg&#34;&#39;</span>},
+        )
+</code></pre></div><p>Here is an Updated Preview I made with a new colour design for a post on this blog itself.</p>
+<p><img src="./img/nw-img.jpeg" alt=""></p>
+<hr>
+<p>If you found it useful, you can donate me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a> and can reach out to me on <a href="https://twitter.com/athulcajay">Twitter</a></p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

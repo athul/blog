@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Harnessing Headers; Building a Custom Analytics Server - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Using Python and Deta.sh to build a simple Analytics Server from Scratch" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/analytics_from_scratch/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/analytics_from_scratch/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Harnessing Headers; Building a Custom Analytics Server" />
+<meta property="og:description" content="Using Python and Deta.sh to build a simple Analytics Server from Scratch" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/analytics_from_scratch/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-12-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-01T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Harnessing Headers; Building a Custom Analytics Server"/>
+<meta name="twitter:description" content="Using Python and Deta.sh to build a simple Analytics Server from Scratch"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Harnessing Headers; Building a Custom Analytics Server</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Dec 1, 2020 | 5 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up late or sit in front of my computer all day long. Anyways this sleeplessness paved way for quite a handful of ideas and the most recent one was an Analytics Server.
+I was heavily inspired by <a href="https://github.com/milesmcc/shynet">Shynet</a> for its simplicity and aesthetics and I had been using it for getting the analytics of this Blog and a few Personal Projects. Shynet was built with Django which again piqued my interest.
+I had the usual NIH<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>-ish thought, why not build one. Why borrow when you can create. I only wanted a barebones Analytics Server with the main outputs like how man URL hits do I receive on the site, what are the referrers, which devices are being used to access and so on&hellip;
+And from that sleeplessness idea, I tried my hand on it the next day and I would say I succeeded. I also <a href="https://lobste.rs/s/tgvgjn/what_are_you_doing_this_weekend#c_khfgz9">told</a> in lobste.rs that I am going to build one</p>
+<p>The core is hacky but it gets the job done.</p>
+<blockquote>
+<p>You can find the whole source code <a href="https://github.com/athul/jimbru">here</a>.</p>
+</blockquote>
+<h2 id="starting-to-start">Starting to start</h2>
+<p>I tend to work on my side projects between my Google Meet classes and I tend to be lazy most of the time. Reduce the complexity, reduce the dependency and reduce unwanted additions. This is a new way of working for my projects and before I used to implement a new feature if I was in a good mood and worldly surroundings were okay. Now I follow my project guidelines, which I had <a href="https://athul.github.io/notes/posts/project.html">jotted down</a>.</p>
+<p>Initially, I googled for the same and an old 2014 blog post came up. It was in Python but with Flask and gave me an idea on how it should work. It gave me a lot of insights on how everything should be glued together to work with and how to use the Js side of things effectively.</p>
+<p>FastAPI was in my mind because I could host that and use it for some sites of mine with ease. I hacked up the basic working server in a few hours and tried to get some data from it. All this data needed to be stored somewhere and I used <a href="https://deta.sh">deta.sh</a>&rsquo;s Base which is a NoSQL DB with an easy API for working with Python.</p>
+<p>The base working model was barebones and didn&rsquo;t provide many insights on anything. It did as it was told to do, nothing more nothing less.</p>
+<h2 id="goldmine-of-sorts">Goldmine of Sorts.</h2>
+<p>To get more insights into the working of Shynet, I found out that the HTTP-headers were used to get all the data. An HTTP-Header response contains almost every needed data to make something like this. Imagine the data being sent to any server for every page load, it may be hard to comprehend but it&rsquo;s a lot of data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#ff79c6">&#34;accept&#34;</span>: <span style="color:#f1fa8c">&#34;image/webp,image/apng,image/*,*/*;q=0.8&#34;</span>,
+  <span style="color:#ff79c6">&#34;accept-encoding&#34;</span>: <span style="color:#f1fa8c">&#34;gzip, deflate, br&#34;</span>,
+  <span style="color:#ff79c6">&#34;accept-language&#34;</span>: <span style="color:#f1fa8c">&#34;en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7&#34;</span>,
+  <span style="color:#ff79c6">&#34;referer&#34;</span>: <span style="color:#f1fa8c">&#34;https://athul.github.io/&#34;</span>,
+  <span style="color:#ff79c6">&#34;sec-fetch-dest&#34;</span>: <span style="color:#f1fa8c">&#34;image&#34;</span>,
+  <span style="color:#ff79c6">&#34;sec-fetch-mode&#34;</span>: <span style="color:#f1fa8c">&#34;no-cors&#34;</span>,
+  <span style="color:#ff79c6">&#34;sec-fetch-site&#34;</span>: <span style="color:#f1fa8c">&#34;cross-site&#34;</span>,
+  <span style="color:#ff79c6">&#34;user-agent&#34;</span>: <span style="color:#f1fa8c">&#34;Mozilla/5.0 (Linux; Android 9; LLD-AL10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Mobile Safari/537.36&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-amzn-trace-id&#34;</span>: <span style="color:#f1fa8c">&#34;Root=&lt;some_trace_id&gt;&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-forwarded-for&#34;</span>: <span style="color:#f1fa8c">&#34;2.3.4.5&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-forwarded-host&#34;</span>: <span style="color:#f1fa8c">&#34;&lt;host_url&gt;&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-forwarded-port&#34;</span>: <span style="color:#f1fa8c">&#34;443&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-forwarded-proto&#34;</span>: <span style="color:#f1fa8c">&#34;https&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-original-forwarded-for&#34;</span>: <span style="color:#f1fa8c">&#34;1.2.3.4&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-real-ip&#34;</span>: <span style="color:#f1fa8c">&#34;1.2.3.4&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-request-id&#34;</span>: <span style="color:#f1fa8c">&#34;1234gasdjhgi&#34;</span>,
+  <span style="color:#ff79c6">&#34;x-scheme&#34;</span>: <span style="color:#f1fa8c">&#34;https&#34;</span>
+}
+</code></pre></div><p>This is a sample header request from my website to the Analytics server. See, we can get many details from these if we&rsquo;ve got the right tools. There is a site called <a href="https://ipapi.co/">https://ipapi.co/</a> and we can get quite a handful of details from them wit just the IP address, we could get data like the network provider, the location of the User logged in and so on&hellip;</p>
+<p>These are some Gems I learned from Reading Shynet&rsquo;s Source code. Shynet uses a DB called MaxMind GeoIP DB.</p>
+<p>Okay, now I can use the Data. But where would I see all these? I could go to Deta&rsquo;s DB explorer and Read all these as JSON and get the idea. But what&rsquo;s the point in reading JSON and understanding JSON, without getting any meaningful insights??</p>
+<h2 id="processing-the-received-data">Processing the Received Data</h2>
+<p>Once the data is received to the DB, to get some meaningful insights, had to process it a bit further. The data had to be sorted and provided and should be sent to the Frontend.
+This was the first time I learned about and used the <code>Sorted</code> and <code>Counter</code> functions of Python. To get the Device details from the &lsquo;user-agent&rsquo; key in headers, I used the <code>user-agent</code> package in Python. All this data would be used to render the Graphs and Tables in the Frontend.</p>
+<h2 id="api-or-templates">API or Templates?</h2>
+<p>FastAPI is widely used for its API capabilities using async requests and all. But FastAPI is built on top of <a href="https://www.starlette.io/">Starlette</a> which is a cool web framework. It not only supports REST API&rsquo;s but also supports templating with Jinja2. FastAPI does this too. I had been building toy APIs for a while now, and creating an API for transferring the data and doing stuff, but I felt like this should be kept private and be not accessible from Prying hands. So with no prior experience with Jinja2 templating, I finalized on using templates.</p>
+<p>Using templates made it quite a lot easier to manage and work on. It was daunting at first but I later picked up the pace and made my way through it.</p>
+<p>Jinja2 has many good features that you could work on and use. It works on Js files as well. It can be picked easily with some trial and error. The docs are also quite good except for the filters part since it doesn&rsquo;t have many examples. Filters are another cool feature of Jinja2.</p>
+<h2 id="charts-for-the-win-">Charts for the Win !!</h2>
+<p>Okay so templating is fixed and I opted for Tailwind CSS for frontend styling and Chart.js for the Graphs, but I later shifted to <a href="https://frappe.io/charts">Frappe Charts</a> because I wanted to try it out and that was quite a good match. Frappe charts have an easier API and small size compared to Chart.js and for a Js noob like me, it was quite easy.
+Using templates inside the Js file also boosted the development time. Using graphs/charts also improved aesthetics and made more sense of the Data. The only tradeoff was that it increased page load time.</p>
+<h2 id="current-features">Current Features</h2>
+<ul>
+<li>Easily Deployable on Deta Micros</li>
+<li>Small Js Code. It tracks the PageLoad time and current URL</li>
+<li>Graphs and Insights</li>
+<li>Country and Network Provider and location info</li>
+</ul>
+<blockquote>
+<p>I know many features are missing, I would implement them if I get the time and if anyone requests them.</p>
+</blockquote>
+<p><strong>I&rsquo;m also planning on writing on a Tutorial for building the same from scratch</strong></p>
+<h2 id="screenshots">Screenshots</h2>
+<p>Login Page
+<img src="https://i.imgur.com/RMrl7Ra.png" alt="Login page"></p>
+<p>Welcome Page
+<img src="https://i.imgur.com/ehGrsLT.png" alt="Main Page - Graph 1"></p>
+<p>Graphs on Hours and Devices
+<img src="https://i.imgur.com/za32htT.png" alt="Another Graphs"></p>
+<p>Visited URLs and referrers
+<img src="https://i.imgur.com/YTevkH8.png" alt="Counters"></p>
+<p>Device and user agents
+<img src="https://i.imgur.com/7PZq091.png" alt="user Agents"></p>
+<p>All Sessions
+<img src="https://i.imgur.com/j4TztQt.png" alt="sessions"></p>
+<p>Per Session Page
+<img src="https://i.imgur.com/nbP8fT0.png" alt="Per Session"></p>
+<hr>
+<p>If you found this useful, consider donating me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a> and can reach out to me on <a href="https://twitter.com/athulcajay">Twitter</a> 😄</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://athul.github.io/notes/posts/nih.html">https://athul.github.io/notes/posts/nih.html</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+				<div class="tags">
+				<i>Tags</i>: 
+					
+					<span><a href="/blog/tags/code">#code</a></span>
+					
+					<span><a href="/blog/tags/tech">#tech</a></span>
+					
+					<span><a href="/blog/tags/project">#project</a></span>
+														        
+				</div>
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

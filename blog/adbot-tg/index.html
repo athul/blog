@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Telegram Bot with Adguard - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="A Telegram Bot for receiving Adguard Home statistics" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/adbot-tg/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/adbot-tg/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Telegram Bot with Adguard" />
+<meta property="og:description" content="A Telegram Bot for receiving Adguard Home statistics" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/adbot-tg/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-10-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-10T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Telegram Bot with Adguard"/>
+<meta name="twitter:description" content="A Telegram Bot for receiving Adguard Home statistics"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Telegram Bot with Adguard</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Oct 10, 2020 | 8 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>Recently I had this idea of setting up a network-level adblocker in my Home. But sadly I don&rsquo;t use a fibre/broadband connection 🤷‍♂️ so I thought of setting up one on my laptop. The initial choice was PiHole(obviously) but due to the extremities of setting it up on Mac, I jumped ship to <a href="https://github.com/AdguardTeam/AdguardHome">Adguard Home</a> on getting some feedback from friends. It also piqued my interest when I saw Adguard Home was written in Go and the frontend in React rather than the PHP frontend of PiHole. It was easy to set up and running and they give the instructions quite well.</p>
+<blockquote>
+<p>I use Brave as my daily driver, It blocks almost all the ads(even Spotify ads on the web player)</p>
+</blockquote>
+<h2 id="adbot">AdBot</h2>
+<p>No, It&rsquo;s not a bot that sends you ads(😝). It&rsquo;s a one-way bot(as of now) which means I can only receive messages like the statistics of the ads blocked overtime via adguard. I wrote the bot in Go to achieve independency of installing packages and making it run on a Raspberry Pi with a single binary.  This binary can be hooked up with a CronJob to send the data over a specified time. So, if I&rsquo;m not home, I can get the statistics of the number of users on my network and related stuff. If you&rsquo;re unaware of creating a Telegram Bot and getting a chat id, refer <a href="https://core.telegram.org/bots#6-botfather">Telegram Bot Documnetation</a></p>
+<p>I hooked it up a graph generator to send me an Ascii line graph and a Pie Chart image with the most blocked domains. The whole thing was hacked in 2 hours. It was a fun build. I&rsquo;ll explain the code piece by piece.</p>
+<h2 id="the-code">The Code</h2>
+<p>As I told you the code is in Go. For starters, I used my favourite HTTP client <a href="https://insomnia.rest/">Insomnia</a> to check the API endpoints on the Adguard Home&rsquo;s Server. Funnily enough, the only required header for such a request is an <code>agh_session</code> token. This is fixed for a server and you only need to get it once from the server and use it indefinitely for the bot. They also have a &ldquo;not-so-much&rdquo; working <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> header auth. It&rsquo;ll work with a single token the whole time. I used Insomnia&rsquo;s code-generator to bootstrap the bot for receiving the JSON Payload. The only things you&rsquo;ll need will be the Adguard Home installed and the <code>agh_session</code> token. Here is a gif of how you could get one</p>
+<p><img src="https://file.coffee/u/nuAQBNHR_M.gif" alt="AGH_Session-GIF"></p>
+<h3 id="http-request">HTTP request</h3>
+<p>Here is the generated code from insomnia.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
+
+<span style="color:#ff79c6">import</span> (
+    <span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;io/ioutil&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+)
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+
+	req, _ <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">NewRequest</span>(<span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;http://127.0.0.1/control/stats&#34;</span>, <span style="color:#ff79c6">nil</span>)
+
+	req.Header.<span style="color:#50fa7b">Add</span>(<span style="color:#f1fa8c">&#34;cookie&#34;</span>, <span style="color:#f1fa8c">&#34;agh_session=&lt;some sha string&gt;&#34;</span>)
+
+	res, err <span style="color:#ff79c6">:=</span> http.DefaultClient.<span style="color:#50fa7b">Do</span>(req)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Println</span>(err)
+	}
+
+	<span style="color:#ff79c6">defer</span> res.Body.<span style="color:#50fa7b">Close</span>()
+    body, _ <span style="color:#ff79c6">:=</span> ioutil.<span style="color:#50fa7b">ReadAll</span>(res.Body)
+}
+</code></pre></div><p>The next step was to unmarshal the JSON to be used in Go.</p>
+<h3 id="json--go">JSON → Go</h3>
+<p>The JSON payload received was long since it had the data regarding the blocked domains too. I used a <a href="https://mholt.github.io/json-to-go/">Json to Struct</a> to convert the JSON to its valid struct types. But some JSON arrays were hard for it to comprehend so it made each struct key for each key, which was not the expected one. So I used <a href="https://gobyexample.com/maps">Go Maps</a> to make it workable. This is the struct type of the JSON payload</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#6272a4">// Stats represents the data from Adguard as JSON
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">type</span> Stats <span style="color:#8be9fd;font-style:italic">struct</span> {
+	ProcessingTime    <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;avg_processing_time&#34;`</span>
+	BlockedFilter     []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;blocked_filtering&#34;`</span>
+	DNSQueries        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;dns_queries&#34;`</span>
+	BlockedFilterNum  <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_blocked_filtering&#34;`</span>
+	DNSQueriesNum     <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_dns_queries&#34;`</span>
+	PT                <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_parental&#34;`</span>
+	NumSB             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safebrowsing&#34;`</span>
+	NumSS             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safesearch&#34;`</span>
+	ReplacedPT        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_parental&#34;`</span>
+	ReplacedSB        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_safebrowsing&#34;`</span>
+	TimeUnits         <span style="color:#8be9fd">string</span>               <span style="color:#f1fa8c">`json:&#34;time_units&#34;`</span>
+	TopBlockedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_blocked_domains&#34;`</span>
+	TopClients        []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_clients&#34;`</span>
+	TopQueriedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_queried_domains&#34;`</span>
+}
+</code></pre></div><p>So this struct unmarshals the Json to Go readable types. This makes it easier to handle the data wrangling in Go. Here is the code which parses the JSON and uses it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#ff79c6">package</span> main
+
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;io/ioutil&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+)
+
+<span style="color:#6272a4">// Stats represents the data from Adguard as JSON
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">type</span> Stats <span style="color:#8be9fd;font-style:italic">struct</span> {
+	ProcessingTime    <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;avg_processing_time&#34;`</span>
+	BlockedFilter     []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;blocked_filtering&#34;`</span>
+	DNSQueries        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;dns_queries&#34;`</span>
+	BlockedFilterNum  <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_blocked_filtering&#34;`</span>
+	DNSQueriesNum     <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_dns_queries&#34;`</span>
+	PT                <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_parental&#34;`</span>
+	NumSB             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safebrowsing&#34;`</span>
+	NumSS             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safesearch&#34;`</span>
+	ReplacedPT        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_parental&#34;`</span>
+	ReplacedSB        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_safebrowsing&#34;`</span>
+	TimeUnits         <span style="color:#8be9fd">string</span>               <span style="color:#f1fa8c">`json:&#34;time_units&#34;`</span>
+	TopBlockedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_blocked_domains&#34;`</span>
+	TopClients        []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_clients&#34;`</span>
+	TopQueriedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_queried_domains&#34;`</span>
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+
+	req, _ <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">NewRequest</span>(<span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;http://127.0.0.1/control/stats&#34;</span>, <span style="color:#ff79c6">nil</span>)
+
+	req.Header.<span style="color:#50fa7b">Add</span>(<span style="color:#f1fa8c">&#34;cookie&#34;</span>, <span style="color:#f1fa8c">&#34;agh_session=&lt;some sha string&gt;&#34;</span>)
+
+	res, err <span style="color:#ff79c6">:=</span> http.DefaultClient.<span style="color:#50fa7b">Do</span>(req)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Println</span>(err)
+	}
+
+	<span style="color:#ff79c6">defer</span> res.Body.<span style="color:#50fa7b">Close</span>()
+	body, _ <span style="color:#ff79c6">:=</span> ioutil.<span style="color:#50fa7b">ReadAll</span>(res.Body)
+
+	<span style="color:#8be9fd;font-style:italic">var</span> stats Stats
+
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">Unmarshal</span>(body, <span style="color:#ff79c6">&amp;</span>stats); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Println</span>(err)
+    }
+</code></pre></div><p>Nothing fancy of any type, just plain Go code. The next is to generate the Ascii graph from the data we got.</p>
+<h3 id="ascii-">Ascii 📈</h3>
+<p>There was a <a href="https://github.com/guptarohit/asciigraph">package in Go</a>  which generates Ascii graphs, not to reinvent the wheel, I just hooked it up to work with the data received. I reduced it&rsquo;s height to enclose it inside a single message. Here are the code and output of the graph</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">generateGraph</span>(tp <span style="color:#8be9fd">string</span>) <span style="color:#8be9fd">string</span> {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Graph Generated&#34;</span>)
+	graphof <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>][]<span style="color:#8be9fd">float64</span>{
+		<span style="color:#f1fa8c">&#34;DNS&#34;</span>: s.DNSQueries,
+		<span style="color:#f1fa8c">&#34;BLK&#34;</span>: s.BlockedFilter,
+	}
+	caption <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">string</span>{
+		<span style="color:#f1fa8c">&#34;DNS&#34;</span>: <span style="color:#f1fa8c">&#34;Number of DNS Queries&#34;</span>,
+		<span style="color:#f1fa8c">&#34;BLK&#34;</span>: <span style="color:#f1fa8c">&#34;Number of Blocked Queries&#34;</span>,
+	}
+	graph <span style="color:#ff79c6">:=</span> asciigraph.<span style="color:#50fa7b">Plot</span>(graphof[tp], asciigraph.<span style="color:#50fa7b">Height</span>(<span style="color:#bd93f9">10</span>), asciigraph.<span style="color:#50fa7b">Caption</span>(caption[tp]))
+	<span style="color:#ff79c6">return</span> graph
+}
+
+</code></pre></div><p>This is not a function but a method in Go. This depends on the Struct type Stats(specifically the pointer) to work. I also introduced a map to get the data of the specified stuff like no. of DNS queries and the number of blocked queries.</p>
+<p>Here is a sample output of the Graphs from the data I received both the DNS Queries and Blocked queries</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">
+DNS Query Graph :
+
+ 888 ┼╭╮
+ 799 ┤││               ╭╮   ╭
+ 710 ┤││               ││   │
+ 622 ┤│╰╮             ╭╯│   │
+ 533 ┤│ │ ╭╮          │ │   │
+ 444 ┤│ │ ││          │ │   │
+ 355 ┤│ │ │╰╮        ╭╯ │   │
+ 266 ┤│ │ │ │        │  │   │
+ 178 ┤│ │╭╯ │        │  │   │
+  89 ┤│ ╰╯  │        │  │   │
+   0 ┼╯     ╰────────╯  ╰───╯
+
+    Number of DNS Queries
+
+-----
+
+Blocked Graph:
+
+ 213 ┼                      ╭
+ 192 ┤                      │
+ 170 ┤                 ╭╮   │
+ 149 ┤╭╮   ╭╮          ││   │
+ 128 ┤││   ││          ││   │
+ 106 ┤││   ││          ││   │
+  85 ┤││  ╭╯│         ╭╯│   │
+  64 ┤││  │ │         │ │   │
+  43 ┤│╰╮ │ │         │ │   │
+  21 ┤│ │ │ │        ╭╯ │   │
+   0 ┼╯ ╰─╯ ╰────────╯  ╰───╯
+
+    Number of Blocked Queries
+
+</code></pre></div><p>The graph data is an array of 24 elements which means data for each hour. I don&rsquo;t use my laptop 24 hours so the 0 lines in some places. We call this method from the main function just as we unmarshal the JSON.</p>
+<h3 id="pie--">Pie  📈</h3>
+<p>The Pie Chart will be the data of the Top Blocked Domains. I used <code>github.com/wcharczuk/go-chart</code> as the charting library for the pie graph. Initially, it was a bit hard to work with but got the idea of it after some time tinkering with it. It creates an image, unlike the Ascii Chart which is just string. Here is the code for the generating the Pie Chart image.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">pieGrph</span>() {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Pie Graph Generated and Image Send&#34;</span>)
+	<span style="color:#8be9fd;font-style:italic">var</span> chartValues []chart.Value
+	<span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> s.TopBlockedDomains {
+		<span style="color:#ff79c6">for</span> k, v <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> s.TopBlockedDomains[i] {
+			values <span style="color:#ff79c6">:=</span> chart.Value{Label: fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;%.f:%s&#34;</span>, v, k), Value: v}
+			chartValues = <span style="color:#8be9fd;font-style:italic">append</span>(chartValues, values)
+		}
+	}
+	pie <span style="color:#ff79c6">:=</span> chart.PieChart{
+		Width:  <span style="color:#bd93f9">512</span>,
+		Height: <span style="color:#bd93f9">512</span>,
+		Values: chartValues,
+	}
+	f, _ <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Create</span>(<span style="color:#f1fa8c">&#34;output.png&#34;</span>)
+	<span style="color:#ff79c6">defer</span> f.<span style="color:#50fa7b">Close</span>()
+    pie.<span style="color:#50fa7b">Render</span>(chart.PNG, f)
+</code></pre></div><p>This too is a method. This method creates a 512x512 image and saves it as <code>output.png</code>. This image will be sent to us via telegram. We also call this method from the main function just as we unmarshal the JSON.</p>
+<h3 id="sending-the-message">Sending the Message</h3>
+<p>Telegram has an HTTP API which makes it quite easy to send messages via bots. But I used a package in Go which handles the Telegram API quite okay, so I used it. Here is the code for sending the Ascii Graph via telegram,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">sendTGMessage</span>() {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Message Sent...&#34;</span>)
+	percent <span style="color:#ff79c6">:=</span> (s.BlockedFilterNum <span style="color:#ff79c6">/</span> s.DNSQueriesNum) <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">100</span>
+	message <span style="color:#ff79c6">:=</span> fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;Total DNS Queries : %.f\n\nDNS Queries Blocked : %.f\n\n-----\n\nPercent of Queries Blocked: %.2f%%\n\n-----\n\nDNS Query Graph :\n\n`%s`\n\n-----\n\nBlocked Graph:\n\n`%s`\n&#34;</span>, s.DNSQueriesNum, s.BlockedFilterNum, percent, s.<span style="color:#50fa7b">generateGraph</span>(<span style="color:#f1fa8c">&#34;DNS&#34;</span>), s.<span style="color:#50fa7b">generateGraph</span>(<span style="color:#f1fa8c">&#34;BLK&#34;</span>))
+	c <span style="color:#ff79c6">:=</span> tbot.<span style="color:#50fa7b">NewClient</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_bot_token&gt;&#34;</span>, http.DefaultClient, <span style="color:#f1fa8c">&#34;https://api.telegram.org&#34;</span>)
+	<span style="color:#ff79c6">if</span> _, err <span style="color:#ff79c6">:=</span> c.<span style="color:#50fa7b">SendMessage</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_chat_id&gt;&#34;</span>, message, tbot.OptParseModeMarkdown); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;unable to send message: %v&#34;</span>, err)
+    }
+    s.<span style="color:#50fa7b">pieGrph</span>()
+	<span style="color:#ff79c6">if</span> _, err <span style="color:#ff79c6">:=</span> c.<span style="color:#50fa7b">SendPhotoFile</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_chat_id&gt;&#34;</span>, <span style="color:#f1fa8c">&#34;output.png&#34;</span>, tbot.<span style="color:#50fa7b">OptCaption</span>(<span style="color:#f1fa8c">&#34;PieGraph of Blocked Domains&#34;</span>)); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;unable to send image: %v&#34;</span>, err)
+	}
+}
+</code></pre></div><p>This sends a bit more numerical values which are related to Adguard. It just takes in the image in <code>output.png</code> and sends it to the chat. Here is the output image. The ugly thing is that there is a lot of data than the pie graph can hold so it renders some of the text quite poorly but I don&rsquo;t mind that. Here is the output for the above method.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Total DNS Queries: 5273
+
+DNS Queries Blocked: 927
+
+-----
+
+Per cent of Queries Blocked: 17.58%
+
+-----
+
+DNS Query Graph :
+
+ 888 ┼╭╮
+ 799 ┤││               ╭╮   ╭
+ 710 ┤││               ││   │
+ 622 ┤│╰╮             ╭╯│   │
+ 533 ┤│ │ ╭╮          │ │   │
+ 444 ┤│ │ ││          │ │   │
+ 355 ┤│ │ │╰╮        ╭╯ │   │
+ 266 ┤│ │ │ │        │  │   │
+ 178 ┤│ │╭╯ │        │  │   │
+  89 ┤│ ╰╯  │        │  │   │
+   0 ┼╯     ╰────────╯  ╰───╯
+
+    Number of DNS Queries
+
+-----
+
+Blocked Graph:
+
+ 213 ┼                      ╭
+ 192 ┤                      │
+ 170 ┤                 ╭╮   │
+ 149 ┤╭╮   ╭╮          ││   │
+ 128 ┤││   ││          ││   │
+ 106 ┤││   ││          ││   │
+  85 ┤││  ╭╯│         ╭╯│   │
+  64 ┤││  │ │         │ │   │
+  43 ┤│╰╮ │ │         │ │   │
+  21 ┤│ │ │ │        ╭╯ │   │
+   0 ┼╯ ╰─╯ ╰────────╯  ╰───╯
+
+    Number of Blocked Queries
+
+</code></pre></div><p><img src="https://file.coffee/u/9ItgsPR2Xu.jpeg" alt="PieGraph"></p>
+<p>So that&rsquo;s the whole bot. Here is the full code, I&rsquo;ll upload it to GitHub later 😁</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#6272a4">// main.go
+</span><span style="color:#6272a4"></span>
+<span style="color:#ff79c6">package</span> main
+
+<span style="color:#ff79c6">import</span> (
+	<span style="color:#f1fa8c">&#34;encoding/json&#34;</span>
+	<span style="color:#f1fa8c">&#34;fmt&#34;</span>
+	<span style="color:#f1fa8c">&#34;io/ioutil&#34;</span>
+	<span style="color:#f1fa8c">&#34;log&#34;</span>
+	<span style="color:#f1fa8c">&#34;net/http&#34;</span>
+	<span style="color:#f1fa8c">&#34;os&#34;</span>
+
+	<span style="color:#f1fa8c">&#34;github.com/guptarohit/asciigraph&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/wcharczuk/go-chart&#34;</span>
+	<span style="color:#f1fa8c">&#34;github.com/yanzay/tbot&#34;</span>
+)
+
+<span style="color:#6272a4">// Stats represents the data from Adguard as JSON
+</span><span style="color:#6272a4"></span><span style="color:#8be9fd;font-style:italic">type</span> Stats <span style="color:#8be9fd;font-style:italic">struct</span> {
+	<span style="color:#6272a4">// Average Processing Time for DNS Queries
+</span><span style="color:#6272a4"></span>	ProcessingTime <span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;avg_processing_time&#34;`</span>
+	<span style="color:#6272a4">// When the Filters did the Job. The slice consists of 24 elements(24 hours)
+</span><span style="color:#6272a4"></span>	<span style="color:#6272a4">// Each item represents the Blockings of Each Hour
+</span><span style="color:#6272a4"></span>	BlockedFilter []<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;blocked_filtering&#34;`</span>
+	<span style="color:#6272a4">// Number of DNSQueries received by Adguard.
+</span><span style="color:#6272a4"></span>	<span style="color:#6272a4">//The slice consists of 24 elements(24 hours)
+</span><span style="color:#6272a4"></span>	<span style="color:#6272a4">// Each element is the queries received in an hour
+</span><span style="color:#6272a4"></span>	DNSQueries        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;dns_queries&#34;`</span>
+	BlockedFilterNum  <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_blocked_filtering&#34;`</span>
+	DNSQueriesNum     <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_dns_queries&#34;`</span>
+	PT                <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_parental&#34;`</span>
+	NumSB             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safebrowsing&#34;`</span>
+	NumSS             <span style="color:#8be9fd">float64</span>              <span style="color:#f1fa8c">`json:&#34;num_replaced_safesearch&#34;`</span>
+	ReplacedPT        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_parental&#34;`</span>
+	ReplacedSB        []<span style="color:#8be9fd">float64</span>            <span style="color:#f1fa8c">`json:&#34;replaced_safebrowsing&#34;`</span>
+	TimeUnits         <span style="color:#8be9fd">string</span>               <span style="color:#f1fa8c">`json:&#34;time_units&#34;`</span>
+	TopBlockedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_blocked_domains&#34;`</span>
+	TopClients        []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_clients&#34;`</span>
+	TopQueriedDomains []<span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">float64</span> <span style="color:#f1fa8c">`json:&#34;top_queried_domains&#34;`</span>
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> <span style="color:#50fa7b">main</span>() {
+
+	req, _ <span style="color:#ff79c6">:=</span> http.<span style="color:#50fa7b">NewRequest</span>(<span style="color:#f1fa8c">&#34;GET&#34;</span>, <span style="color:#f1fa8c">&#34;http://127.0.0.1/control/stats&#34;</span>, <span style="color:#ff79c6">nil</span>)
+
+	req.Header.<span style="color:#50fa7b">Add</span>(<span style="color:#f1fa8c">&#34;cookie&#34;</span>, <span style="color:#f1fa8c">&#34;agh_session=&lt;some sha string&gt;&#34;</span>)
+
+	res, err <span style="color:#ff79c6">:=</span> http.DefaultClient.<span style="color:#50fa7b">Do</span>(req)
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Println</span>(err)
+	}
+
+	<span style="color:#ff79c6">defer</span> res.Body.<span style="color:#50fa7b">Close</span>()
+	body, _ <span style="color:#ff79c6">:=</span> ioutil.<span style="color:#50fa7b">ReadAll</span>(res.Body)
+
+	<span style="color:#8be9fd;font-style:italic">var</span> stats Stats
+
+	<span style="color:#ff79c6">if</span> err <span style="color:#ff79c6">:=</span> json.<span style="color:#50fa7b">Unmarshal</span>(body, <span style="color:#ff79c6">&amp;</span>stats); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Println</span>(err)
+	}
+	stats.<span style="color:#50fa7b">sendTGMessage</span>()
+	stats.<span style="color:#50fa7b">pieGrph</span>()
+}
+<span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">generateGraph</span>(tp <span style="color:#8be9fd">string</span>) <span style="color:#8be9fd">string</span> {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Graph Generated&#34;</span>)
+	graphof <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>][]<span style="color:#8be9fd">float64</span>{
+		<span style="color:#f1fa8c">&#34;DNS&#34;</span>: s.DNSQueries,
+		<span style="color:#f1fa8c">&#34;BLK&#34;</span>: s.BlockedFilter,
+	}
+	caption <span style="color:#ff79c6">:=</span> <span style="color:#8be9fd;font-style:italic">map</span>[<span style="color:#8be9fd">string</span>]<span style="color:#8be9fd">string</span>{
+		<span style="color:#f1fa8c">&#34;DNS&#34;</span>: <span style="color:#f1fa8c">&#34;Number of DNS Queries&#34;</span>,
+		<span style="color:#f1fa8c">&#34;BLK&#34;</span>: <span style="color:#f1fa8c">&#34;Number of Blocked Queries&#34;</span>,
+	}
+	graph <span style="color:#ff79c6">:=</span> asciigraph.<span style="color:#50fa7b">Plot</span>(graphof[tp], asciigraph.<span style="color:#50fa7b">Height</span>(<span style="color:#bd93f9">10</span>), asciigraph.<span style="color:#50fa7b">Caption</span>(caption[tp]))
+	<span style="color:#ff79c6">return</span> graph
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">sendTGMessage</span>() {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Message Sent...&#34;</span>)
+	percent <span style="color:#ff79c6">:=</span> (s.BlockedFilterNum <span style="color:#ff79c6">/</span> s.DNSQueriesNum) <span style="color:#ff79c6">*</span> <span style="color:#bd93f9">100</span>
+	message <span style="color:#ff79c6">:=</span> fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;Total DNS Queries : %.f\n\nDNS Queries Blocked : %.f\n\n-----\n\nPercent of Queries Blocked: %.2f%%\n\n-----\n\nDNS Query Graph :\n\n`%s`\n\n-----\n\nBlocked Graph:\n\n`%s`\n&#34;</span>, s.DNSQueriesNum, s.BlockedFilterNum, percent, s.<span style="color:#50fa7b">generateGraph</span>(<span style="color:#f1fa8c">&#34;DNS&#34;</span>), s.<span style="color:#50fa7b">generateGraph</span>(<span style="color:#f1fa8c">&#34;BLK&#34;</span>))
+	c <span style="color:#ff79c6">:=</span> tbot.<span style="color:#50fa7b">NewClient</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_bot_token&gt;&#34;</span>, http.DefaultClient, <span style="color:#f1fa8c">&#34;https://api.telegram.org&#34;</span>)
+	<span style="color:#ff79c6">if</span> _, err <span style="color:#ff79c6">:=</span> c.<span style="color:#50fa7b">SendMessage</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_chat_id&gt;&#34;</span>, message, tbot.OptParseModeMarkdown); err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;unable to send message: %v&#34;</span>, err)
+    }
+    s.<span style="color:#50fa7b">pieGrph</span>()
+    <span style="color:#ff79c6">if</span> _, err <span style="color:#ff79c6">:=</span> c.<span style="color:#50fa7b">SendPhotoFile</span>(<span style="color:#f1fa8c">&#34;&lt;telegram_chat_id&gt;&#34;</span>, <span style="color:#f1fa8c">&#34;output.png&#34;</span>, tbot.<span style="color:#50fa7b">OptCaption</span>(<span style="color:#f1fa8c">&#34;PieGraph of Blocked Domains&#34;</span>));err <span style="color:#ff79c6">!=</span> <span style="color:#ff79c6">nil</span> {
+		log.<span style="color:#50fa7b">Printf</span>(<span style="color:#f1fa8c">&#34;unable to send image: %v&#34;</span>, err)
+	}
+}
+
+<span style="color:#8be9fd;font-style:italic">func</span> (s <span style="color:#ff79c6">*</span>Stats) <span style="color:#50fa7b">pieGrph</span>() {
+	<span style="color:#ff79c6">defer</span> log.<span style="color:#50fa7b">Println</span>(<span style="color:#f1fa8c">&#34;Pie Graph Generated and Image Send&#34;</span>)
+	<span style="color:#8be9fd;font-style:italic">var</span> chartValues []chart.Value
+	<span style="color:#ff79c6">for</span> i <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> s.TopBlockedDomains {
+		<span style="color:#ff79c6">for</span> k, v <span style="color:#ff79c6">:=</span> <span style="color:#ff79c6">range</span> s.TopBlockedDomains[i] {
+			values <span style="color:#ff79c6">:=</span> chart.Value{Label: fmt.<span style="color:#50fa7b">Sprintf</span>(<span style="color:#f1fa8c">&#34;%.f:%s&#34;</span>, v, k), Value: v}
+			chartValues = <span style="color:#8be9fd;font-style:italic">append</span>(chartValues, values)
+		}
+	}
+	pie <span style="color:#ff79c6">:=</span> chart.PieChart{
+		Width:  <span style="color:#bd93f9">512</span>,
+		Height: <span style="color:#bd93f9">512</span>,
+		Values: chartValues,
+	}
+	f, _ <span style="color:#ff79c6">:=</span> os.<span style="color:#50fa7b">Create</span>(<span style="color:#f1fa8c">&#34;output.png&#34;</span>)
+	<span style="color:#ff79c6">defer</span> f.<span style="color:#50fa7b">Close</span>()
+	pie.<span style="color:#50fa7b">Render</span>(chart.PNG, f)
+}
+</code></pre></div><p>That&rsquo;s it. Try a <code>$ go run main.go</code> to try out the bot. For any queries feel free to create a comment or reach out to me via <a href="https://twitter.com/athulcajay">Twitter</a>.</p>
+<hr>
+<p>Shameless Plug but you can donate to me on <a href="https://www.buymeacoffee.com/athulca">BMC ☕️</a> or <a href="https://paypal.me/athulca">Paypal</a></p>
+<!-- raw HTML omitted -->
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

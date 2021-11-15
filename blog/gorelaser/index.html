@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Go ❤️ Travis&#43;Gorelaser - dayDreams &#43;&#43;</title><link rel="icon" type="image/png" href=/n1.png /><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Using Travis CI with Goreleaser to Build and Deploy Your Go Applications to GitHub Releases and Godownloader to help users download your packages the easy way....🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳" />
+	<meta property="og:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/gorelaser/"/>
+	<meta property="twitter:image" content="https://hqasco.deta.dev/img?url=https://athul.github.io/blog/blog/blog/gorelaser/"/>
+	<meta property="twitter:card" content="summary_large_image"/>
+	<meta property="og:title" content="Go ❤️ Travis&#43;Gorelaser" />
+<meta property="og:description" content="Using Travis CI with Goreleaser to Build and Deploy Your Go Applications to GitHub Releases and Godownloader to help users download your packages the easy way....🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://athul.github.io/blog/blog/gorelaser/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-01-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-05T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go ❤️ Travis&#43;Gorelaser"/>
+<meta name="twitter:description" content="Using Travis CI with Goreleaser to Build and Deploy Your Go Applications to GitHub Releases and Godownloader to help users download your packages the easy way....🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳"/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://athul.github.io/blog/css/main.e35dc724c8809a08e9e8f0256b5a27e19aac7d65acdc4562e26c9f7cb2e26060.min.css" />
+		<link rel="stylesheet" type="text/css" href="https://athul.github.io/blog/css/dark.a1ab0342c38dd54f1c866983036f7bb062430830fb23a8be61e422bfbaa63c34.min.css"  />
+	
+	
+	
+	<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+<body>
+        <div class="content">
+<div class="single_header">
+		<h3><a href="https://athul.github.io/blog/">dayDreams &#43;&#43;</a></h3>
+	</div>
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title" align="center" style="color: lightseagreen;">Go ❤️ Travis&#43;Gorelaser</h1>
+			<div class="meta" align="center" style="font-size: 0.83255rem; line-height: 1.75rem; display: block; margin-bottom: 1.75rem; margin-top: -1.75rem;">Posted on Jan 5, 2020 | 2 minutes </div>
+		</div>
+		
+
+		<section class="body">
+			<p>Past Month, I&rsquo;ve been wworking on Shelby a lot. I had set up my CI pipeline using <a href="https://travis-ci.org/">Travis CI</a> by a <code>.travis.yml</code> file from <a href="https://github.com/justjanne/powerline-go">Powerline Go</a>.I used a shell script from <a href="https://github.com/talal/mimir">Mimir</a>&rsquo;s documentaion to help users install the binary or tar.<br>
+I had tweaked both of em a bit to make it work for Shelby&rsquo;s requirements.</p>
+<h4 id="the-email">The Email</h4>
+<p>One day morning, I e-mailed <a href="ttps://github.com/talal/">@talal</a> since I used some of the source code from Mimir for bootstrapping the project. He was so happy to receive the Email and gave mesome much needed feedback for Shelby. Out of this was one to try out Goreleaser for deployment. So I went on try it. Some other feedback also came from one of my telegram group <a href="https://t.me/TinkerHub/6839">TinkerHub</a> to change the default installation path.</p>
+<blockquote>
+<p>We&rsquo;ll be using goreleaser to Deploy a Go application to GitHub Releases.I am writing this because the Docs were a bit confusing to me.</p>
+</blockquote>
+<hr>
+<h2 id="setting-up-goreleaser-and-travis-ci">Setting Up Goreleaser and Travis CI</h2>
+<p>All the installation Instructions of Gorelaser can be found in their <a href="https://goreleaser.com/install/">Official Docs</a>.  <br>
+After Installing Goreleaser, you just have to <code>cd</code> to that go repository you want to deploy and run <code>goreleaser init</code>. This command will create a <code>goreleaser.yml</code> already filled with some commands and stuff.</p>
+<p><strong>Here is the Gorelaser part to Deploy the Application to GitHUb Relases</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">release</span>:
+  <span style="color:#ff79c6">github</span>:
+    <span style="color:#ff79c6">owner</span>: &lt;username&gt;
+    <span style="color:#ff79c6">name</span>: &lt;repo&gt;
+</code></pre></div><p>You can add this to the bottom of the <code>.gorealeaser.yml</code> file and it&rsquo;ll work fine.</p>
+<p><strong>For Deploying to GitHub Releases Add this to your <code>.travis.yml</code> file</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">deploy</span>:
+- <span style="color:#ff79c6">provider</span>: script
+  <span style="color:#ff79c6">skip_cleanup</span>: <span style="color:#ff79c6">true</span>
+  <span style="color:#ff79c6">script</span>: curl -sL https://git.io/goreleaser | bash
+  <span style="color:#ff79c6">on</span>:
+    <span style="color:#ff79c6">tags</span>: <span style="color:#ff79c6">true</span>
+</code></pre></div><p>This will only deploy to GitHub releases when a tag is created and pushed. You will need a GitHub Token in the Repo scope and while adding it to Travis Secrets you must name it like <code>GITHUB_TOKEN</code> only.</p>
+<hr>
+<h3 id="some-tips-before-pushing-a-tags-for-checking-goreleaser">Some tips before pushing a tags for checking Goreleaser.</h3>
+<p>You can always try goreleaser in you the terminal.</p>
+<ul>
+<li>Try <code>goreleaser release --skip-publish</code> command and you can always test with this before you push to GitHub.
+I&rsquo;d totally suggest this since I had simply pushed without any testing and I had to write the whole thing&hellip;again.</li>
+</ul>
+<hr>
+<h2 id="godownloader">GoDownloader</h2>
+<p>You can install godownloader from their <a href="https://github.com/goreleaser/godownloader/releases">releases page</a>. Follow the next steps to use it Globally</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ tar -xvf &lt;filename&gt;.tar.gz
+$ mv godownloader /usr/local/bin/
+</code></pre></div><p>Now go to your working folder and run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ godownloader --repo<span style="color:#ff79c6">=</span>&lt;user&gt;/&lt;repo&gt; &gt; godownloader.sh
+</code></pre></div><p>This will make a <code>godownlaoder.sh</code> file which can be used as an installation script.</p>
+<hr>
+<h2 id="here-are-my-pipelines">Here are my Pipelines</h2>
+<ul>
+<li><code>.travis.yml</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#ff79c6">sudo</span>: <span style="color:#ff79c6">false</span>
+<span style="color:#ff79c6">language</span>: go
+
+<span style="color:#ff79c6">go</span>:
+  - <span style="color:#f1fa8c">&#34;1.13&#34;</span>
+<span style="color:#ff79c6">before_script</span>:
+  - go get -v
+  - go build
+  - rm -rf shelby
+<span style="color:#6272a4">#</span>
+<span style="color:#6272a4"># before we deploy, we go build for all operating systems we would like to support</span>
+<span style="color:#ff79c6">deploy</span>:
+- <span style="color:#ff79c6">provider</span>: script
+  <span style="color:#ff79c6">skip_cleanup</span>: <span style="color:#ff79c6">true</span>
+  <span style="color:#ff79c6">script</span>: curl -sL https://git.io/goreleaser | bash
+  <span style="color:#ff79c6">on</span>:
+    <span style="color:#ff79c6">tags</span>: <span style="color:#ff79c6">true</span>
+</code></pre></div><ul>
+<li><code>.goreleaser.yml</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">
+<span style="color:#ff79c6">before</span>:
+  <span style="color:#ff79c6">hooks</span>:
+    <span style="color:#6272a4"># you may remove this if you don&#39;t use vgo</span>
+    - go mod tidy
+    <span style="color:#6272a4"># you may remove this if you don&#39;t need go generate</span>
+    - go get -v 
+<span style="color:#ff79c6">builds</span>:
+- 
+
+  <span style="color:#ff79c6">env</span>:
+    - CGO_ENABLED=0
+  <span style="color:#ff79c6">ldflags</span>:
+    - -s -w 
+  <span style="color:#ff79c6">goos</span>:
+    - darwin
+    - linux
+  <span style="color:#ff79c6">goarch</span>:
+    - amd64
+<span style="color:#ff79c6">archives</span>:
+- <span style="color:#ff79c6">replacements</span>:
+    <span style="color:#ff79c6">darwin</span>: Darwin
+    <span style="color:#ff79c6">linux</span>: Linux
+    <span style="color:#ff79c6">amd64</span>: x86_64
+<span style="color:#ff79c6">checksum</span>:
+  <span style="color:#ff79c6">name_template</span>: <span style="color:#f1fa8c">&#39;checksums.txt&#39;</span>
+<span style="color:#ff79c6">snapshot</span>:
+  <span style="color:#ff79c6">name_template</span>: <span style="color:#f1fa8c">&#34;{{ .Tag }}&#34;</span>
+<span style="color:#ff79c6">changelog</span>:
+  <span style="color:#ff79c6">sort</span>: asc
+  <span style="color:#ff79c6">filters</span>:
+    <span style="color:#ff79c6">exclude</span>:
+    - <span style="color:#f1fa8c">&#39;^docs:&#39;</span>
+    - <span style="color:#f1fa8c">&#39;^test:&#39;</span>
+<span style="color:#ff79c6">release</span>:
+  <span style="color:#ff79c6">github</span>:
+    <span style="color:#ff79c6">owner</span>: athul
+    <span style="color:#ff79c6">name</span>: shelby
+</code></pre></div>
+		</section>
+
+		<div class="post-tags">
+			
+			
+			
+		</div>
+	</article>
+</main>
+<div>
+<script src="https://utteranc.es/client.js"
+        repo="athul/blog"
+        issue-term="title"
+        label="Feedback"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+</script>
+</div>
+<hr>
+<footer>
+  <div class="footer_nav">
+    <nav style="float: right">
+      
+      <a href="/blog/tags">Tags</a> |
+      <a href="/blog/blog">All Posts</a> |
+      <a href="/blog/index.xml">RSS</a> |
+    </nav>
+  </div><a class="soc" href="https://github.com/athul" title="GitHub"
+    ><i data-feather="github"></i></a
+  >|<a class="soc" href="https://twitter.com/athulcajay/" title="Twitter"
+    ><i data-feather="twitter"></i></a
+  >|<a class="soc" href="https://gitlab.com/athul/" title="GitLab"
+    ><i data-feather="gitlab"></i></a
+  >|⚡️ 2021  © Athul |  <a href="https://github.com/athul/archie">Archie Theme</a> |
+  Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+<script
+  defer
+  src="https://static.cloudflareinsights.com/beacon.min.js"
+  data-cf-beacon='{"token": "ff36acfde6c448ada6d774c602189542"}'
+></script><script>
+  feather.replace();
+</script></div>
+    </body>
+</html>

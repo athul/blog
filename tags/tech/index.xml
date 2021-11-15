@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tech on dayDreams &#43;&#43;</title>
+    <link>https://athul.github.io/blog/tags/tech/</link>
+    <description>Recent content in tech on dayDreams &#43;&#43;</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Athul</copyright>
+    <lastBuildDate>Sat, 02 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://athul.github.io/blog/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Of Wires and Solder</title>
+      <link>https://athul.github.io/blog/blog/macropad/</link>
+      <pubDate>Sat, 02 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/macropad/</guid>
+      <description>I am interested in Keyboards, from the title you might&amp;rsquo;ve connected the dots to Mechanical Keyboards and yes I love Mechanical Keyboards. The clickety-clack of typing and annoying your friends(sibiling and family in my case) is so satisfying. I use gateron brown switches on my daily driver but always wanted to experiment on more switch types and keyboards. Sadly I was cut short into this experiment due to the diminishing bank balances and the anxiety of acquiring a new rabbithole-ish hobby which will drain my bank for times to come.</description>
+    </item>
+    
+    <item>
+      <title>The Intern</title>
+      <link>https://athul.github.io/blog/blog/frappe-internship/</link>
+      <pubDate>Sat, 24 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/frappe-internship/</guid>
+      <description>Recently I had been an Intern at Frappe. To get more context, Frappe is the company behind ERPNext. ERPNext is an Open Source ERP built on top of the Frappe homegrown Python Framework called Frappe Framework and I don&amp;rsquo;t think many Indian companies have a framework of their own. Frappe is so cool, the people, the philosophy and the values. The People were so kind and helpful and the best of all a great learning experience.</description>
+    </item>
+    
+    <item>
+      <title>Getting new Lobste.rs feed with Python and Telegram</title>
+      <link>https://athul.github.io/blog/blog/lobsters_feed/</link>
+      <pubDate>Sun, 28 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/lobsters_feed/</guid>
+      <description>It&amp;rsquo;s been some time since I written a new technical post. It was because I took a small break from writing code. I have no idea why but it wasn&amp;rsquo;t worth it anyways.
+Back to the point, I&amp;rsquo;ve recently discovered https://lobste.rs and found the discussions quite good. But as anyone who writes code, I was lazy to open my browser and navigate to the website. Telegram is one of the major apps I use to get my feed, so I thought why not write a script to get the newest posts from lobste.</description>
+    </item>
+    
+    <item>
+      <title>Harnessing Headers; Building a Custom Analytics Server</title>
+      <link>https://athul.github.io/blog/blog/analytics_from_scratch/</link>
+      <pubDate>Tue, 01 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/analytics_from_scratch/</guid>
+      <description>Recent days, I have a hard time going to sleep. I have no idea why but it may be because I wake up late or sit in front of my computer all day long. Anyways this sleeplessness paved way for quite a handful of ideas and the most recent one was an Analytics Server. I was heavily inspired by Shynet for its simplicity and aesthetics and I had been using it for getting the analytics of this Blog and a few Personal Projects.</description>
+    </item>
+    
+    <item>
+      <title>Desk Setup - 2020</title>
+      <link>https://athul.github.io/blog/blog/desk-2020/</link>
+      <pubDate>Tue, 24 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/desk-2020/</guid>
+      <description>My Desk is a small corner of the house. It&amp;rsquo;s where my system stands, every Eureka moment I had and &amp;ldquo;Why the hell isn&amp;rsquo;t this working?&amp;rdquo; happened. It doesn&amp;rsquo;t have much unlike the desk showoff counterparts but has quite the basic stuffs which I need. As a college student going to &amp;ldquo;Google Meet&amp;rdquo; my desk setup is more than enough for video calls with the video off as most of my classes do.</description>
+    </item>
+    
+    <item>
+      <title>Hacking the Quarantine</title>
+      <link>https://athul.github.io/blog/blog/hack/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/hack/</guid>
+      <description>If you are reading this, I hope you are safe and in good Health
+The quarantine is tough. While the time of writing this, I&amp;rsquo;m nearing 3 months of sitting at home and doing stuff excluding college. It was easy at first and now I&amp;rsquo;m all sloppy and don&amp;rsquo;t think about college or studies now. I got to be a bit better at something these these and I&amp;rsquo;m proud of that.</description>
+    </item>
+    
+    <item>
+      <title>Hackathons and Students</title>
+      <link>https://athul.github.io/blog/blog/hackathons/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://athul.github.io/blog/blog/hackathons/</guid>
+      <description>Since I went to my first hackathon on Aug 1st at ETHIndia, Bangalore, I loved going to hackathons ever since. I organized about 2 hackathons a year since then. I went to about 6 Hackathons from 2019 to 2020 February. I don&amp;rsquo;t know why but I just love going to hackathons. The energy you feel at a Hackathon can be found nowhere else.
+People usually when speaking of hackathons define them as just a sprint where you solve a problem statement and live on.</description>
+    </item>
+    
+  </channel>
+</rss>
