@@ -189,3 +189,6 @@ footer a {
   line-height: 1.1;
   margin-top: unset;
 }
+figcaption {
+  text-align: center;
+}

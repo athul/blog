@@ -3,7 +3,6 @@ title: Two Planets
 date: "2021-10-20"
 description: '"How sweet If endlessly we might embrace"'
 tags: ["rant", "personal"]
-new: true
 ---
 
 I was watching a video about Echoes by Pink Floyd on Youtube and came to know that Waters was inspired by the poem "Two Planets" by Muhammed Iqbal. I went on to search more about the poem and it goes like this,

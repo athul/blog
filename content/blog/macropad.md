@@ -3,7 +3,6 @@ title: Of Wires and Solder
 date: "2021-10-02"
 description: Building a Macropad with Mechanical Keys and a Raspberry Pi Pico
 tags: ["hobby", "keyboads", "tech"]
-new: true
 ---
 
 I am interested in Keyboards, from the title you might've connected the dots to Mechanical Keyboards and yes I love Mechanical Keyboards. The clickety-clack of typing and annoying your friends(sibiling and family in my case) is so satisfying. I use gateron brown switches on my daily driver but always wanted to experiment on more switch types and keyboards. Sadly I was cut short into this experiment due to the diminishing bank balances and the anxiety of acquiring a new rabbithole-ish hobby which will drain my bank for times to come. Honestly the money part of Mechanical Keyboards were the main issue :sweat_smile:.
