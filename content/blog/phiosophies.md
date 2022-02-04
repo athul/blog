@@ -1,7 +1,7 @@
 ---
 title: Philosophy Athre Philosophy
 date: "2022-02-03"
-description: The coming of age issues my 20s
+description: What is my purpose of existence?
 tags: ["life", "personal","philosophy"]
 ---
 
