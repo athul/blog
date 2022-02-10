@@ -2,7 +2,6 @@
 title: Bye K2
 date: "2021-11-18"
 description: Moving to a new keyboard
-new: true
 tags: ["hobby", "keyboards", "project"]
 ---
 
