@@ -4,7 +4,6 @@ date: "2022-02-03"
 description: What is my purpose of existence?
 tags: ["life", "personal","philosophy"]
 aliases: [/philosophy]
-new: true
 ---
 
 People I know in their 20's told me that they went through a weird yet realistic thought of life. A feeling of not having a purpose. This dear folks have been in my parents generation(Early 1990's) in their 20's to be specific and one can assume that this has been a prevalent phenomenon among the people in their 20's.
