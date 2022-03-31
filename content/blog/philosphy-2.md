@@ -3,7 +3,6 @@ title: The Sunset Revelation
 date: "2022-02-10"
 description: Sunsets and Dreads
 tags: ["life", "personal","philosophy","rant"]
-new: true
 ---
 **Note**:
 This is just a rant. This is how my mind wanders off!
