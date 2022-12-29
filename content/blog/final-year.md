@@ -3,7 +3,6 @@ title: The last 100 days
 date: "2022-03-03"
 description: The Last 100 days of College
 tags: ["life","college","rant","personal"]
-new: true
 ---
 
 I joined College of Engineering Kidangoor on August 1st 2018 to start my undergraduate studies in Computer Science and Engineering under Kerala Technological University. CE Kidangoor is nearby the banks of the river Meenachil which starts from the western ghats and drains to the Vembanad Lake. Kidangoor is a small town and has impacted almost every student who had studied there. Impact in the sense that it have taught people how to cope with shortcomings and to move forward even when an adversity looks straight to your eyes and is ready to shoot you at point blank. The "പോട്ടെ പുല്ല്" mindset. This mindset is with almost every student under KTU.

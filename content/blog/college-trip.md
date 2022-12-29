@@ -3,7 +3,6 @@ title: Eternal Sunshine
 description: Writing Travelogues(again)
 date: "2022-03-31"
 tags: ["college","life","travel"]
-new: true
 aliases: [/iv]
 ---
 My Dad who had travelled all around India at the age of 23 always told me to write a "yathravivaranam"/Travelogue whenever I came back from a school excursion. It wasn't meant to teach me something, but I think it was for keeping a mark on paper on what you've gone through, more like to remember the good times you had when you're reading it again after some time. Honestly, I don't think my Dad meant any philosophical or literary growth in writing about the journey more like it was supposed to keep me at bay without making any absurd requests to him on going there once again.
