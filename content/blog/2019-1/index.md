@@ -2,10 +2,12 @@
 title: 2019 in an Oyster's Shell-I
 date: "2020-01-12"
 description: Its rewind time everybody....
+tags: ["life","rewind"]
+aliases: [/2019]
 ---
 > Okay, when you're reading this, I am 2020% sure that you wont be in 2019.😝
 
-2020 ended as every year ends, FAST and obviously fucked. Mine was just same... There were a lot of good things that happened like making this blog and becoming old. 2019 wasn't that harsh on **me** like the years before that. 
+2019 ended as every year ends, FAST and obviously fucked. Mine was just same... There were a lot of good things that happened like making this blog and becoming old. 2019 wasn't that harsh on **me** like the years before that. 
 
 I got to do a lot of stuff I wished to do. I learned lots of stuff. Explored much,travelled much...
 
