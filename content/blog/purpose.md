@@ -3,7 +3,6 @@ title: The Purpose of being Purposeless
 date: "2023-02-24"
 description: Pondering on Meta stuffs
 tags: ["meta","rant"]
-new: true
 ---
 
 We ponder onto this statement at times, "Why?". These three words has sparked thoughts, revolutions, philosophies and all type intellectual bullshit all the time but something profound still remains with these three letters. I've no clue on what remains or what is there left to be thought out with these three characters but one thing I want to ponder on is using "why" with "purpose" or a cry with "Why?" like some movies.
