@@ -1,6 +1,6 @@
 ---
 title: "Python + Nix Flakes + Containers"
-date: "2024-02-20"
+date: "2024-05-15"
 description: "Building Container Images using Nix Flakes for Python(FastAPI)"
 tags: ["tech", "nix"]
 new: true
