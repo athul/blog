@@ -3,7 +3,6 @@ title: For Abraham, forever ago
 description: "Shine on you crazy Diamond"
 date: "2023-09-15"
 tags: ["personal"]
-new: true
 ---
 
 I met Abraham on a random telegram group when I had joined college back in 2018. He was the person who started Nexus SJCET which is the FOSS Cell of SJCET. His username was `avron` back then. I met him IRL in my second year of college during an event at his college, I still remember first meeting him and saying it's nice to meet you finally IRL. That was the first thing that I recollect when thinking about him now.
