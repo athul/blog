@@ -3,7 +3,6 @@ title: "Python + Nix Flakes + Containers"
 date: "2024-05-15"
 description: "Building Container Images using Nix Flakes for Python(FastAPI)"
 tags: ["tech", "nix"]
-new: true
 ---
 
 I always wanted to try out Nix once I got some time other than work. Nix seemed really good and felt like something to invest in and build stuff with. But as every other blog post on the visible internet says, Nix is not something easy to learn and has quite the learning curve.
